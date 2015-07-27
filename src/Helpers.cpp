@@ -5,11 +5,13 @@
 #include "Helpers.h"
 
 void init_logging() {
+    boost::log::add_common_attributes();
     boost::log::add_file_log(
             boost::log::keywords::file_name = "camrem_%N.log",
             boost::log::keywords::format = (
                     expr::stream
-                    << "[" << boost::log::trivial::severity
+                    << "[" << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S")
+                    << "] [" << boost::log::trivial::severity
                     << "]\t" << expr::smessage
             )
     );
@@ -18,7 +20,8 @@ void init_logging() {
             std::cout,
             boost::log::keywords::format = (
                     expr::stream
-                    << "[" << boost::log::trivial::severity
+                    << "[" << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S")
+                    << "] [" << boost::log::trivial::severity
                     << "]\t" << expr::smessage
             )
     );

@@ -17,7 +17,14 @@
 
 namespace expr = boost::log::expressions;
 
+/*
+ * Initializes Boost log.
+ */
 void init_logging();
+/*
+ * Called on SIGINT. Simply exits the program.
+ * Tidy up work and the stopping of other processes should go into here.
+ */
 void signal_handler(int sig);
 
 #endif //CAMREM_HELPERS_H
