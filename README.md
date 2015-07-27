@@ -1,1 +1,4 @@
 # camrem
+## Requirements
+* CMake
+* libboost
