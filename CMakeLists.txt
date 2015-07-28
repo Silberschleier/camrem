@@ -8,6 +8,6 @@ ADD_DEFINITIONS(-DBOOST_LOG_DYN_LINK)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES_CAMREM src/camrem.cpp  src/Helpers.cpp)
+set(SOURCE_FILES_CAMREM src/camrem.cpp  src/Helpers.cpp src/Http.cpp)
 add_executable(camrem ${SOURCE_FILES_CAMREM})
 TARGET_LINK_LIBRARIES(camrem ${Boost_LIBRARIES} ${Boost_LOG_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})

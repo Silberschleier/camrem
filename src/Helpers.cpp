@@ -27,7 +27,7 @@ void init_logging() {
     );
 
     boost::log::core::get()->set_filter(
-            boost::log::trivial::severity >= boost::log::trivial::info
+            boost::log::trivial::severity >= boost::log::trivial::trace
     );
 }
 
