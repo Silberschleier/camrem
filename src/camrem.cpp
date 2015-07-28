@@ -5,10 +5,11 @@
 #include <iostream>
 #include "Helpers.h"
 #include "ConfigHandler.h"
+#include "Http.h"
 
 int main(int argc, const char * argv[]) {
     init_logging();
-    BOOST_LOG_TRIVIAL(info) << "Camrem started";
+    BOOST_LOG_TRIVIAL(info) << "Camrem started.";
 
     ConfigHandler *conf = ConfigHandler::getInstance();
     if (not conf->init("/Users/chris/Git/camrem/config.json")) {
@@ -18,5 +19,7 @@ int main(int argc, const char * argv[]) {
 
     signal(SIGINT, signal_handler);
 
-   // for(;;) sleep(1);
+    Http* srv = Http::getInstance();
+
+    for(;;) sleep(1);
 }

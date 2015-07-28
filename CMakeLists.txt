@@ -9,7 +9,7 @@ ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES_CAMREM src/Helpers.cpp src/ConfigHandler.cpp)
+set(SOURCE_FILES_CAMREM src/Helpers.cpp src/ConfigHandler.cpp src/Http.cpp)
 add_executable(camrem  src/camrem.cpp ${SOURCE_FILES_CAMREM})
 
 add_executable(camrem_tests tests/tests.cpp tests/tests.h ${SOURCE_FILES_CAMREM})
