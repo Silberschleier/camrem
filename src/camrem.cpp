@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <csignal>
 #include "Helpers.h"
 #include "ConfigHandler.h"
 #include "Http.h"
@@ -12,7 +13,7 @@ int main(int argc, const char * argv[]) {
     BOOST_LOG_TRIVIAL(info) << "Camrem started.";
 
     ConfigHandler *conf = ConfigHandler::getInstance();
-    if (not conf->init("/Users/chris/Git/camrem/config.json")) {
+    if (not conf->init("config.json")) {
         BOOST_LOG_TRIVIAL(fatal) << "Error opening config";
         exit(1);
     }

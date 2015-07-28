@@ -15,4 +15,4 @@ add_executable(camrem  src/camrem.cpp ${SOURCE_FILES_CAMREM})
 add_executable(camrem_tests tests/tests.cpp tests/tests.h ${SOURCE_FILES_CAMREM})
 
 TARGET_LINK_LIBRARIES(camrem ${Boost_LIBRARIES} ${Boost_LOG_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
-TARGET_LINK_LIBRARIES(camrem_tests ${Boost_LIBRARIES} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} )
+TARGET_LINK_LIBRARIES(camrem_tests ${Boost_LIBRARIES} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} )
