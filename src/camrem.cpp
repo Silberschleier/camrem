@@ -7,6 +7,7 @@
 #include "Helpers.h"
 #include "ConfigHandler.h"
 #include "Http.h"
+#include "HttpDaemon.h"
 
 int main(int argc, const char * argv[]) {
     init_logging();
@@ -17,6 +18,10 @@ int main(int argc, const char * argv[]) {
         BOOST_LOG_TRIVIAL(fatal) << "Error opening config";
         exit(1);
     }
+
+    HttpDaemon daemon;
+    daemon.init("{\"port\": 8889, \"ssl\": false}"_json);
+    daemon.run();
 
     signal(SIGINT, signal_handler);
 

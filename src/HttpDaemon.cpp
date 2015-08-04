@@ -9,7 +9,7 @@ HttpDaemon::HttpDaemon() {
 }
 
 HttpDaemon::~HttpDaemon() {
-   // TODO
+
 }
 
 bool HttpDaemon::init(json config) {
@@ -56,5 +56,67 @@ bool HttpDaemon::init(json config) {
         return false;
     }
 
+    return true;
+}
+
+int HttpDaemon::handle_connection(void *cls, struct MHD_Connection *connection, const char *uri, const char *method,
+                                  const char *version, const char *upload_data, size_t *upload_data_size,
+                                  void **con_cls) {
+    struct MHD_Response *response;
+    int ret, status;
+    HttpContext *context;
+
+    // Check if the context is created already, or create it.
+    if ( NULL == *con_cls ) {
+        context = new HttpContext(uri, method);
+    } else {
+        context = (HttpContext *) *con_cls;
+    }
+
+
+
+
+    // Process POST data
+
+    // Get response from Http main class
+
+    // Enqueue response and free resources
+
+    const char *page = "test";
+    response = MHD_create_response_from_buffer(strlen(page), (void*) page, MHD_RESPMEM_PERSISTENT);
+
+    ret = MHD_queue_response(connection, 500, response);
+    MHD_destroy_response(response);
+
+    delete context;
+
+    return ret;
+}
+
+int HttpDaemon::process_connection_values(void *cls, enum MHD_ValueKind kind, const char *key, const char *value) {
+    // Check for empty arguments
+    if ( NULL == value ) {
+        ((json*) cls)[*key] = "";
+    } else {
+        ((json*) cls)[*key] = value;
+    }
+
+    return MHD_YES;
+}
+
+bool HttpDaemon::run() {
+    // Check for already running daemons
+    if ( NULL != daemon_ ) {
+        return false;
+    }
+
+    daemon_ = MHD_start_daemon(MHD_USE_THREAD_PER_CONNECTION, port_, NULL, NULL, &handle_connection, NULL, MHD_OPTION_END);
+
+    if ( NULL == daemon_ ) {
+        BOOST_LOG_TRIVIAL(warning) << "Could not bind http daemon to port " << port_;
+        return false;
+    }
+
+    BOOST_LOG_TRIVIAL(info) << "Listening on port " << port_;
     return true;
 }
