@@ -3,13 +3,13 @@
 //
 
 #include "Http.h"
-#include "ConfigHandler.h"
+#include "../ConfigHandler.h"
 
-Http::Http(void) {
+Http::Http::Http(void) {
     BOOST_LOG_TRIVIAL(trace) << "Created HTTP instance.";
 }
 
-Http::~Http(void) {
+Http::Http::~Http(void) {
     for ( auto item : daemons_ ) {
         delete item;
     }
@@ -17,12 +17,12 @@ Http::~Http(void) {
     BOOST_LOG_TRIVIAL(trace) << "Removed HTTP instance.";
 }
 
-Http *Http::getInstance(void) {
+Http::Http *Http::Http::getInstance(void) {
     static Http instance;
     return &instance;
 }
 
-void Http::run(void) {
+void Http::Http::run(void) {
     ConfigHandler *configHandler = ConfigHandler::getInstance();
     json config = configHandler->config["Http"];
     json vhosts = config["VirtualHosts"];
@@ -36,7 +36,7 @@ void Http::run(void) {
     BOOST_LOG_TRIVIAL(info) << "Starting VirtualHosts...";
 
     for (auto vhostConfig : vhosts) {
-        daemons_.push_back( new HttpDaemon(vhostConfig) );
+        daemons_.push_back( new Daemon(vhostConfig) );
     }
 
 }

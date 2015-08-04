@@ -2,24 +2,24 @@
 // Created by Christopher Schmidt on 30.07.15.
 //
 
-#include "HttpDaemon.h"
+#include "Daemon.h"
 
-HttpDaemon::HttpDaemon() {
+Http::Daemon::Daemon() {
     daemon_ = NULL;
 }
 
-HttpDaemon::HttpDaemon(json config) {
+Http::Daemon::Daemon(json config) {
     daemon_ = NULL;
 
     this->init(config);
     this->run();
 }
 
-HttpDaemon::~HttpDaemon() {
+Http::Daemon::~Daemon() {
     MHD_stop_daemon(daemon_);
 }
 
-bool HttpDaemon::init(json config) {
+bool Http::Daemon::init(json config) {
     // Check if the port is a valid number
     if ( not config["port"].is_number_integer() ) {
         BOOST_LOG_TRIVIAL(fatal) << "Invalid HTTP config: Port is not set or NaN";
@@ -66,18 +66,18 @@ bool HttpDaemon::init(json config) {
     return true;
 }
 
-int HttpDaemon::handle_connection(void *cls, struct MHD_Connection *connection, const char *uri, const char *method,
+int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection, const char *uri, const char *method,
                                   const char *version, const char *upload_data, size_t *upload_data_size,
                                   void **con_cls) {
     struct MHD_Response *response;
     int ret, status;
-    HttpContext *context;
+    Context *context;
 
     // Check if the context is created already, or create it.
     if ( NULL == *con_cls ) {
-        context = new HttpContext(uri, method);
+        context = new Context(uri, method);
     } else {
-        context = (HttpContext *) *con_cls;
+        context = (Context *) *con_cls;
     }
 
 
@@ -100,7 +100,7 @@ int HttpDaemon::handle_connection(void *cls, struct MHD_Connection *connection, 
     return ret;
 }
 
-int HttpDaemon::process_connection_values(void *cls, enum MHD_ValueKind kind, const char *key, const char *value) {
+int Http::Daemon::process_connection_values(void *cls, enum MHD_ValueKind kind, const char *key, const char *value) {
     // Check for empty arguments
     if ( NULL == value ) {
         ((json*) cls)[*key] = "";
@@ -111,7 +111,7 @@ int HttpDaemon::process_connection_values(void *cls, enum MHD_ValueKind kind, co
     return MHD_YES;
 }
 
-bool HttpDaemon::run() {
+bool Http::Daemon::run() {
     // Check for already running daemons
     if ( NULL != daemon_ ) {
         return false;
