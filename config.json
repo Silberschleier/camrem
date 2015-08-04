@@ -2,15 +2,15 @@
   "Http": {
     "VirtualHosts": [
       {
-        "port": 8888,
-        "ssl": false
-      },
-      {
         "port": 8889,
         "ssl": {
           "cert": "server.pem",
           "key": "server.key"
         }
+      },
+      {
+        "port": 8888,
+        "ssl": false
       }
     ]
   }

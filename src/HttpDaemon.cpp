@@ -5,11 +5,18 @@
 #include "HttpDaemon.h"
 
 HttpDaemon::HttpDaemon() {
+    daemon_ = NULL;
+}
 
+HttpDaemon::HttpDaemon(json config) {
+    daemon_ = NULL;
+
+    this->init(config);
+    this->run();
 }
 
 HttpDaemon::~HttpDaemon() {
-
+    MHD_stop_daemon(daemon_);
 }
 
 bool HttpDaemon::init(json config) {
@@ -120,3 +127,4 @@ bool HttpDaemon::run() {
     BOOST_LOG_TRIVIAL(info) << "Listening on port " << port_;
     return true;
 }
+

@@ -19,13 +19,10 @@ int main(int argc, const char * argv[]) {
         exit(1);
     }
 
-    HttpDaemon daemon;
-    daemon.init("{\"port\": 8889, \"ssl\": false}"_json);
-    daemon.run();
-
     signal(SIGINT, signal_handler);
 
     Http* srv = Http::getInstance();
+    srv->run();
 
     for(;;) sleep(1);
 }

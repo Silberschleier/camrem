@@ -45,6 +45,7 @@ private:
 
 public:
     HttpDaemon();
+    HttpDaemon(json config);
     ~HttpDaemon();
 
     /*
