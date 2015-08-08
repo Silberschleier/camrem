@@ -10,9 +10,10 @@ ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES_CAMREM src/Helpers.cpp src/ConfigHandler.cpp src/Http.cpp)
-add_executable(camrem  src/camrem.cpp ${SOURCE_FILES_CAMREM})
 
-add_executable(camrem_tests tests/tests.cpp tests/tests.h ${SOURCE_FILES_CAMREM})
+add_library(camremobjects STATIC ${SOURCE_FILES_CAMREM})
+add_executable(camremd src/camrem.cpp)
+add_executable(camrem_tests tests/tests.cpp tests/tests.h)
 
-TARGET_LINK_LIBRARIES(camrem ${Boost_LIBRARIES} ${Boost_LOG_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
-TARGET_LINK_LIBRARIES(camrem_tests ${Boost_LIBRARIES} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} )
+TARGET_LINK_LIBRARIES(camremd camrem ${Boost_LIBRARIES} ${Boost_LOG_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+TARGET_LINK_LIBRARIES(camrem_tests camrem ${Boost_LIBRARIES} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} )
