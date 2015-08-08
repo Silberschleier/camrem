@@ -6,6 +6,7 @@ FIND_PACKAGE( Boost COMPONENTS system filesystem thread log log_setup unit_test_
 INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
 ADD_DEFINITIONS(-DBOOST_LOG_DYN_LINK)
 ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
+ADD_DEFINITIONS(-DBOOST_NO_CXX11_SCOPED_ENUMS=1)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
@@ -15,5 +16,5 @@ add_library(camremobjects STATIC ${SOURCE_FILES_CAMREM})
 add_executable(camremd src/camrem.cpp)
 add_executable(camrem_tests tests/tests.cpp tests/tests.h)
 
-TARGET_LINK_LIBRARIES(camremd camrem ${Boost_LIBRARIES} ${Boost_LOG_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
-TARGET_LINK_LIBRARIES(camrem_tests camrem ${Boost_LIBRARIES} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} )
+TARGET_LINK_LIBRARIES(camremd camremobjects ${Boost_LIBRARIES} ${Boost_LOG_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
+TARGET_LINK_LIBRARIES(camrem_tests camremobjects ${Boost_LIBRARIES} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} )
