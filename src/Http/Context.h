@@ -17,11 +17,19 @@ namespace Http {
     private:
         string uri_;
         string method_;
-        json headers;
-        json getdata;
-        json cookies;
+        json headers_;
+        json getdata_;
+        json cookies_;
+
+        /*
+         * MHD parameter iterator. See MHD documentation for further information.
+         */
+        static int process_connection_values(void *cls, enum MHD_ValueKind kind, const char *key, const char *value);
     public:
-        Context(const char *uri, const char *method);
+
+        Context(MHD_Connection *connection, const char *uri, const char *method);
+
+        string dumpJson();
     };
 }
 

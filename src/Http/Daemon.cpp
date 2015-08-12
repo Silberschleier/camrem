@@ -75,7 +75,7 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
 
     // Check if the context is created already, or create it.
     if ( NULL == *con_cls ) {
-        context = new Context(uri, method);
+        context = new Context(connection, uri, method);
     } else {
         context = (Context *) *con_cls;
     }
@@ -98,17 +98,6 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
     delete context;
 
     return ret;
-}
-
-int Http::Daemon::process_connection_values(void *cls, enum MHD_ValueKind kind, const char *key, const char *value) {
-    // Check for empty arguments
-    if ( NULL == value ) {
-        ((json*) cls)[*key] = "";
-    } else {
-        ((json*) cls)[*key] = value;
-    }
-
-    return MHD_YES;
 }
 
 bool Http::Daemon::run() {

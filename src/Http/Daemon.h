@@ -39,11 +39,6 @@ namespace Http {
                 size_t *upload_data_size,
                 void **con_cls);
 
-        /*
-         * MHD parameter iterator. See MHD documentation for further information.
-         */
-        static int process_connection_values(void *cls, enum MHD_ValueKind kind, const char *key, const char *value);
-
     public:
         Daemon();
         Daemon(json config);
