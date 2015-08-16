@@ -9,14 +9,18 @@
 #include <microhttpd.h>
 #include "../libs/json.hpp"
 
+#include "Daemon.h"
+
 using std::string;
 using nlohmann::json;
 
 namespace Http {
     class Context {
+    friend class Daemon;
     private:
         string uri_;
         string method_;
+        string postdata_;
         json headers_;
         json getdata_;
         json cookies_;
@@ -28,6 +32,7 @@ namespace Http {
     public:
 
         Context(MHD_Connection *connection, const char *uri, const char *method);
+        static void completed(void *cls, struct MHD_Connection *connection, void **con_cls, enum MHD_RequestTerminationCode toe);
 
         string dumpJson();
     };

@@ -8,6 +8,7 @@ Http::Context::Context(MHD_Connection *connection, const char *uri, const char *
     headers_ = json::object();
     getdata_ = json::object();
     cookies_ = json::object();
+    postdata_ = "";
 
     MHD_get_connection_values(connection, MHD_GET_ARGUMENT_KIND, Context::process_connection_values, this);
     MHD_get_connection_values(connection, MHD_HEADER_KIND, Context::process_connection_values, this);
@@ -19,8 +20,9 @@ string Http::Context::dumpJson() {
     j["uri"] = uri_;
     j["method"] = method_;
     j["headers"] = headers_;
-    j["getdata"] = getdata_;
     j["cookies"] = cookies_;
+    j["getdata"] = getdata_;
+    j["postdata"] = postdata_;
     return j.dump();
 }
 
@@ -45,4 +47,12 @@ int Http::Context::process_connection_values(void *cls, enum MHD_ValueKind kind,
     }
 
     return MHD_YES;
+}
+
+void Http::Context::completed(void *cls, struct MHD_Connection *connection, void **con_cls,
+                              enum MHD_RequestTerminationCode toe) {
+    if (NULL == con_cls ) return;
+
+    Context *context = (Context *) *con_cls;
+    delete context;
 }

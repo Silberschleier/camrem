@@ -76,14 +76,19 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
     // Check if the context is created already, or create it.
     if ( NULL == *con_cls ) {
         context = new Context(connection, uri, method);
+        *con_cls = (void *) context;
+        return MHD_YES;
     } else {
         context = (Context *) *con_cls;
     }
 
+    // Process POST/PUT data
+    if ( *upload_data_size > 0 ) {
+        context->postdata_.append(upload_data);
+        *upload_data_size = 0;
 
-
-
-    // Process POST data
+        return MHD_YES;
+    }
 
     // Get response from Http main class
 
@@ -95,8 +100,6 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
     ret = MHD_queue_response(connection, 500, response);
     MHD_destroy_response(response);
 
-    delete context;
-
     return ret;
 }
 
@@ -106,7 +109,10 @@ bool Http::Daemon::run() {
         return false;
     }
 
-    daemon_ = MHD_start_daemon(MHD_USE_THREAD_PER_CONNECTION, port_, NULL, NULL, &handle_connection, NULL, MHD_OPTION_END);
+    daemon_ = MHD_start_daemon(MHD_USE_THREAD_PER_CONNECTION, port_, NULL, NULL,
+                               &handle_connection, NULL,
+                               MHD_OPTION_NOTIFY_COMPLETED, &Context::completed, NULL,
+                               MHD_OPTION_END);
 
     if ( NULL == daemon_ ) {
         BOOST_LOG_TRIVIAL(warning) << "Could not bind http daemon to port " << port_;
