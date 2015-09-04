@@ -19,3 +19,6 @@ script:
   - cmake .
   - make
   - ./camrem_tests
+
+after_success:
+  - if [ "$COMPILER" = "g++-4.9" ]; then coveralls --exclude tests/tests.cpp --exclude src/libs/* --gcov-options '\-lp' --gcov 'gcov-4.9' ; fi
