@@ -22,4 +22,4 @@ script:
   - ./camrem_tests
 
 after_success:
-  - if [ "$COMPILER" = "g++-4.9" ]; then coveralls --exclude tests --exclude src/libs --gcov-options '\-lp' ; fi
+  - if [ "$CXX" = "g++-4.9" ]; then coveralls --exclude tests --exclude src/libs --gcov-options '\-lp' ; fi
