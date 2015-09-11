@@ -3,3 +3,4 @@
 ## Requirements
 * CMake
 * libboost
+* libmicrohttpd

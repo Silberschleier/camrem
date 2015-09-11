@@ -6,7 +6,8 @@
 #include <csignal>
 #include "Helpers.h"
 #include "ConfigHandler.h"
-#include "Http.h"
+#include "Http/Http.h"
+#include "Http/Daemon.h"
 
 int main(int argc, const char * argv[]) {
     init_logging();
@@ -20,7 +21,8 @@ int main(int argc, const char * argv[]) {
 
     signal(SIGINT, signal_handler);
 
-    Http* srv = Http::getInstance();
+    Http::Http* srv = Http::Http::getInstance();
+    srv->run();
 
     for(;;) sleep(1);
 }
