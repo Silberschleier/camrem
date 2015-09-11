@@ -11,7 +11,7 @@
 #include <string>
 #include <stdlib.h>
 #include <microhttpd.h>
-#include "../libs/json.hpp"
+#include "../json/src/json.hpp"
 #include "../Helpers.h"
 #include "Context.h"
 

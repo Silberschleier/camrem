@@ -7,7 +7,7 @@
 
 #include <string>
 #include <microhttpd.h>
-#include "../libs/json.hpp"
+#include "../json/src/json.hpp"
 
 #include "Daemon.h"
 

@@ -20,5 +20,5 @@ add_library(camremobjects STATIC ${SOURCE_FILES_CAMREM})
 add_executable(camremd src/camrem.cpp)
 add_executable(camrem_tests tests/tests.cpp tests/tests.h)
 
-TARGET_LINK_LIBRARIES(camremd camremobjects ${Boost_LIBRARIES} ${Boost_LOG_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
-TARGET_LINK_LIBRARIES(camrem_tests camremobjects ${Boost_LIBRARIES} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} )
+TARGET_LINK_LIBRARIES(camremd camremobjects ${Boost_LIBRARIES} ${Boost_LOG_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${MICROHTTPD_LIBRARY})
+TARGET_LINK_LIBRARIES(camrem_tests camremobjects ${Boost_LIBRARIES} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} ${MICROHTTPD_LIBRARY})
