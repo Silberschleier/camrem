@@ -9,5 +9,6 @@
 #include <boost/test/auto_unit_test.hpp>
 #include <boost/filesystem.hpp>
 #include "../src/ConfigHandler.h"
+#include "../src/Http/Daemon.h"
 
 #endif //CAMREM_TESTS_H

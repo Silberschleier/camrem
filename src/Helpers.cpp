@@ -35,3 +35,21 @@ void signal_handler(int sig) {
     BOOST_LOG_TRIVIAL(info) << "Recieved SIGINT (Ctrl+C). Terminating...";
     exit(1);
 }
+
+string * load_file(string path) {
+    // TODO: Rethink if this is really safe
+    BOOST_LOG_TRIVIAL(trace) << "Reading file '" << path << "'...";
+
+    std::ifstream file;
+    file.open(path);
+
+    if (not file.is_open() ) {
+        BOOST_LOG_TRIVIAL(error) << "Could not open file '" << path << "'.";
+        return NULL;
+    }
+
+    string * str = new string(  (std::istreambuf_iterator<char>(file)),
+                                std::istreambuf_iterator<char>());
+
+    return str;
+}
