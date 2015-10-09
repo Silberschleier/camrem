@@ -32,6 +32,9 @@ namespace Http {
     public:
 
         Context(MHD_Connection *connection, const char *uri, const char *method);
+        /*
+         * Clean up after completion of a request.
+         */
         static void completed(void *cls, struct MHD_Connection *connection, void **con_cls, enum MHD_RequestTerminationCode toe);
 
         string dumpJson();

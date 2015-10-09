@@ -83,6 +83,7 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
     }
 
     // Process POST/PUT data
+    // TODO: Check for max_upload_size
     if ( *upload_data_size > 0 ) {
         context->postdata_.append(upload_data);
         *upload_data_size = 0;
@@ -91,6 +92,7 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
     }
 
     // Get response from Http main class
+
 
     // Enqueue response and free resources
 

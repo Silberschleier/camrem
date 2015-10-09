@@ -24,6 +24,9 @@ namespace Http {
          * @return The instance of Http
          */
         static Http * getInstance(void);
+        /*
+         * Initializes and runs every VirtualHost specified in the config.
+         */
         void run(void);
     };
 }
