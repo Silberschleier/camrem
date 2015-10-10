@@ -47,7 +47,18 @@ void Http::Http::handle(function<bool(Request *)> callback, regex uri) {
 }
 
 void Http::Http::handle(string filename, regex uri) {
-    auto callback = std::bind(ApiBindings::staticFile, std::placeholders::_1, filename);
+    ConfigHandler *configHandler = ConfigHandler::getInstance();
+    json doc_root = configHandler->config["Http"]["DocRoot"];
+
+    // TODO: Check DocRoot somewhere else
+    if ( not doc_root.is_string() || doc_root == "" ) {
+        BOOST_LOG_TRIVIAL(error) << "Invalid DocRoot.";
+        return;
+    }
+
+    string path = doc_root;
+
+    auto callback = std::bind(ApiBindings::staticFile, std::placeholders::_1, path + "/" + filename);
     pair<regex, function<bool(Request*)>> handler = make_pair(uri, callback);
     handlers_.insert(handlers_.begin(), handler);
 }
