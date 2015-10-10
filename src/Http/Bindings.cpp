@@ -13,7 +13,7 @@ bool ::Http::Bindings::jsonNotFound(Http::Request *request) {
 }
 
 bool ::Http::Bindings::staticFile(Request *request, string filename) {
-    FileResponse *response = new FileResponse("html/404.html");
+    FileResponse *response = new FileResponse(filename);
     request->response = response;
     request->response->status = 404;
     return true;
