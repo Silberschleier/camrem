@@ -8,6 +8,7 @@
 #include "ConfigHandler.h"
 #include "Http/Http.h"
 #include "Http/Daemon.h"
+#include "Http/ApiBindings.h"
 
 int main(int argc, const char * argv[]) {
     init_logging();
@@ -22,7 +23,7 @@ int main(int argc, const char * argv[]) {
     signal(SIGINT, signal_handler);
 
     Http::Http* srv = Http::Http::getInstance();
-    srv->handle(NULL, std::regex("(.*)(.html)"));
+    srv->handle(Http::ApiBindings::emptyResponse, std::regex("(.*)(.html)"));
 
     srv->run();
 

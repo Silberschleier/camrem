@@ -47,12 +47,17 @@ void Http::Http::handle(function<bool(Request *)> callback, regex uri) {
 }
 
 bool Http::Http::processRequest(Request *request) {
+    // Search if any handler matches the requested uri
     for ( auto handler : handlers_ ) {
         if ( regex_match( request->uri_, handler.first ) ) {
+            // Check for faulty function calls
             if ( not handler.second ) return false;
+
+            // Call the handler
             return handler.second(request);
         }
     }
 
+    // No matching handler -> something went wrong!
     return false;
 }

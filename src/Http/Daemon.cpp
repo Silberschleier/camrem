@@ -94,15 +94,15 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
         return MHD_YES;
     }
 
-    // Get response from Http main class
+    // Process the request in Http main class
     if ( Http::getInstance()->processRequest(request) ) {
-        response = request->response_;
+        response = request->response;
         status = response->status_;
 
         mhd_response = MHD_create_response_from_buffer(response->content_.length(), (void*) response->content_.c_str(), MHD_RESPMEM_PERSISTENT);
     } else {
         const char *error = "Internal Server Error";
-        status = 500;
+        status = MHD_HTTP_INTERNAL_SERVER_ERROR;
 
         mhd_response = MHD_create_response_from_buffer(strlen(error), (void*) error, MHD_RESPMEM_PERSISTENT);
     }

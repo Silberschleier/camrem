@@ -9,7 +9,7 @@ Http::Request::Request(MHD_Connection *connection, const char *uri, const char *
     getdata_ = json::object();
     cookies_ = json::object();
     postdata_ = "";
-    response_ = NULL;
+    response = NULL;
 
     MHD_get_connection_values(connection, MHD_GET_ARGUMENT_KIND, Request::process_connection_values, this);
     MHD_get_connection_values(connection, MHD_HEADER_KIND, Request::process_connection_values, this);

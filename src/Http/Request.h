@@ -26,14 +26,14 @@ namespace Http {
         json headers_;
         json getdata_;
         json cookies_;
-        Response *response_;
+
 
         /*
          * MHD parameter iterator. See MHD documentation for further information.
          */
         static int process_connection_values(void *cls, enum MHD_ValueKind kind, const char *key, const char *value);
     public:
-
+        Response *response;
         Request(MHD_Connection *connection, const char *uri, const char *method);
         /*
          * Clean up after completion of a request.
