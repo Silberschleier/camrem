@@ -57,3 +57,7 @@ void Http::Request::completed(void *cls, struct MHD_Connection *connection, void
     Request *request = (Request *) *con_cls;
     delete request;
 }
+
+Http::Request::~Request() {
+    delete response;
+}

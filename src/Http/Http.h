@@ -23,6 +23,7 @@ namespace Http {
     private:
         vector<Daemon*> daemons_;
         vector<pair<regex, function<bool(Request *)>>> handlers_;
+        string document_root_;
         Http(void);
         ~Http(void);
 

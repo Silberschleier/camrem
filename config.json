@@ -1,6 +1,6 @@
 {
   "Http": {
-    "DocRoot": "html",
+    "DocumentRoot": "html",
     "VirtualHosts": [
       {
         "port": 8889,

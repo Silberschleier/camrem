@@ -7,7 +7,15 @@
 
 
 Http::Http::Http(void) {
-    BOOST_LOG_TRIVIAL(trace) << "Created HTTP instance.";
+    ConfigHandler *configHandler = ConfigHandler::getInstance();
+    json path = configHandler->config["Http"]["DocumentRoot"];
+
+    if ( not path.is_string() ) {
+        BOOST_LOG_TRIVIAL(error) << "Invalid DocumentRoot.";
+    } else {
+        string t = path;
+        document_root_ = t;
+    }
 }
 
 Http::Http::~Http(void) {
@@ -28,6 +36,11 @@ void Http::Http::run(void) {
     json config = configHandler->config["Http"];
     json vhosts = config["VirtualHosts"];
 
+    // Check for faulty config
+    if ( "" == document_root_ ) {
+        BOOST_LOG_TRIVIAL(error) << "Faulty HTTP config. Not starting HTTP.";
+    }
+
     if ( not vhosts.is_array() || vhosts.empty() ) {
         BOOST_LOG_TRIVIAL(info) << "No VirtualHosts defined.";
         return;
@@ -47,20 +60,8 @@ void Http::Http::handle(function<bool(Request *)> callback, regex uri) {
 }
 
 void Http::Http::handle(string filename, regex uri) {
-    ConfigHandler *configHandler = ConfigHandler::getInstance();
-    json doc_root = configHandler->config["Http"]["DocRoot"];
-
-    // TODO: Check DocRoot somewhere else
-    if ( not doc_root.is_string() || doc_root == "" ) {
-        BOOST_LOG_TRIVIAL(error) << "Invalid DocRoot.";
-        return;
-    }
-
-    string path = doc_root;
-
-    auto callback = std::bind(Bindings::staticFile, std::placeholders::_1, path + "/" + filename);
-    pair<regex, function<bool(Request*)>> handler = make_pair(uri, callback);
-    handlers_.insert(handlers_.begin(), handler);
+    auto callback = std::bind(Bindings::staticFile, std::placeholders::_1, document_root_ + "/" + filename);
+    handle(callback, uri);
 }
 
 bool Http::Http::processRequest(Request *request) {

@@ -34,7 +34,9 @@ namespace Http {
         static int process_connection_values(void *cls, enum MHD_ValueKind kind, const char *key, const char *value);
     public:
         Response *response;
+
         Request(MHD_Connection *connection, const char *uri, const char *method);
+        ~Request();
         /*
          * Clean up after completion of a request.
          */
