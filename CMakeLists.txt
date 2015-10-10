@@ -13,7 +13,7 @@ ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
 ADD_DEFINITIONS(-DBOOST_NO_CXX11_SCOPED_ENUMS=1)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-set(SOURCE_FILES_CAMREM src/Helpers.cpp src/ConfigHandler.cpp src/Http/Http.cpp src/Http/Daemon.cpp src/Http/Context.cpp)
+set(SOURCE_FILES_CAMREM src/Helpers.cpp src/ConfigHandler.cpp src/Http/Http.cpp src/Http/Daemon.cpp src/Http/Context.cpp src/Http/Response.cpp src/Http/Response.h)
 
 
 add_library(camremobjects STATIC ${SOURCE_FILES_CAMREM})

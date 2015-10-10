@@ -40,3 +40,19 @@ void Http::Http::run(void) {
     }
 
 }
+
+void Http::Http::handle(function<Response(Context*)> callback, regex uri) {
+    pair<regex, function<Response(Context*)>> handler = make_pair(uri, callback);
+    handlers_.insert(handlers_.begin(), handler);
+}
+
+Http::Response Http::Http::processRequest(Context *context) {
+    for ( auto handler : handlers_ ) {
+        if ( regex_match( context->uri_, handler.first) ) {
+            return handler.second(context);
+        }
+    }
+
+    // TODO: Return error page
+    return Response();
+}

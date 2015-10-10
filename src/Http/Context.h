@@ -16,7 +16,8 @@ using nlohmann::json;
 
 namespace Http {
     class Context {
-    friend class Daemon;
+        friend class Daemon;
+        friend class Http;
     private:
         string uri_;
         string method_;

@@ -3,6 +3,7 @@
 //
 
 #include "Daemon.h"
+#include "Http.h"
 
 Http::Daemon::Daemon() {
     daemon_ = NULL;
@@ -69,9 +70,10 @@ bool Http::Daemon::init(json config) {
 int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection, const char *uri, const char *method,
                                   const char *version, const char *upload_data, size_t *upload_data_size,
                                   void **con_cls) {
-    struct MHD_Response *response;
+    struct MHD_Response *mhd_response;
     int ret, status;
     Context *context;
+    Response response;
 
     // Check if the context is created already, or create it.
     if ( NULL == *con_cls ) {
@@ -92,15 +94,13 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
     }
 
     // Get response from Http main class
-
+    response = Http::getInstance()->processRequest(context);
 
     // Enqueue response and free resources
+    mhd_response = MHD_create_response_from_buffer(response.content_.length(), (void*) response.content_.c_str(), MHD_RESPMEM_PERSISTENT);
 
-    const char *page = "test";
-    response = MHD_create_response_from_buffer(strlen(page), (void*) page, MHD_RESPMEM_PERSISTENT);
-
-    ret = MHD_queue_response(connection, 500, response);
-    MHD_destroy_response(response);
+    ret = MHD_queue_response(connection, response.status_, mhd_response);
+    MHD_destroy_response(mhd_response);
 
     return ret;
 }
