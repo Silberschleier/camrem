@@ -71,9 +71,10 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
                                   const char *version, const char *upload_data, size_t *upload_data_size,
                                   void **con_cls) {
     struct MHD_Response *mhd_response;
-    int ret, status;
+    int ret;
+    unsigned int status;
     Request *request;
-    Response response;
+    Response *response;
 
     // Check if the request is created already, or create it.
     if ( NULL == *con_cls ) {
@@ -94,12 +95,20 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
     }
 
     // Get response from Http main class
-    response = Http::getInstance()->processRequest(request);
+    if ( Http::getInstance()->processRequest(request) ) {
+        response = request->response_;
+        status = response->status_;
+
+        mhd_response = MHD_create_response_from_buffer(response->content_.length(), (void*) response->content_.c_str(), MHD_RESPMEM_PERSISTENT);
+    } else {
+        const char *error = "Internal Server Error";
+        status = 500;
+
+        mhd_response = MHD_create_response_from_buffer(strlen(error), (void*) error, MHD_RESPMEM_PERSISTENT);
+    }
 
     // Enqueue response and free resources
-    mhd_response = MHD_create_response_from_buffer(response.content_.length(), (void*) response.content_.c_str(), MHD_RESPMEM_PERSISTENT);
-
-    ret = MHD_queue_response(connection, response.status_, mhd_response);
+    ret = MHD_queue_response(connection, status, mhd_response);
     MHD_destroy_response(mhd_response);
 
     return ret;

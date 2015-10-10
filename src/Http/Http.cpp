@@ -41,18 +41,18 @@ void Http::Http::run(void) {
 
 }
 
-void Http::Http::handle(function<Response(Request *)> callback, regex uri) {
-    pair<regex, function<Response(Request *)>> handler = make_pair(uri, callback);
+void Http::Http::handle(function<bool(Request *)> callback, regex uri) {
+    pair<regex, function<bool(Request *)>> handler = make_pair(uri, callback);
     handlers_.insert(handlers_.begin(), handler);
 }
 
-Http::Response Http::Http::processRequest(Request *request) {
+bool Http::Http::processRequest(Request *request) {
     for ( auto handler : handlers_ ) {
-        if ( regex_match( request->uri_, handler.first) ) {
+        if ( regex_match( request->uri_, handler.first ) ) {
+            if ( not handler.second ) return false;
             return handler.second(request);
         }
     }
 
-    // TODO: Return error page
-    return Response();
+    return false;
 }

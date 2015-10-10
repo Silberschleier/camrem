@@ -10,6 +10,7 @@
 #include "../json/src/json.hpp"
 
 #include "Daemon.h"
+#include "Response.h"
 
 using std::string;
 using nlohmann::json;
@@ -25,6 +26,7 @@ namespace Http {
         json headers_;
         json getdata_;
         json cookies_;
+        Response *response_;
 
         /*
          * MHD parameter iterator. See MHD documentation for further information.
