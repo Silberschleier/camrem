@@ -23,7 +23,8 @@ int main(int argc, const char * argv[]) {
     signal(SIGINT, signal_handler);
 
     Http::Http* srv = Http::Http::getInstance();
-    srv->handle(Http::ApiBindings::emptyResponse, std::regex("(.*)(.html)"));
+    srv->handle(Http::ApiBindings::htmlNotFound, std::regex("(.*)"));
+    srv->handle(Http::ApiBindings::jsonNotFound, std::regex("(/api/)(.*)"));
 
     srv->run();
 

@@ -7,10 +7,14 @@
 
 #include "Request.h"
 #include "Response.h"
+#include "MemoryResponse.h"
+#include "FileResponse.h"
 
 namespace Http {
     namespace ApiBindings {
         bool emptyResponse(Request *request);
+        bool jsonNotFound(Request *request);
+        bool htmlNotFound(Request *request);
     }
 }
 

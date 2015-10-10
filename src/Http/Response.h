@@ -11,13 +11,12 @@ using std::string;
 
 namespace Http {
     class Response {
-        friend class Daemon;
-    private:
-        unsigned int status_;
-        string content_;
     public:
+        unsigned int status;
         Response();
         ~Response();
+        virtual string *getContent() = 0;
+        virtual bool is_static() = 0;
     };
 }
 
