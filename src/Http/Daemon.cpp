@@ -72,29 +72,29 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
                                   void **con_cls) {
     struct MHD_Response *mhd_response;
     int ret, status;
-    Context *context;
+    Request *request;
     Response response;
 
-    // Check if the context is created already, or create it.
+    // Check if the request is created already, or create it.
     if ( NULL == *con_cls ) {
-        context = new Context(connection, uri, method);
-        *con_cls = (void *) context;
+        request = new Request(connection, uri, method);
+        *con_cls = (void *) request;
         return MHD_YES;
     } else {
-        context = (Context *) *con_cls;
+        request = (Request *) *con_cls;
     }
 
     // Process POST/PUT data
     // TODO: Check for max_upload_size
     if ( *upload_data_size > 0 ) {
-        context->postdata_.append(upload_data);
+        request->postdata_.append(upload_data);
         *upload_data_size = 0;
 
         return MHD_YES;
     }
 
     // Get response from Http main class
-    response = Http::getInstance()->processRequest(context);
+    response = Http::getInstance()->processRequest(request);
 
     // Enqueue response and free resources
     mhd_response = MHD_create_response_from_buffer(response.content_.length(), (void*) response.content_.c_str(), MHD_RESPMEM_PERSISTENT);
@@ -113,7 +113,7 @@ bool Http::Daemon::run() {
 
     daemon_ = MHD_start_daemon(MHD_USE_THREAD_PER_CONNECTION, port_, NULL, NULL,
                                &handle_connection, NULL,
-                               MHD_OPTION_NOTIFY_COMPLETED, &Context::completed, NULL,
+                               MHD_OPTION_NOTIFY_COMPLETED, &Request::completed, NULL,
                                MHD_OPTION_END);
 
     if ( NULL == daemon_ ) {

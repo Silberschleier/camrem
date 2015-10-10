@@ -21,7 +21,7 @@ namespace Http {
     class Http {
     private:
         vector<Daemon*> daemons_;
-        vector<pair<regex, function<Response(Context*)>>> handlers_;
+        vector<pair<regex, function<Response(Request *)>>> handlers_;
         Http(void);
         ~Http(void);
 
@@ -35,8 +35,8 @@ namespace Http {
          * Initializes and runs every VirtualHost specified in the config.
          */
         void run(void);
-        void handle(function<Response(Context*)> callback, regex uri);
-        Response processRequest(Context *context);
+        void handle(function<Response(Request *)> callback, regex uri);
+        Response processRequest(Request *request);
     };
 }
 

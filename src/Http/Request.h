@@ -15,7 +15,7 @@ using std::string;
 using nlohmann::json;
 
 namespace Http {
-    class Context {
+    class Request {
         friend class Daemon;
         friend class Http;
     private:
@@ -32,7 +32,7 @@ namespace Http {
         static int process_connection_values(void *cls, enum MHD_ValueKind kind, const char *key, const char *value);
     public:
 
-        Context(MHD_Connection *connection, const char *uri, const char *method);
+        Request(MHD_Connection *connection, const char *uri, const char *method);
         /*
          * Clean up after completion of a request.
          */

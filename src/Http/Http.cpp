@@ -41,15 +41,15 @@ void Http::Http::run(void) {
 
 }
 
-void Http::Http::handle(function<Response(Context*)> callback, regex uri) {
-    pair<regex, function<Response(Context*)>> handler = make_pair(uri, callback);
+void Http::Http::handle(function<Response(Request *)> callback, regex uri) {
+    pair<regex, function<Response(Request *)>> handler = make_pair(uri, callback);
     handlers_.insert(handlers_.begin(), handler);
 }
 
-Http::Response Http::Http::processRequest(Context *context) {
+Http::Response Http::Http::processRequest(Request *request) {
     for ( auto handler : handlers_ ) {
-        if ( regex_match( context->uri_, handler.first) ) {
-            return handler.second(context);
+        if ( regex_match( request->uri_, handler.first) ) {
+            return handler.second(request);
         }
     }
 
