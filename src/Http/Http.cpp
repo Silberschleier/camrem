@@ -5,6 +5,7 @@
 #include "Http.h"
 #include "../ConfigHandler.h"
 
+
 Http::Http::Http(void) {
     BOOST_LOG_TRIVIAL(trace) << "Created HTTP instance.";
 }
@@ -38,11 +39,16 @@ void Http::Http::run(void) {
     for (auto vhostConfig : vhosts) {
         daemons_.push_back( new Daemon(vhostConfig) );
     }
-
 }
 
 void Http::Http::handle(function<bool(Request *)> callback, regex uri) {
     pair<regex, function<bool(Request *)>> handler = make_pair(uri, callback);
+    handlers_.insert(handlers_.begin(), handler);
+}
+
+void Http::Http::handle(string filename, regex uri) {
+    auto callback = std::bind(ApiBindings::staticFile, std::placeholders::_1, filename);
+    pair<regex, function<bool(Request*)>> handler = make_pair(uri, callback);
     handlers_.insert(handlers_.begin(), handler);
 }
 

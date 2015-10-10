@@ -12,9 +12,8 @@
 
 namespace Http {
     namespace ApiBindings {
-        bool emptyResponse(Request *request);
         bool jsonNotFound(Request *request);
-        bool htmlNotFound(Request *request);
+        bool staticFile(Request *request, string filename);
     }
 }
 

@@ -10,6 +10,7 @@
 #include "../Helpers.h"
 #include "Daemon.h"
 #include "Response.h"
+#include "ApiBindings.h"
 
 using std::vector;
 using std::regex;
@@ -36,6 +37,7 @@ namespace Http {
          */
         void run(void);
         void handle(function<bool(Request *)> callback, regex uri);
+        void handle(string filename, regex uri);
         bool processRequest(Request *request);
     };
 }
