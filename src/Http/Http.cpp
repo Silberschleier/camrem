@@ -58,7 +58,7 @@ void Http::Http::handle(string filename, regex uri) {
 
     string path = doc_root;
 
-    auto callback = std::bind(ApiBindings::staticFile, std::placeholders::_1, path + "/" + filename);
+    auto callback = std::bind(Bindings::staticFile, std::placeholders::_1, path + "/" + filename);
     pair<regex, function<bool(Request*)>> handler = make_pair(uri, callback);
     handlers_.insert(handlers_.begin(), handler);
 }

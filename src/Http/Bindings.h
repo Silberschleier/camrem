@@ -11,7 +11,7 @@
 #include "FileResponse.h"
 
 namespace Http {
-    namespace ApiBindings {
+    namespace Bindings {
         bool jsonNotFound(Request *request);
         bool staticFile(Request *request, string filename);
     }

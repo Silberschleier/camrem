@@ -10,7 +10,7 @@
 #include "../Helpers.h"
 #include "Daemon.h"
 #include "Response.h"
-#include "ApiBindings.h"
+#include "Bindings.h"
 
 using std::vector;
 using std::regex;
