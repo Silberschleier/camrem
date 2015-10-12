@@ -60,7 +60,11 @@ void Http::Http::handle(function<bool(Request *)> callback, regex uri) {
 }
 
 void Http::Http::handle(string filename, regex uri) {
-    auto callback = std::bind(Bindings::staticFile, std::placeholders::_1, document_root_ + "/" + filename);
+    handle(filename, STATUS_OK, uri);
+}
+
+void Http::Http::handle(string filename, StatusCode status, regex uri) {
+    auto callback = std::bind(Bindings::staticFile, std::placeholders::_1, document_root_ + "/" + filename, status);
     handle(callback, uri);
 }
 

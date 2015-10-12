@@ -19,6 +19,12 @@ using std::regex_match;
 using std::function;
 
 namespace Http {
+    enum StatusCode {
+        STATUS_OK = 200,
+        STATUS_NOTFOUND = 404,
+        STATUS_ERROR = 500
+    };
+
     class Http {
     private:
         vector<Daemon*> daemons_;
@@ -39,6 +45,7 @@ namespace Http {
         void run(void);
         void handle(function<bool(Request *)> callback, regex uri);
         void handle(string filename, regex uri);
+        void handle(string filename, StatusCode status, regex uri);
         bool processRequest(Request *request);
     };
 }

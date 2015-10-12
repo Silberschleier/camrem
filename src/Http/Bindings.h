@@ -16,7 +16,7 @@ using std::make_shared;
 namespace Http {
     namespace Bindings {
         bool jsonNotFound(Request *request);
-        bool staticFile(Request *request, string filename);
+        bool staticFile(Request *request, string filename, unsigned int status);
     }
 }
 

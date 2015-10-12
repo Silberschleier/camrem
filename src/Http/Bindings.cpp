@@ -12,9 +12,9 @@ bool ::Http::Bindings::jsonNotFound(Http::Request *request) {
     return true;
 }
 
-bool ::Http::Bindings::staticFile(Request *request, string filename) {
+bool ::Http::Bindings::staticFile(Request *request, string filename, unsigned int status) {
     shared_ptr<FileResponse> response = make_shared<FileResponse>(filename);
     request->response = response;
-    request->response->status = 404;
+    request->response->status = status;
     return true;
 }
