@@ -74,7 +74,7 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
     int ret;
     unsigned int status;
     Request *request;
-    Response *response;
+    shared_ptr<Response> response;
 
     // Check if the request is created already, or create it.
     if ( NULL == *con_cls ) {

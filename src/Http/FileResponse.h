@@ -12,10 +12,9 @@ namespace Http {
     class FileResponse : public Response {
     private:
         string filename_;
-        string *content_;
     public:
         FileResponse(string file);
-        string *getContent();
+        shared_ptr<string> getContent();
         bool is_static();
     };
 }

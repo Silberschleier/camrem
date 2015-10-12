@@ -6,17 +6,22 @@
 #define CAMREM_RESPONSE_H
 
 #include <string>
+#include <memory>
 
 using std::string;
+using std::shared_ptr;
+using std::make_shared;
 
 namespace Http {
     class Response {
     public:
         unsigned int status;
+        shared_ptr<string> content;
+
         Response();
         ~Response();
-        virtual string *getContent() = 0;
-        virtual bool is_static() = 0;
+        virtual shared_ptr<string> getContent();
+        virtual bool is_static();
     };
 }
 

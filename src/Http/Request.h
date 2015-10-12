@@ -6,12 +6,14 @@
 #define CAMREM_HTTPCONTEXT_H
 
 #include <string>
+#include <memory>
 #include <microhttpd.h>
 #include "../json/src/json.hpp"
 
 #include "Daemon.h"
 #include "Response.h"
 
+using std::shared_ptr;
 using std::string;
 using nlohmann::json;
 
@@ -33,7 +35,7 @@ namespace Http {
          */
         static int process_connection_values(void *cls, enum MHD_ValueKind kind, const char *key, const char *value);
     public:
-        Response *response;
+        shared_ptr<Response> response;
 
         Request(MHD_Connection *connection, const char *uri, const char *method);
         ~Request();

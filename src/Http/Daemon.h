@@ -22,8 +22,8 @@ namespace Http {
     class Daemon {
     private:
         struct MHD_Daemon *daemon_;
-        string *key_;
-        string *cert_;
+        shared_ptr<string> key_;
+        shared_ptr<string> cert_;
         uint port_;
 
         /*

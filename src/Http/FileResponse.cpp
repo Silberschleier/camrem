@@ -8,15 +8,14 @@ bool Http::FileResponse::is_static() {
     return true;
 }
 
-string *Http::FileResponse::getContent() {
-    if ( NULL == content_ ) {
-        content_ = load_file(filename_);
+shared_ptr<string> Http::FileResponse::getContent() {
+    if ( not content ) {
+        content = load_file(filename_);
     }
 
-    return content_;
+    return content;
 }
 
 Http::FileResponse::FileResponse(string file) {
     filename_ = file;
-    content_ = NULL;
 }

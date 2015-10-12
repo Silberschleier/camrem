@@ -59,5 +59,5 @@ void Http::Request::completed(void *cls, struct MHD_Connection *connection, void
 }
 
 Http::Request::~Request() {
-    delete response;
+
 }

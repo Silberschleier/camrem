@@ -11,3 +11,11 @@ Http::Response::Response() {
 Http::Response::~Response() {
 
 }
+
+bool Http::Response::is_static() {
+    return false;
+}
+
+shared_ptr<string> Http::Response::getContent() {
+    return content;
+}
