@@ -5,8 +5,17 @@
 #include "Http.h"
 #include "../ConfigHandler.h"
 
+
 Http::Http::Http(void) {
-    BOOST_LOG_TRIVIAL(trace) << "Created HTTP instance.";
+    ConfigHandler *configHandler = ConfigHandler::getInstance();
+    json path = configHandler->config["Http"]["DocumentRoot"];
+
+    if ( not path.is_string() ) {
+        BOOST_LOG_TRIVIAL(error) << "Invalid DocumentRoot.";
+    } else {
+        string t = path;
+        document_root_ = t;
+    }
 }
 
 Http::Http::~Http(void) {
@@ -27,6 +36,11 @@ void Http::Http::run(void) {
     json config = configHandler->config["Http"];
     json vhosts = config["VirtualHosts"];
 
+    // Check for faulty config
+    if ( "" == document_root_ ) {
+        BOOST_LOG_TRIVIAL(error) << "Faulty HTTP config. Not starting HTTP.";
+    }
+
     if ( not vhosts.is_array() || vhosts.empty() ) {
         BOOST_LOG_TRIVIAL(info) << "No VirtualHosts defined.";
         return;
@@ -38,5 +52,64 @@ void Http::Http::run(void) {
     for (auto vhostConfig : vhosts) {
         daemons_.push_back( new Daemon(vhostConfig) );
     }
-
 }
+
+void Http::Http::handle(function<bool(Request *)> callback, regex uri) {
+    pair<regex, function<bool(Request *)>> handler = make_pair(uri, callback);
+    handlers_.insert(handlers_.begin(), handler);
+}
+
+void Http::Http::handle(string filename, regex uri) {
+    handle(filename, STATUS_OK, uri);
+}
+
+void Http::Http::handle(string filename, StatusCode status, regex uri) {
+    auto callback = std::bind(Bindings::staticFile, std::placeholders::_1, document_root_ + "/" + filename, status);
+    handle(callback, uri);
+}
+
+void Http::Http::handleDirectory(string path, string prefix) {
+    string filepath;
+    string fileuri;
+    fs::path p( document_root_ + "/" + path );
+
+    if ( fs::exists(p) && fs::is_directory(p) ) {
+
+        // Loop through all directory entries
+        for ( fs::directory_iterator end, entry(p); entry != end; entry++ ) {
+            filepath = path + "/" + entry->path().filename().string();
+            fileuri = prefix + "/" + entry->path().filename().string();
+
+            // If the entry is a file,
+            if ( fs::is_regular_file(entry->status()) ) {
+                std::cout << filepath << ": " << "(" + fileuri + ")" << std::endl;
+                handle(filepath, regex( "(" + fileuri + ")"));
+            }
+
+            // If it is a directory, continue recursively
+            if ( fs::is_directory(entry->status()) ) {
+                handleDirectory(filepath, fileuri);
+            }
+        }
+    } else {
+        BOOST_LOG_TRIVIAL(error) << "'" << path << "' is not a directory. Skipping.";
+    }
+}
+
+
+bool Http::Http::processRequest(Request *request) {
+    // Search if any handler matches the requested uri
+    for ( auto handler : handlers_ ) {
+        if ( regex_match( request->uri_, handler.first ) ) {
+            // Check for faulty function calls
+            if ( not handler.second ) return false;
+
+            // Call the handler
+            return handler.second(request);
+        }
+    }
+
+    // No matching handler -> something went wrong!
+    return false;
+}
+

@@ -18,6 +18,8 @@
 
 namespace expr = boost::log::expressions;
 using std::string;
+using std::shared_ptr;
+using std::make_shared;
 
 /*
  * Initializes Boost log.
@@ -29,7 +31,7 @@ void init_logging();
  * @param The path to the file
  * @return Pointer to a string containing the contents of the file, or NULL if an error occurs.
  */
-string * load_file(string path);
+shared_ptr<string> load_file(string path);
 
 /*
  * Called on SIGINT. Simply exits the program.

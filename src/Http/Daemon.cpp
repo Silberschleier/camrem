@@ -3,6 +3,7 @@
 //
 
 #include "Daemon.h"
+#include "Http.h"
 
 Http::Daemon::Daemon() {
     daemon_ = NULL;
@@ -69,38 +70,48 @@ bool Http::Daemon::init(json config) {
 int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection, const char *uri, const char *method,
                                   const char *version, const char *upload_data, size_t *upload_data_size,
                                   void **con_cls) {
-    struct MHD_Response *response;
-    int ret, status;
-    Context *context;
+    struct MHD_Response *mhd_response;
+    int ret;
+    unsigned int status;
+    Request *request;
+    shared_ptr<Response> response;
 
-    // Check if the context is created already, or create it.
+    // Check if the request is created already, or create it.
     if ( NULL == *con_cls ) {
-        context = new Context(connection, uri, method);
-        *con_cls = (void *) context;
+        request = new Request(connection, uri, method);
+        *con_cls = (void *) request;
         return MHD_YES;
     } else {
-        context = (Context *) *con_cls;
+        request = (Request *) *con_cls;
     }
 
     // Process POST/PUT data
     // TODO: Check for max_upload_size
     if ( *upload_data_size > 0 ) {
-        context->postdata_.append(upload_data);
+        request->postdata_.append(upload_data);
         *upload_data_size = 0;
 
         return MHD_YES;
     }
 
-    // Get response from Http main class
+    // Process the request in Http main class
+    if ( Http::getInstance()->processRequest(request) ) {
+        response = request->response;
+        status = response->status;
 
+        mhd_response = MHD_create_response_from_buffer(response->getContent()->length(),
+                                                       (void*) response->getContent()->c_str(),
+                                                       MHD_RESPMEM_PERSISTENT);
+    } else {
+        const char *error = "Internal Server Error";
+        status = STATUS_SERVERERROR;
+
+        mhd_response = MHD_create_response_from_buffer(strlen(error), (void*) error, MHD_RESPMEM_PERSISTENT);
+    }
 
     // Enqueue response and free resources
-
-    const char *page = "test";
-    response = MHD_create_response_from_buffer(strlen(page), (void*) page, MHD_RESPMEM_PERSISTENT);
-
-    ret = MHD_queue_response(connection, 500, response);
-    MHD_destroy_response(response);
+    ret = MHD_queue_response(connection, status, mhd_response);
+    MHD_destroy_response(mhd_response);
 
     return ret;
 }
@@ -113,7 +124,7 @@ bool Http::Daemon::run() {
 
     daemon_ = MHD_start_daemon(MHD_USE_THREAD_PER_CONNECTION, port_, NULL, NULL,
                                &handle_connection, NULL,
-                               MHD_OPTION_NOTIFY_COMPLETED, &Context::completed, NULL,
+                               MHD_OPTION_NOTIFY_COMPLETED, &Request::completed, NULL,
                                MHD_OPTION_END);
 
     if ( NULL == daemon_ ) {

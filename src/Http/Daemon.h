@@ -13,7 +13,7 @@
 #include <microhttpd.h>
 #include "../json/src/json.hpp"
 #include "../Helpers.h"
-#include "Context.h"
+#include "Request.h"
 
 using json = nlohmann::json;
 using std::string;
@@ -22,8 +22,8 @@ namespace Http {
     class Daemon {
     private:
         struct MHD_Daemon *daemon_;
-        string *key_;
-        string *cert_;
+        shared_ptr<string> key_;
+        shared_ptr<string> cert_;
         uint port_;
 
         /*

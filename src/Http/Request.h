@@ -6,17 +6,21 @@
 #define CAMREM_HTTPCONTEXT_H
 
 #include <string>
+#include <memory>
 #include <microhttpd.h>
 #include "../json/src/json.hpp"
 
 #include "Daemon.h"
+#include "Response.h"
 
+using std::shared_ptr;
 using std::string;
 using nlohmann::json;
 
 namespace Http {
-    class Context {
-    friend class Daemon;
+    class Request {
+        friend class Daemon;
+        friend class Http;
     private:
         string uri_;
         string method_;
@@ -25,13 +29,16 @@ namespace Http {
         json getdata_;
         json cookies_;
 
+
         /*
          * MHD parameter iterator. See MHD documentation for further information.
          */
         static int process_connection_values(void *cls, enum MHD_ValueKind kind, const char *key, const char *value);
     public:
+        shared_ptr<Response> response;
 
-        Context(MHD_Connection *connection, const char *uri, const char *method);
+        Request(MHD_Connection *connection, const char *uri, const char *method);
+        ~Request();
         /*
          * Clean up after completion of a request.
          */

@@ -8,6 +8,7 @@
 #include "ConfigHandler.h"
 #include "Http/Http.h"
 #include "Http/Daemon.h"
+#include "Http/Bindings.h"
 
 int main(int argc, const char * argv[]) {
     init_logging();
@@ -22,6 +23,10 @@ int main(int argc, const char * argv[]) {
     signal(SIGINT, signal_handler);
 
     Http::Http* srv = Http::Http::getInstance();
+    srv->handle("404.html", Http::STATUS_NOTFOUND, std::regex("(.*)"));
+    srv->handle(Http::Bindings::jsonNotFound, std::regex("(/api/)(.*)"));
+    srv->handleDirectory("webui", "/webui");
+
     srv->run();
 
     for(;;) sleep(1);

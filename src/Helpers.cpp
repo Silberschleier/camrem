@@ -36,7 +36,7 @@ void signal_handler(int sig) {
     exit(1);
 }
 
-string * load_file(string path) {
+shared_ptr<string> load_file(string path) {
     // TODO: Rethink if this is really safe
     BOOST_LOG_TRIVIAL(trace) << "Reading file '" << path << "'...";
 
@@ -48,7 +48,7 @@ string * load_file(string path) {
         return NULL;
     }
 
-    string * str = new string(  (std::istreambuf_iterator<char>(file)),
+    auto str = make_shared<string>(  (std::istreambuf_iterator<char>(file)),
                                 std::istreambuf_iterator<char>());
 
     return str;
