@@ -68,6 +68,35 @@ void Http::Http::handle(string filename, StatusCode status, regex uri) {
     handle(callback, uri);
 }
 
+void Http::Http::handleDirectory(string path, string prefix) {
+    string filepath;
+    string fileuri;
+    fs::path p( document_root_ + "/" + path );
+
+    if ( fs::exists(p) && fs::is_directory(p) ) {
+
+        // Loop through all directory entries
+        for ( fs::directory_iterator end, entry(p); entry != end; entry++ ) {
+            filepath = path + "/" + entry->path().filename().string();
+            fileuri = prefix + "/" + entry->path().filename().string();
+
+            // If the entry is a file,
+            if ( fs::is_regular_file(entry->status()) ) {
+                std::cout << filepath << ": " << "(" + fileuri + ")" << std::endl;
+                handle(filepath, regex( "(" + fileuri + ")"));
+            }
+
+            // If it is a directory, continue recursively
+            if ( fs::is_directory(entry->status()) ) {
+                handleDirectory(filepath, fileuri);
+            }
+        }
+    } else {
+        BOOST_LOG_TRIVIAL(error) << "'" << path << "' is not a directory. Skipping.";
+    }
+}
+
+
 bool Http::Http::processRequest(Request *request) {
     // Search if any handler matches the requested uri
     for ( auto handler : handlers_ ) {
@@ -83,3 +112,4 @@ bool Http::Http::processRequest(Request *request) {
     // No matching handler -> something went wrong!
     return false;
 }
+

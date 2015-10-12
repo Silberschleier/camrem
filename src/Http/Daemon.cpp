@@ -104,7 +104,7 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
                                                        MHD_RESPMEM_PERSISTENT);
     } else {
         const char *error = "Internal Server Error";
-        status = MHD_HTTP_INTERNAL_SERVER_ERROR;
+        status = STATUS_SERVERERROR;
 
         mhd_response = MHD_create_response_from_buffer(strlen(error), (void*) error, MHD_RESPMEM_PERSISTENT);
     }
