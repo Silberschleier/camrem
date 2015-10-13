@@ -9,6 +9,7 @@
 #include "Http/Http.h"
 #include "Http/Daemon.h"
 #include "Http/Bindings.h"
+#include "Cam/Cam.h"
 
 int main(int argc, const char * argv[]) {
     init_logging();
@@ -29,6 +30,9 @@ int main(int argc, const char * argv[]) {
     srv->handle("webui/index.html", std::regex("(/)"));
 
     srv->run();
+
+
+    Cam::Cam cam;
 
     for(;;) sleep(1);
 }
