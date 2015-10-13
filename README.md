@@ -4,3 +4,4 @@
 * CMake (>= 2.8.4)
 * libboost (>= 1.54)
 * libmicrohttpd (>= 0.9)
+* libgphoto2 (>= 2.4)
