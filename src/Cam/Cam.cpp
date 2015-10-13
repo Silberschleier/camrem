@@ -9,27 +9,18 @@ Cam::Cam::Cam() {
 }
 
 bool Cam::Cam::init_camera() {
+    GPWrapper::GPhotoCameraList camera_list;
+    GPWrapper::GPhotoPortInfoList portinfo_list;
+    GPWrapper::GPhotoAbilitiesList abilities_list;
+
+    if ( not camera_list.is_valid() || not portinfo_list.is_valid() || not abilities_list.is_valid() ) {
+        return false;
+    }
+
     int ret;
-    CameraList *camera_list;
-    CameraAbilitiesList *abilities_list;
-    GPPortInfoList *portinfo_list;
 
     context_ = gp_context_new();
     gp_camera_new( &camera_ );
-
-    // Create a new list for all detected cameras
-    ret = gp_list_new( &camera_list );
-    if ( GP_OK != ret ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_list_new: " << gp_result_as_string(ret);
-        return false;
-    }
-
-    // Create portinfo_list
-    ret = gp_port_info_list_new( &portinfo_list );
-    if ( GP_OK != ret ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_port_info_list_new: " << gp_result_as_string(ret);
-        return false;
-    }
 
     // Fill portinfo_list
     ret = gp_port_info_list_load( portinfo_list );
@@ -44,12 +35,6 @@ bool Cam::Cam::init_camera() {
         return false;
     }
 
-    // Load camera drivers
-    ret = gp_abilities_list_new( &abilities_list );
-    if ( GP_OK != ret ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_abilities_list_new: " << gp_result_as_string(ret);
-        return false;
-    }
 
     ret = gp_abilities_list_load( abilities_list, context_ );
     if ( GP_OK != ret ) {

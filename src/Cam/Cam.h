@@ -7,6 +7,7 @@
 
 #include <thread>
 #include <gphoto2/gphoto2.h>
+#include "GPWrapper.h"
 #include "../Helpers.h"
 
 using std::thread;
