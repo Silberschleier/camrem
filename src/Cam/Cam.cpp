@@ -13,7 +13,7 @@ bool Cam::Cam::init_camera() {
     GPWrapper::GPhotoPortInfoList portinfo_list;
     GPWrapper::GPhotoAbilitiesList abilities_list;
 
-    if ( not camera_list.is_valid() || not portinfo_list.is_valid() || not abilities_list.is_valid() || camera_.is_valid() ) {
+    if ( not camera_list.is_valid() || not portinfo_list.is_valid() || not abilities_list.is_valid() || not camera_.is_valid() ) {
         return false;
     }
 
