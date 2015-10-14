@@ -12,13 +12,14 @@
 #include "../ConfigHandler.h"
 
 using std::thread;
+using std::unique_ptr;
 
 namespace Cam {
     class Cam {
     private:
         thread thread_;
-        GPWrapper::GPhotoContext context_;
-        GPWrapper::GPhotoCamera camera_;
+        unique_ptr<GPWrapper::GPhotoContext> context_;
+        unique_ptr<GPWrapper::GPhotoCamera> camera_;
 
         bool init();
         bool reinit();

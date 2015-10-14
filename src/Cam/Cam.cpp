@@ -14,7 +14,17 @@ bool Cam::Cam::init() {
     GPWrapper::GPhotoPortInfoList portinfo_list;
     GPWrapper::GPhotoAbilitiesList abilities_list;
 
-    if ( not camera_list.is_valid() || not portinfo_list.is_valid() || not abilities_list.is_valid() || not camera_.is_valid() ) {
+    // OSX Workaround
+    // TODO: Look for something more elegant
+#ifdef __APPLE__
+    system("killall PTPCamera");
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+#endif
+
+    camera_ = unique_ptr<GPWrapper::GPhotoCamera>(new GPWrapper::GPhotoCamera());
+    context_ = unique_ptr<GPWrapper::GPhotoContext>(new GPWrapper::GPhotoContext());
+
+    if ( not camera_list.is_valid() || not portinfo_list.is_valid() || not abilities_list.is_valid() || not camera_->is_valid() ) {
         return false;
     }
 
@@ -34,14 +44,14 @@ bool Cam::Cam::init() {
     }
 
 
-    ret = gp_abilities_list_load( abilities_list, context_ );
+    ret = gp_abilities_list_load( abilities_list, *context_ );
     if ( GP_OK != ret ) {
         BOOST_LOG_TRIVIAL(warning) << "gp_abilities_list_load: " << gp_result_as_string(ret);
         return false;
     }
 
     // Detect connected cameras
-    ret = gp_abilities_list_detect( abilities_list, portinfo_list, camera_list, context_ );
+    ret = gp_abilities_list_detect( abilities_list, portinfo_list, camera_list, *context_ );
     if ( GP_OK != ret ) {
         BOOST_LOG_TRIVIAL(warning) << "gp_abilities_list_detect: " << gp_result_as_string(ret);
         return false;
@@ -55,7 +65,7 @@ bool Cam::Cam::init() {
     }
 
     // Init camera
-    ret = gp_camera_init( camera_, context_ );
+    ret = gp_camera_init( *camera_, *context_ );
     if ( GP_OK != ret ) {
         BOOST_LOG_TRIVIAL(warning) << "gp_camera_init: " << gp_result_as_string(ret);
         return false;
@@ -65,7 +75,7 @@ bool Cam::Cam::init() {
 }
 
 bool Cam::Cam::reinit() {
-    gp_camera_exit(camera_, context_);
+    gp_camera_exit(*camera_, *context_);
     std::this_thread::sleep_for(std::chrono::seconds(1));
     return init();
 }
@@ -81,7 +91,7 @@ void Cam::Cam::handle_events() {
     this->init();
 
     for(;;) {
-        ret = gp_camera_wait_for_event(camera_, poll_timeout, &event_type, &event_data, context_);
+        ret = gp_camera_wait_for_event(*camera_, poll_timeout, &event_type, &event_data, *context_);
         if ( GP_OK != ret ) {
             BOOST_LOG_TRIVIAL(warning) << "gp_camera_wait_for_event: " << gp_result_as_string(ret);
             reinit();
