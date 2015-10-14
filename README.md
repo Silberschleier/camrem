@@ -6,8 +6,9 @@
 * libmicrohttpd (>= 0.9)
 
 ## Build
-### Debian Jessie
-*  ```git submodule init``` and ```git submodule update```
-*  ```apt-get install cmake libmicrohttpd-dev libgphoto2-dev g++ libboost-test-dev libboost-log-dev```
-*  ```cmake .```
-*  ```make```
+### Debian Jessie / Ubuntu Trusty
+*  **Clone repository:** ```git clone https://github.com/Silberschleier/camrem.git```
+*  **Clone submodules:** ```cd camrem``` and ```git submodule init``` and ```git submodule update```
+*  **Install required dependencies:**```apt-get install cmake libmicrohttpd-dev libgphoto2-dev g++ libboost-test-dev libboost-log-dev```
+*  **Generate Makefiles:** ```cmake .```
+*  **Build:** ```make```
