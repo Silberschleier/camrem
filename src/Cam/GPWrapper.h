@@ -41,6 +41,28 @@ namespace GPWrapper {
         bool is_valid();
         operator GPPortInfoList *();
     };
+
+    class GPhotoCamera {
+    private:
+        bool ok_;
+        Camera *camera_;
+    public:
+        GPhotoCamera();
+        ~GPhotoCamera();
+        bool is_valid();
+        operator Camera *();
+    };
+
+    class GPhotoContext {
+    private:
+        bool ok_;
+        GPContext *context_;
+    public:
+        GPhotoContext();
+        ~GPhotoContext();
+        bool is_valid();
+        operator GPContext *();
+    };
 }
 
 

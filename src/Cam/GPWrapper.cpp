@@ -64,3 +64,39 @@ bool GPWrapper::GPhotoPortInfoList::is_valid() {
     return ok_;
 }
 
+GPWrapper::GPhotoCamera::GPhotoCamera() {
+    int ret = gp_camera_new( &camera_ );
+    ok_ = ( GP_OK == ret);
+    if ( not ok_ ) {
+        BOOST_LOG_TRIVIAL(warning) << "gp_camera_new: " << gp_result_as_string(ret);
+    }
+}
+
+GPWrapper::GPhotoCamera::~GPhotoCamera() {
+    gp_camera_unref( camera_ );
+}
+
+bool GPWrapper::GPhotoCamera::is_valid() {
+    return ok_;
+}
+
+GPWrapper::GPhotoCamera::operator Camera *() {
+    return camera_;
+}
+
+GPWrapper::GPhotoContext::GPhotoContext() {
+    context_ = gp_context_new();
+    ok_ = true;
+}
+
+GPWrapper::GPhotoContext::~GPhotoContext() {
+    gp_context_unref( context_ );
+}
+
+bool GPWrapper::GPhotoContext::is_valid() {
+    return ok_;
+}
+
+GPWrapper::GPhotoContext::operator GPContext *() {
+    return context_;
+}

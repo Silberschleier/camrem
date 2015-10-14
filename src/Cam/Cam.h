@@ -16,8 +16,8 @@ namespace Cam {
     class Cam {
     private:
         thread thread_;
-        GPContext *context_;
-        Camera *camera_;
+        GPWrapper::GPhotoContext context_;
+        GPWrapper::GPhotoCamera camera_;
 
         bool init_camera();
         void handle_events();
