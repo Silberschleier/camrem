@@ -9,6 +9,7 @@
 #include <gphoto2/gphoto2.h>
 #include "GPWrapper.h"
 #include "../Helpers.h"
+#include "../ConfigHandler.h"
 
 using std::thread;
 
@@ -19,7 +20,8 @@ namespace Cam {
         GPWrapper::GPhotoContext context_;
         GPWrapper::GPhotoCamera camera_;
 
-        bool init_camera();
+        bool init();
+        bool reinit();
         void handle_events();
     public:
         Cam();

@@ -4,11 +4,12 @@
 
 #include "Cam.h"
 
+
 Cam::Cam::Cam() {
     thread_ = thread( &Cam::handle_events, this );
 }
 
-bool Cam::Cam::init_camera() {
+bool Cam::Cam::init() {
     GPWrapper::GPhotoCameraList camera_list;
     GPWrapper::GPhotoPortInfoList portinfo_list;
     GPWrapper::GPhotoAbilitiesList abilities_list;
@@ -63,7 +64,49 @@ bool Cam::Cam::init_camera() {
     return true;
 }
 
+bool Cam::Cam::reinit() {
+    gp_camera_exit(camera_, context_);
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    return init();
+}
+
+
 void Cam::Cam::handle_events() {
-    BOOST_LOG_TRIVIAL(info) << "Handling events for camera...";
-    this->init_camera();
+    int poll_timeout = ConfigHandler::getInstance()->config["Camera"]["EventPollTimeout"];
+    int ret;
+    CameraEventType event_type;
+    void *event_data;
+
+
+    this->init();
+
+    for(;;) {
+        ret = gp_camera_wait_for_event(camera_, poll_timeout, &event_type, &event_data, context_);
+        if ( GP_OK != ret ) {
+            BOOST_LOG_TRIVIAL(warning) << "gp_camera_wait_for_event: " << gp_result_as_string(ret);
+            reinit();
+            continue;
+        }
+
+        switch (event_type) {
+            case GP_EVENT_CAPTURE_COMPLETE:
+                BOOST_LOG_TRIVIAL(trace) << "GP_EVENT_CAPTURE_COMPLETE";
+                break;
+            case GP_EVENT_FILE_ADDED:
+                BOOST_LOG_TRIVIAL(trace) << "GP_EVENT_FILE_ADDED";
+                break;
+            case GP_EVENT_FOLDER_ADDED:
+                BOOST_LOG_TRIVIAL(trace) << "GP_EVENT_FOLDER_ADDED";
+                break;
+            case GP_EVENT_TIMEOUT:
+                BOOST_LOG_TRIVIAL(trace) << "GP_EVENT_TIMEOUT";
+                break;
+            case GP_EVENT_UNKNOWN:
+                BOOST_LOG_TRIVIAL(trace) << "GP_EVENT_UNKNOWN, event_data: " << (char *) event_data;
+                break;
+        }
+
+        free (event_data);
+
+    }
 }
