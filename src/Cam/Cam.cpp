@@ -71,12 +71,12 @@ bool Cam::Cam::init() {
         return false;
     }
 
+    BOOST_LOG_TRIVIAL(trace) << "gp_camera_init successful";
     return true;
 }
 
 bool Cam::Cam::reinit() {
     gp_camera_exit(*camera_, *context_);
-    std::this_thread::sleep_for(std::chrono::seconds(1));
     return init();
 }
 
@@ -87,14 +87,16 @@ void Cam::Cam::handle_events() {
     CameraEventType event_type;
     void *event_data;
 
-
-    this->init();
+    // Wait for successful initialization
+    while ( not this->init() );
 
     for(;;) {
         ret = gp_camera_wait_for_event(*camera_, poll_timeout, &event_type, &event_data, *context_);
         if ( GP_OK != ret ) {
             BOOST_LOG_TRIVIAL(warning) << "gp_camera_wait_for_event: " << gp_result_as_string(ret);
-            reinit();
+
+            // Wait for successful reinit
+            while ( not reinit() );
             continue;
         }
 
