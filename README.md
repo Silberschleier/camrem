@@ -5,6 +5,7 @@
 * CMake (>= 2.8.4)
 * libboost (>= 1.54)
 * libmicrohttpd (>= 0.9)
+* libgphoto2 (>= 2.4)
 
 ## Build
 ### Debian Jessie / Ubuntu Trusty
@@ -24,3 +25,4 @@ This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
+

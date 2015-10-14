@@ -14,5 +14,8 @@
         "ssl": false
       }
     ]
+  },
+  "Camera": {
+    "EventPollTimeout": 1000
   }
 }
