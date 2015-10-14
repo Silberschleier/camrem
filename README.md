@@ -1,5 +1,6 @@
 # camrem
 [![Build Status](https://travis-ci.org/Silberschleier/camrem.svg?branch=master)](https://travis-ci.org/Silberschleier/camrem)
+[![License](https://img.shields.io/badge/license-GPLv2-blue.svg)](http://www.gnu.org/licenses/gpl-2.0.txt)
 ## Requirements
 * CMake (>= 2.8.4)
 * libboost (>= 1.54)
