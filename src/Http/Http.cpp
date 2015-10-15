@@ -82,7 +82,6 @@ void Http::Http::handleDirectory(string path, string prefix) {
 
             // If the entry is a file,
             if ( fs::is_regular_file(entry->status()) ) {
-                std::cout << filepath << ": " << "(" + fileuri + ")" << std::endl;
                 handle(filepath, regex( "(" + fileuri + ")"));
             }
 
