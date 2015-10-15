@@ -91,7 +91,14 @@ bool Cam::Cam::init() {
 
 bool Cam::Cam::reinit() {
     gp_camera_exit(*camera_, *context_);
+    while ( not init() );
     return init();
+}
+
+void Cam::Cam::enqueue(shared_ptr<Action> action) {
+    queue_lock_.lock();
+    action_queue_.push(action);
+    queue_lock_.unlock();
 }
 
 
@@ -110,7 +117,7 @@ void Cam::Cam::handle_events() {
             BOOST_LOG_TRIVIAL(warning) << "gp_camera_wait_for_event: " << gp_result_as_string(ret);
 
             // Wait for successful reinit
-            while ( not reinit() );
+            reinit();
             continue;
         }
 
@@ -136,3 +143,4 @@ void Cam::Cam::handle_events() {
 
     }
 }
+

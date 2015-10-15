@@ -16,40 +16,19 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef CAMREM_CAMERA_H
-#define CAMREM_CAMERA_H
+#ifndef CAMREM_ACTION_H
+#define CAMREM_ACTION_H
+#include <functional>
 
-#include <thread>
-#include <gphoto2/gphoto2.h>
-#include <queue>
-#include "GPWrapper.h"
-#include "../Helpers.h"
-#include "../ConfigHandler.h"
-#include "Action.h"
-
-using std::thread;
-using std::priority_queue;
-using std::unique_ptr;
-using std::shared_ptr;
-
+using std::function;
 
 namespace Cam {
-    class Cam {
+    class Action {
     private:
-        thread thread_;
-        std::mutex queue_lock_;
-        priority_queue<shared_ptr<Action>> action_queue_;
-        unique_ptr<GPWrapper::GPhotoContext> context_;
-        unique_ptr<GPWrapper::GPhotoCamera> camera_;
-
-        bool init();
-        bool reinit();
-        void enqueue(shared_ptr<Action> action);
-        void handle_events();
+        function<void()> callback_;
     public:
-        Cam();
-
+        void process();
     };
 }
 
-#endif //CAMREM_CAMERA_H
+#endif //CAMREM_ACTION_H
