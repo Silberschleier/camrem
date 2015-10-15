@@ -16,6 +16,9 @@
 *  **Build:** ```make```
 
 ## License
+<a href="http://opensource.org/licenses/GPL-2.0"><img align="right" src="http://opensource.org/trademarks/opensource/OSI-Approved-License-100x137.png"></a>
+Copyright (C) 2015 Christopher Schmidt
+
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
