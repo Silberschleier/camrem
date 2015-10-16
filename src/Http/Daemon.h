@@ -55,6 +55,11 @@ namespace Http {
 
     public:
         Daemon();
+
+        /*
+         * Initializes and starts the daemon.
+         * @param Config to initialize the daemon with.
+         */
         Daemon(json config);
         ~Daemon();
 
@@ -65,6 +70,10 @@ namespace Http {
          */
         bool init(json config);
 
+        /*
+         * Starts the daemon.
+         * @return false if the daemon is already running or an error occurs.
+         */
         bool run();
 
     };

@@ -47,23 +47,55 @@ namespace Http {
         vector<Daemon*> daemons_;
         vector<pair<regex, function<bool(Request *)>>> handlers_;
         string document_root_;
+
         Http(void);
         ~Http(void);
-
     public:
         /*
          * The instance of Http is defined and created in here.
          * @return The instance of Http
          */
         static Http * getInstance(void);
+
         /*
          * Initializes and runs every VirtualHost specified in the config.
          */
         void run(void);
+
+        /*
+         * Registers an URI and function to handle.
+         * @param callback: The function to execute. The callback should return false, if an error occurs.
+         * @param uri: The URIs to handle.
+         */
         void handle(function<bool(Request *)> callback, regex uri);
+
+        /*
+         * Registers a static file to handle. Response code will always be STATUS_OK.
+         * @param filename: Path to the file. Must be relative to document_root.
+         * @param uri: The URIs to handle.
+         */
         void handle(string filename, regex uri);
+
+        /*
+         * Registers a static file to handle.
+         * @param filename: Path to the file. Must be relative to document_root.
+         * @param status: The response code to return.
+         * @param uri: The URIs to handle.
+         */
         void handle(string filename, StatusCode status, regex uri);
+
+        /*
+         * Registers (recursively) the static files of a whole directory.
+         * @param path: Path to the directory. Must be relative to document_root.
+         * @param prefix: Prefix to the URI.
+         */
         void handleDirectory(string path, string prefix);
+
+        /*
+         * Searches and executes the handler matching the URI of the given request.
+         * @param request: The request to process.
+         * @returns: The success of the handler, or false if no matching handler is found or callable.
+         */
         bool processRequest(Request *request);
     };
 }

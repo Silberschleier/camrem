@@ -31,8 +31,19 @@ using std::make_shared;
 
 namespace Http {
     namespace Bindings {
+        /*
+         * Responds with an API error and response code STATUS_NOTFOUND
+         * @param request to process.
+         * @return Always true.
+         */
         bool jsonNotFound(Request *request);
+
+        /*
+         * Responds with a static response and given response code.
+         */
         bool staticFile(Request *request, string filename, unsigned int status);
+
+        // TODO: Remove this.
         bool dummyAction(Request *request, Cam::Cam *cam);
     }
 }
