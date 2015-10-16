@@ -16,26 +16,33 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef CAMREM_APIBINDINGS_H
-#define CAMREM_APIBINDINGS_H
+#include "Action.h"
 
-#include <memory>
-#include "Request.h"
-#include "Response.h"
-#include "FileResponse.h"
-#include "Http.h"
-#include "../Cam/Cam.h"
 
-using std::shared_ptr;
-using std::make_shared;
+Cam::Action::Action(function<shared_ptr<Result>()> callback) {
+    callback_ = callback;
+}
 
-namespace Http {
-    namespace Bindings {
-        bool jsonNotFound(Request *request);
-        bool staticFile(Request *request, string filename, unsigned int status);
-        bool dummyAction(Request *request, Cam::Cam *cam);
+void Cam::Action::process() {
+    result_ = callback_();
+
+    // Notify threads waiting for the result
+    {
+        lock_guard<mutex> lock(processed_mutex_);
+        processed_ = true;
+        processed_cv_.notify_all();
     }
 }
 
+shared_ptr<Cam::Result> Cam::Action::getResult() {
+    // Wait till processing is finished
+    unique_lock<mutex> lock(processed_mutex_);
 
-#endif //CAMREM_APIBINDINGS_H
+    // Check for spurious wake-ups
+    while ( not processed_ ) {
+        processed_cv_.wait(lock);
+    }
+
+    return result_;
+}
+

@@ -91,9 +91,33 @@ bool Cam::Cam::init() {
 
 bool Cam::Cam::reinit() {
     gp_camera_exit(*camera_, *context_);
+    while ( not init() );
     return init();
 }
 
+void Cam::Cam::enqueue(shared_ptr<Action> action) {
+    queue_lock_.lock();
+    action_queue_.push(action);
+    queue_lock_.unlock();
+}
+
+void Cam::Cam::process_action() {
+    shared_ptr<Action> action;
+    queue_lock_.lock();
+
+    if ( not action_queue_.empty() ) {
+        action = action_queue_.top();
+        action_queue_.pop();
+    } else {
+        BOOST_LOG_TRIVIAL(trace) << "Action queue empty";
+    }
+
+    queue_lock_.unlock();
+
+    if ( action ) {
+        action->process();
+    }
+}
 
 void Cam::Cam::handle_events() {
     int poll_timeout = ConfigHandler::getInstance()->config["Camera"]["EventPollTimeout"];
@@ -110,7 +134,7 @@ void Cam::Cam::handle_events() {
             BOOST_LOG_TRIVIAL(warning) << "gp_camera_wait_for_event: " << gp_result_as_string(ret);
 
             // Wait for successful reinit
-            while ( not reinit() );
+            reinit();
             continue;
         }
 
@@ -126,6 +150,7 @@ void Cam::Cam::handle_events() {
                 break;
             case GP_EVENT_TIMEOUT:
                 BOOST_LOG_TRIVIAL(trace) << "GP_EVENT_TIMEOUT";
+                process_action();
                 break;
             case GP_EVENT_UNKNOWN:
                 BOOST_LOG_TRIVIAL(trace) << "GP_EVENT_UNKNOWN, event_data: " << (char *) event_data;
@@ -135,4 +160,15 @@ void Cam::Cam::handle_events() {
         free (event_data);
 
     }
+}
+
+
+shared_ptr<Cam::Action> Cam::Cam::dummy() {
+    auto callback = std::bind(&Cam::sleep, this);
+    return std::make_shared<Action>(callback);
+}
+
+shared_ptr<Cam::Result> Cam::Cam::sleep() {
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    return std::make_shared<Result>();
 }
