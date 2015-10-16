@@ -20,6 +20,7 @@
 #define CAMREM_ACTION_H
 #include <functional>
 #include <condition_variable>
+#include <memory>
 #include "Result.h"
 
 using std::function;
