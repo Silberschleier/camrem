@@ -14,7 +14,7 @@ ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK)
 ADD_DEFINITIONS(-DBOOST_NO_CXX11_SCOPED_ENUMS=1)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-set(SOURCE_FILES_CAMREM src/Helpers.cpp src/ConfigHandler.cpp src/Http/Http.cpp src/Http/Daemon.cpp src/Http/Request.cpp src/Http/Response.cpp src/Http/Response.h src/Http/Bindings.cpp src/Http/Bindings.h src/Http/FileResponse.cpp src/Http/FileResponse.h src/Cam/Cam.cpp src/Cam/Cam.h src/Cam/GPWrapper.cpp src/Cam/GPWrapper.h src/Cam/Action.cpp src/Cam/Action.h )
+set(SOURCE_FILES_CAMREM src/Helpers.cpp src/ConfigHandler.cpp src/Http/Http.cpp src/Http/Daemon.cpp src/Http/Request.cpp src/Http/Response.cpp src/Http/Response.h src/Http/Bindings.cpp src/Http/Bindings.h src/Http/FileResponse.cpp src/Http/FileResponse.h src/Cam/Cam.cpp src/Cam/Cam.h src/Cam/GPWrapper.cpp src/Cam/GPWrapper.h src/Cam/Action.cpp src/Cam/Action.h src/Cam/Result.cpp src/Cam/Result.h)
 
 
 add_library(camremobjects STATIC ${SOURCE_FILES_CAMREM})

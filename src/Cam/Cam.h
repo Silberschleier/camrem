@@ -49,7 +49,7 @@ namespace Cam {
         bool reinit();
         void process_action();
         void handle_events();
-        void sleep();
+        shared_ptr<Result> sleep();
     public:
         Cam();
         void enqueue(shared_ptr<Action> action);

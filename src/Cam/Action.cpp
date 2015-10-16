@@ -19,12 +19,12 @@
 #include "Action.h"
 
 
-Cam::Action::Action(function<void()> callback) {
+Cam::Action::Action(function<shared_ptr<Result>()> callback) {
     callback_ = callback;
 }
 
 void Cam::Action::process() {
-    callback_();
+    result_ = callback_();
 
     // Notify threads waiting for the result
     {
@@ -34,12 +34,15 @@ void Cam::Action::process() {
     }
 }
 
-void Cam::Action::getResult() {
+shared_ptr<Cam::Result> Cam::Action::getResult() {
     // Wait till processing is finished
     unique_lock<mutex> lock(processed_mutex_);
 
+    // Check for spurious wake-ups
     while ( not processed_ ) {
         processed_cv_.wait(lock);
     }
+
+    return result_;
 }
 

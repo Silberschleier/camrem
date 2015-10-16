@@ -16,32 +16,4 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef CAMREM_ACTION_H
-#define CAMREM_ACTION_H
-#include <functional>
-#include <condition_variable>
 #include "Result.h"
-
-using std::function;
-using std::condition_variable;
-using std::mutex;
-using std::unique_lock;
-using std::shared_ptr;
-using std::lock_guard;
-
-namespace Cam {
-    class Action {
-    private:
-        bool processed_;
-        condition_variable processed_cv_;
-        mutex processed_mutex_;
-        function<shared_ptr<Result>()> callback_;
-        shared_ptr<Result> result_;
-    public:
-        Action(function<shared_ptr<Result>()> callback);
-        void process();
-        shared_ptr<Result> getResult();
-    };
-}
-
-#endif //CAMREM_ACTION_H
