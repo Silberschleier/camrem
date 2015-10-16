@@ -30,17 +30,6 @@ Http::Request::Request(MHD_Connection *connection, const char *uri, const char *
     MHD_get_connection_values(connection, MHD_COOKIE_KIND, Request::process_connection_values, this);
 }
 
-string Http::Request::dumpJson() {
-    json j;
-    j["uri"] = uri_;
-    j["method"] = method_;
-    j["headers"] = headers_;
-    j["cookies"] = cookies_;
-    j["getdata"] = getdata_;
-    j["postdata"] = postdata_;
-    return j.dump();
-}
-
 int Http::Request::process_connection_values(void *cls, enum MHD_ValueKind kind, const char *key, const char *value) {
     Request *request = (Request *) cls;
     string str_key(key);

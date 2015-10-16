@@ -34,7 +34,15 @@ namespace Http {
 
         Response();
         ~Response();
+
+        /*
+         * @return String of the content of the response.
+         */
         virtual shared_ptr<string> getContent();
+
+        /*
+         * @return Always false.
+         */
         virtual bool is_static();
     };
 }

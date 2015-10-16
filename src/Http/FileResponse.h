@@ -28,7 +28,15 @@ namespace Http {
         string filename_;
     public:
         FileResponse(string file);
+
+        /*
+         * @return String of the content of the response.
+         */
         shared_ptr<string> getContent();
+
+        /*
+         * @return Always true.
+         */
         bool is_static();
     };
 }

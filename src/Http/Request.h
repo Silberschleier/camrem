@@ -53,12 +53,12 @@ namespace Http {
 
         Request(MHD_Connection *connection, const char *uri, const char *method);
         ~Request();
+
         /*
-         * Clean up after completion of a request.
+         * Clean up after completion of a request. See MHD documentation for further information.
          */
         static void completed(void *cls, struct MHD_Connection *connection, void **con_cls, enum MHD_RequestTerminationCode toe);
 
-        string dumpJson();
     };
 }
 
