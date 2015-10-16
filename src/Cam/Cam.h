@@ -22,6 +22,7 @@
 #include <thread>
 #include <queue>
 #include <mutex>
+#include <memory>
 #include <gphoto2/gphoto2.h>
 #include "GPWrapper.h"
 #include "../Helpers.h"
@@ -46,11 +47,13 @@ namespace Cam {
 
         bool init();
         bool reinit();
-        void enqueue(shared_ptr<Action> action);
+        void process_action();
         void handle_events();
+        void sleep();
     public:
         Cam();
-
+        void enqueue(shared_ptr<Action> action);
+        shared_ptr<Action> dummy();
     };
 }
 

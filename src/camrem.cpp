@@ -37,16 +37,21 @@ int main(int argc, const char * argv[]) {
 
     signal(SIGINT, signal_handler);
 
+    Cam::Cam cam;
+
     Http::Http* srv = Http::Http::getInstance();
     srv->handle("404.html", Http::STATUS_NOTFOUND, std::regex("(.*)"));
     srv->handle(Http::Bindings::jsonNotFound, std::regex("(/api/)(.*)"));
     srv->handleDirectory("webui", "");
     srv->handle("webui/index.html", std::regex("(/)"));
 
+    // TODO: Just for testing. Remove this
+    srv->handle(std::bind(Http::Bindings::dummyAction, std::placeholders::_1, &cam), std::regex("(/api/dummy)"));
+
     srv->run();
 
 
-    Cam::Cam cam;
+
 
     for(;;) sleep(1);
 }

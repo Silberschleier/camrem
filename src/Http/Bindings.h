@@ -23,6 +23,8 @@
 #include "Request.h"
 #include "Response.h"
 #include "FileResponse.h"
+#include "Http.h"
+#include "../Cam/Cam.h"
 
 using std::shared_ptr;
 using std::make_shared;
@@ -31,6 +33,7 @@ namespace Http {
     namespace Bindings {
         bool jsonNotFound(Request *request);
         bool staticFile(Request *request, string filename, unsigned int status);
+        bool dummyAction(Request *request, Cam::Cam *cam);
     }
 }
 

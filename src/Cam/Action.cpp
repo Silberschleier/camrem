@@ -18,6 +18,28 @@
 
 #include "Action.h"
 
+
+Cam::Action::Action(function<void()> callback) {
+    callback_ = callback;
+}
+
 void Cam::Action::process() {
     callback_();
+
+    // Notify threads waiting for the result
+    {
+        lock_guard<mutex> lock(processed_mutex_);
+        processed_ = true;
+        processed_cv_.notify_all();
+    }
 }
+
+void Cam::Action::getResult() {
+    // Wait till processing is finished
+    unique_lock<mutex> lock(processed_mutex_);
+
+    while ( not processed_ ) {
+        processed_cv_.wait(lock);
+    }
+}
+

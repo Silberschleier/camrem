@@ -19,15 +19,25 @@
 #ifndef CAMREM_ACTION_H
 #define CAMREM_ACTION_H
 #include <functional>
+#include <condition_variable>
 
 using std::function;
+using std::condition_variable;
+using std::mutex;
+using std::unique_lock;
+using std::lock_guard;
 
 namespace Cam {
     class Action {
     private:
+        bool processed_;
+        condition_variable processed_cv_;
+        mutex processed_mutex_;
         function<void()> callback_;
     public:
+        Action(function<void()> callback);
         void process();
+        void getResult();
     };
 }
 
