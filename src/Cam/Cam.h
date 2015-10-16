@@ -20,8 +20,9 @@
 #define CAMREM_CAMERA_H
 
 #include <thread>
-#include <gphoto2/gphoto2.h>
 #include <queue>
+#include <mutex>
+#include <gphoto2/gphoto2.h>
 #include "GPWrapper.h"
 #include "../Helpers.h"
 #include "../ConfigHandler.h"
@@ -31,13 +32,14 @@ using std::thread;
 using std::priority_queue;
 using std::unique_ptr;
 using std::shared_ptr;
+using std::mutex;
 
 
 namespace Cam {
     class Cam {
     private:
         thread thread_;
-        std::mutex queue_lock_;
+        mutex queue_lock_;
         priority_queue<shared_ptr<Action>> action_queue_;
         unique_ptr<GPWrapper::GPhotoContext> context_;
         unique_ptr<GPWrapper::GPhotoCamera> camera_;
