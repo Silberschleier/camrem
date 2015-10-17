@@ -170,5 +170,6 @@ shared_ptr<Cam::Action> Cam::Cam::dummy() {
 
 shared_ptr<Cam::Result> Cam::Cam::sleep() {
     std::this_thread::sleep_for(std::chrono::seconds(2));
-    return std::make_shared<Result>();
+    json data = {{"sleep", "test"}};
+    return std::make_shared<Result>(data);
 }
