@@ -19,9 +19,18 @@
 #ifndef CAMREM_RESULT_H
 #define CAMREM_RESULT_H
 
+#include "../json/src/json.hpp"
+
+using json = nlohmann::json;
+
 namespace Cam {
     class Result {
-        
+    private:
+        json data_;
+    public:
+        Result();
+        Result(json data);
+        json getData();
     };
 }
 

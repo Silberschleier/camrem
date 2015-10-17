@@ -36,10 +36,16 @@ bool ::Http::Bindings::staticFile(Request *request, string filename, unsigned in
 bool ::Http::Bindings::dummyAction(Request *request, Cam::Cam *cam) {
     auto action = cam->dummy();
     cam->enqueue(action);
-    action->getResult();
+    auto res = action->getResult();
 
     shared_ptr<Response> response = make_shared<Response>();
-    response->content = make_shared<string>("{\"action\": \"dummy\"}");
+    if ( res ) {
+        response->content = make_shared<string>(res->getData().dump());
+    } else {
+        BOOST_LOG_TRIVIAL(error) << "Faulty result";
+        return false;
+    }
+
     response->status = STATUS_OK;
 
     request->response = response;

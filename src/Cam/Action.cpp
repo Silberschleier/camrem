@@ -21,6 +21,7 @@
 
 Cam::Action::Action(function<shared_ptr<Result>()> callback) {
     callback_ = callback;
+    processed_ = false;
 }
 
 void Cam::Action::process() {

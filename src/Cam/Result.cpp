@@ -17,3 +17,12 @@
  */
 
 #include "Result.h"
+
+
+Cam::Result::Result() { }
+
+Cam::Result::Result(json data) : data_(data) { }
+
+json Cam::Result::getData() {
+    return data_;
+}
