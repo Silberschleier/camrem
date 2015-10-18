@@ -18,6 +18,7 @@
 
 #include "Bindings.h"
 
+
 bool ::Http::Bindings::jsonNotFound(Request *request) {
     shared_ptr<Response> response = make_shared<Response>();
     response->content = make_shared<string>("{ \"message\": \"Not Found\" }");
@@ -33,10 +34,8 @@ bool ::Http::Bindings::staticFile(Request *request, string filename, unsigned in
     return true;
 }
 
-bool ::Http::Bindings::dummyAction(Request *request, Cam::CamHandler *cam) {
-    auto action = cam->dummy();
-    cam->enqueue(action);
-    auto res = action->getResult();
+bool ::Http::Bindings::dummyAction(Request *request) {
+    auto res = Cam::CamFacade::getInstance()->dummy();
 
     shared_ptr<Response> response = make_shared<Response>();
     if ( res ) {
@@ -47,7 +46,6 @@ bool ::Http::Bindings::dummyAction(Request *request, Cam::CamHandler *cam) {
     }
 
     response->status = STATUS_OK;
-
     request->response = response;
 
     return true;

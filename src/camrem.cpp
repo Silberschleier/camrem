@@ -23,7 +23,7 @@
 #include "Http/Http.h"
 #include "Http/Daemon.h"
 #include "Http/Bindings.h"
-#include "Cam/CamHandler.h"
+#include "Cam/CamFacade.h"
 
 int main(int argc, const char * argv[]) {
     init_logging();
@@ -37,7 +37,7 @@ int main(int argc, const char * argv[]) {
 
     signal(SIGINT, signal_handler);
 
-    Cam::CamHandler cam;
+    Cam::CamFacade *camFacade = Cam::CamFacade::getInstance();
 
     Http::Http* srv = Http::Http::getInstance();
     srv->handle("404.html", Http::STATUS_NOTFOUND, std::regex("(.*)"));
@@ -46,7 +46,7 @@ int main(int argc, const char * argv[]) {
     srv->handle("webui/index.html", std::regex("(/)"));
 
     // TODO: Just for testing. Remove this
-    srv->handle(std::bind(Http::Bindings::dummyAction, std::placeholders::_1, &cam), std::regex("(/api/dummy)"));
+    srv->handle(Http::Bindings::dummyAction, std::regex("(/api/dummy)"));
 
     srv->run();
 

@@ -50,10 +50,11 @@ namespace Cam {
         void process_action();
         void handle_events();
         shared_ptr<Result> sleep();
+
+        friend class CamFacade;
     public:
         CamHandler();
         void enqueue(shared_ptr<Action> action);
-        shared_ptr<Action> dummy();
     };
 }
 

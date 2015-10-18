@@ -163,11 +163,6 @@ void Cam::CamHandler::handle_events() {
 }
 
 
-shared_ptr<Cam::Action> Cam::CamHandler::dummy() {
-    auto callback = std::bind(&CamHandler::sleep, this);
-    return std::make_shared<Action>(callback);
-}
-
 shared_ptr<Cam::Result> Cam::CamHandler::sleep() {
     std::this_thread::sleep_for(std::chrono::seconds(2));
     json data = {{"sleep", "test"}};
