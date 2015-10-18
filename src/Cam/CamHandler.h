@@ -37,7 +37,7 @@ using std::mutex;
 
 
 namespace Cam {
-    class Cam {
+    class CamHandler {
     private:
         thread thread_;
         mutex queue_lock_;
@@ -51,7 +51,7 @@ namespace Cam {
         void handle_events();
         shared_ptr<Result> sleep();
     public:
-        Cam();
+        CamHandler();
         void enqueue(shared_ptr<Action> action);
         shared_ptr<Action> dummy();
     };

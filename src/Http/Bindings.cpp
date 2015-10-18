@@ -33,7 +33,7 @@ bool ::Http::Bindings::staticFile(Request *request, string filename, unsigned in
     return true;
 }
 
-bool ::Http::Bindings::dummyAction(Request *request, Cam::Cam *cam) {
+bool ::Http::Bindings::dummyAction(Request *request, Cam::CamHandler *cam) {
     auto action = cam->dummy();
     cam->enqueue(action);
     auto res = action->getResult();

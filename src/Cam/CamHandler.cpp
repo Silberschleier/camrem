@@ -16,14 +16,14 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "Cam.h"
+#include "CamHandler.h"
 
 
-Cam::Cam::Cam() {
-    thread_ = thread( &Cam::handle_events, this );
+Cam::CamHandler::CamHandler() {
+    thread_ = thread( &CamHandler::handle_events, this );
 }
 
-bool Cam::Cam::init() {
+bool Cam::CamHandler::init() {
     GPWrapper::GPhotoCameraList camera_list;
     GPWrapper::GPhotoPortInfoList portinfo_list;
     GPWrapper::GPhotoAbilitiesList abilities_list;
@@ -89,19 +89,19 @@ bool Cam::Cam::init() {
     return true;
 }
 
-bool Cam::Cam::reinit() {
+bool Cam::CamHandler::reinit() {
     gp_camera_exit(*camera_, *context_);
     while ( not init() );
-    return init();
+    return true;
 }
 
-void Cam::Cam::enqueue(shared_ptr<Action> action) {
+void Cam::CamHandler::enqueue(shared_ptr<Action> action) {
     queue_lock_.lock();
     action_queue_.push(action);
     queue_lock_.unlock();
 }
 
-void Cam::Cam::process_action() {
+void Cam::CamHandler::process_action() {
     shared_ptr<Action> action;
     queue_lock_.lock();
 
@@ -119,7 +119,7 @@ void Cam::Cam::process_action() {
     }
 }
 
-void Cam::Cam::handle_events() {
+void Cam::CamHandler::handle_events() {
     int poll_timeout = ConfigHandler::getInstance()->config["Camera"]["EventPollTimeout"];
     int ret;
     CameraEventType event_type;
@@ -163,12 +163,12 @@ void Cam::Cam::handle_events() {
 }
 
 
-shared_ptr<Cam::Action> Cam::Cam::dummy() {
-    auto callback = std::bind(&Cam::sleep, this);
+shared_ptr<Cam::Action> Cam::CamHandler::dummy() {
+    auto callback = std::bind(&CamHandler::sleep, this);
     return std::make_shared<Action>(callback);
 }
 
-shared_ptr<Cam::Result> Cam::Cam::sleep() {
+shared_ptr<Cam::Result> Cam::CamHandler::sleep() {
     std::this_thread::sleep_for(std::chrono::seconds(2));
     json data = {{"sleep", "test"}};
     return std::make_shared<Result>(data);

@@ -23,7 +23,7 @@
 #include "Http/Http.h"
 #include "Http/Daemon.h"
 #include "Http/Bindings.h"
-#include "Cam/Cam.h"
+#include "Cam/CamHandler.h"
 
 int main(int argc, const char * argv[]) {
     init_logging();
@@ -37,7 +37,7 @@ int main(int argc, const char * argv[]) {
 
     signal(SIGINT, signal_handler);
 
-    Cam::Cam cam;
+    Cam::CamHandler cam;
 
     Http::Http* srv = Http::Http::getInstance();
     srv->handle("404.html", Http::STATUS_NOTFOUND, std::regex("(.*)"));
