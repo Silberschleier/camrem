@@ -47,10 +47,7 @@ void Http::Response::setContent(string data) {
 }
 
 void Http::Response::setContent(const char *data, unsigned long size) {
-    // TODO: Use a more efficient method for this
-    for (unsigned long i = 0; i < size; i++) {
-        content_->push_back(data[i]);
-    }
+    make_shared<vector<char>>(data, data + size);
 }
 
 void Http::Response::setContent(shared_ptr<vector<char>> data) {

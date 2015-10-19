@@ -190,11 +190,7 @@ shared_ptr<Cam::Result> Cam::CamHandler::getPreview() {
     }
 
     // Store the data
-    // TODO: Use more efficient method
-    shared_ptr<vector<char>> data = make_shared<vector<char>>();
-    for (unsigned long i = 0; i < image_size; i++) {
-        data->push_back(image_data[i]);
-    }
+    shared_ptr<vector<char>> data = make_shared<vector<char>>(image_data, image_data + image_size);
 
     return make_shared<Result>(data);
 }
