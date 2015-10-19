@@ -45,9 +45,10 @@ int main(int argc, const char * argv[]) {
     srv->handleDirectory("webui", "");
     srv->handle("webui/index.html", std::regex("(/)"));
 
+
     // TODO: Just for testing. Remove this
     srv->handle(Http::Bindings::dummyAction, std::regex("(/api/dummy)"));
-
+    srv->handle(Http::Bindings::getPreview, std::regex("(/api/preview)"));
     srv->run();
 
 

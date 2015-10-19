@@ -23,6 +23,12 @@ Cam::Result::Result() { }
 
 Cam::Result::Result(json data) : data_(data) { }
 
+Cam::Result::Result(shared_ptr<vector<char>> image) : imagedata_(image) { }
+
 json Cam::Result::getData() {
     return data_;
+}
+
+shared_ptr<vector<char>> Cam::Result::getImage() {
+    return imagedata_;
 }

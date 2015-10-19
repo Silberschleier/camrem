@@ -35,3 +35,12 @@ shared_ptr<Cam::Result> Cam::CamFacade::dummy() {
 
     return action->getResult();
 }
+
+shared_ptr<Cam::Result> Cam::CamFacade::getPreview() {
+    auto callback = bind(&CamHandler::getPreview, &camera_);
+    auto action = make_shared<Action>(callback);
+
+    camera_.enqueue(action);
+
+    return action->getResult();
+}

@@ -23,6 +23,7 @@
 #include <queue>
 #include <mutex>
 #include <memory>
+#include <vector>
 #include <gphoto2/gphoto2.h>
 #include "GPWrapper.h"
 #include "../Helpers.h"
@@ -34,6 +35,7 @@ using std::priority_queue;
 using std::unique_ptr;
 using std::shared_ptr;
 using std::mutex;
+using std::vector;
 
 
 namespace Cam {
@@ -50,6 +52,7 @@ namespace Cam {
         void process_action();
         void handle_events();
         shared_ptr<Result> sleep();
+        shared_ptr<Result> getPreview();
 
         friend class CamFacade;
     public:

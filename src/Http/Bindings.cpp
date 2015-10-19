@@ -21,14 +21,15 @@
 
 bool ::Http::Bindings::jsonNotFound(Request *request) {
     shared_ptr<Response> response = make_shared<Response>();
-    response->content = make_shared<string>("{ \"message\": \"Not Found\" }");
+    response->setContent(string("{ \"message\": \"Not Found\" }"));
     request->response = response;
     request->response->status = STATUS_NOTFOUND;
     return true;
 }
 
 bool ::Http::Bindings::staticFile(Request *request, string filename, unsigned int status) {
-    shared_ptr<FileResponse> response = make_shared<FileResponse>(filename);
+    shared_ptr<Response> response = make_shared<Response>();
+    response->setContent(load_file(filename));
     request->response = response;
     request->response->status = status;
     return true;
@@ -39,7 +40,24 @@ bool ::Http::Bindings::dummyAction(Request *request) {
 
     shared_ptr<Response> response = make_shared<Response>();
     if ( res ) {
-        response->content = make_shared<string>(res->getData().dump());
+        response->setContent(res->getData().dump());
+    } else {
+        BOOST_LOG_TRIVIAL(error) << "Faulty result";
+        return false;
+    }
+
+    response->status = STATUS_OK;
+    request->response = response;
+
+    return true;
+}
+
+bool ::Http::Bindings::getPreview(Request *request) {
+    auto res = Cam::CamFacade::getInstance()->getPreview();
+
+    shared_ptr<Response> response = make_shared<Response>();
+    if ( res ) {
+        response->setContent(res->getImage());
     } else {
         BOOST_LOG_TRIVIAL(error) << "Faulty result";
         return false;

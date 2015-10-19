@@ -168,3 +168,33 @@ shared_ptr<Cam::Result> Cam::CamHandler::sleep() {
     json data = {{"sleep", "test"}};
     return std::make_shared<Result>(data);
 }
+
+shared_ptr<Cam::Result> Cam::CamHandler::getPreview() {
+    GPWrapper::GPhotoCameraFile file;
+    const char *image_data;
+    unsigned long image_size;
+    int ret;
+
+    // Capture the preview
+    ret = gp_camera_capture_preview(*camera_, file, *context_);
+    if ( GP_OK != ret ) {
+        BOOST_LOG_TRIVIAL(warning) << "gp_camera_capture_preview: " << gp_result_as_string(ret);
+        // TODO: Return error result
+    }
+
+    // Download the preview
+    ret = gp_file_get_data_and_size(file, &image_data, &image_size);
+    if ( GP_OK != ret ) {
+        BOOST_LOG_TRIVIAL(warning) << "gp_file_get_data_and_size: " << gp_result_as_string(ret);
+        // TODO: Return error result
+    }
+
+    // Store the data
+    // TODO: Use more efficient method
+    shared_ptr<vector<char>> data = make_shared<vector<char>>();
+    for (unsigned long i = 0; i < image_size; i++) {
+        data->push_back(image_data[i]);
+    }
+
+    return make_shared<Result>(data);
+}

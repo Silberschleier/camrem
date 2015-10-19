@@ -19,18 +19,24 @@
 #ifndef CAMREM_RESULT_H
 #define CAMREM_RESULT_H
 
+#include <memory>
 #include "../json/src/json.hpp"
 
 using json = nlohmann::json;
+using std::shared_ptr;
+using std::vector;
 
 namespace Cam {
     class Result {
     private:
         json data_;
+        shared_ptr<vector<char>> imagedata_;
     public:
         Result();
         Result(json data);
+        Result(shared_ptr<vector<char>> image);
         json getData();
+        shared_ptr<vector<char>> getImage();
     };
 }
 

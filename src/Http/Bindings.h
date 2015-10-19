@@ -22,7 +22,6 @@
 #include <memory>
 #include "Request.h"
 #include "Response.h"
-#include "FileResponse.h"
 #include "Http.h"
 #include "../Cam/CamHandler.h"
 #include "../Cam/CamFacade.h"
@@ -43,6 +42,8 @@ namespace Http {
          * Responds with a static response and given response code.
          */
         bool staticFile(Request *request, string filename, unsigned int status);
+
+        bool getPreview(Request *request);
 
         // TODO: Remove this.
         bool dummyAction(Request *request);

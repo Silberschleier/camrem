@@ -113,8 +113,8 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
         response = request->response;
         status = response->status;
 
-        mhd_response = MHD_create_response_from_buffer(response->getContent()->length(),
-                                                       (void*) response->getContent()->c_str(),
+        mhd_response = MHD_create_response_from_buffer(response->getRawDataSize(),
+                                                       (void*) response->getRawData(),
                                                        MHD_RESPMEM_PERSISTENT);
     } else {
         const char *error = "Internal Server Error";
