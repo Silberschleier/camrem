@@ -22,9 +22,9 @@
 #include <memory>
 #include "Request.h"
 #include "Response.h"
-#include "FileResponse.h"
 #include "Http.h"
-#include "../Cam/Cam.h"
+#include "../Cam/CamHandler.h"
+#include "../Cam/CamFacade.h"
 
 using std::shared_ptr;
 using std::make_shared;
@@ -43,8 +43,10 @@ namespace Http {
          */
         bool staticFile(Request *request, string filename, unsigned int status);
 
+        bool getPreview(Request *request);
+
         // TODO: Remove this.
-        bool dummyAction(Request *request, Cam::Cam *cam);
+        bool dummyAction(Request *request);
     }
 }
 

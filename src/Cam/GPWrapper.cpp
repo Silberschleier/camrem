@@ -114,3 +114,23 @@ bool Cam::GPWrapper::GPhotoContext::is_valid() {
 Cam::GPWrapper::GPhotoContext::operator GPContext *() {
     return context_;
 }
+
+Cam::GPWrapper::GPhotoCameraFile::GPhotoCameraFile() {
+    int ret = gp_file_new(&camerafile_);
+    ok_ = ( GP_OK == ret );
+    if ( not ok_ ) {
+        BOOST_LOG_TRIVIAL(warning) << "gp_file_new: " << gp_result_as_string(ret);
+    }
+}
+
+Cam::GPWrapper::GPhotoCameraFile::~GPhotoCameraFile() {
+    gp_file_unref(camerafile_);
+}
+
+bool Cam::GPWrapper::GPhotoCameraFile::is_valid() {
+    return ok_;
+}
+
+Cam::GPWrapper::GPhotoCameraFile::operator CameraFile *() {
+    return camerafile_;
+}

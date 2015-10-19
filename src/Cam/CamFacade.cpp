@@ -16,20 +16,31 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "FileResponse.h"
+#include "CamFacade.h"
 
-bool Http::FileResponse::is_static() {
-    return true;
+Cam::CamFacade::CamFacade() { }
+
+Cam::CamFacade::~CamFacade() { }
+
+Cam::CamFacade *Cam::CamFacade::getInstance() {
+    static CamFacade instance;
+    return &instance;
 }
 
-shared_ptr<string> Http::FileResponse::getContent() {
-    if ( not content ) {
-        content = load_file(filename_);
-    }
+shared_ptr<Cam::Result> Cam::CamFacade::dummy() {
+    auto callback = bind(&CamHandler::sleep, &camera_);
+    auto action = make_shared<Action>(callback);
 
-    return content;
+    camera_.enqueue(action);
+
+    return action->getResult();
 }
 
-Http::FileResponse::FileResponse(string file) {
-    filename_ = file;
+shared_ptr<Cam::Result> Cam::CamFacade::getPreview() {
+    auto callback = bind(&CamHandler::getPreview, &camera_);
+    auto action = make_shared<Action>(callback);
+
+    camera_.enqueue(action);
+
+    return action->getResult();
 }

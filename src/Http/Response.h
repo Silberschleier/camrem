@@ -20,25 +20,30 @@
 #define CAMREM_RESPONSE_H
 
 #include <string>
+#include <vector>
 #include <memory>
 
 using std::string;
+using std::vector;
 using std::shared_ptr;
 using std::make_shared;
 
 namespace Http {
     class Response {
+    private:
+        shared_ptr<vector<char>> content_;
     public:
         unsigned int status;
-        shared_ptr<string> content;
 
         Response();
         ~Response();
 
-        /*
-         * @return String of the content of the response.
-         */
-        virtual shared_ptr<string> getContent();
+        const char * getRawData();
+        unsigned long getRawDataSize();
+        void setContent(shared_ptr<string> data);
+        void setContent(string data);
+        void setContent(const char *data, unsigned long size);
+        void setContent(shared_ptr<vector<char>> data);
 
         /*
          * @return Always false.

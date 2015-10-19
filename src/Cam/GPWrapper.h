@@ -78,6 +78,17 @@ namespace Cam {
             bool is_valid();
             operator GPContext *();
         };
+
+        class GPhotoCameraFile {
+        private:
+            bool ok_;
+            CameraFile *camerafile_;
+        public:
+            GPhotoCameraFile();
+            ~GPhotoCameraFile();
+            bool is_valid();
+            operator CameraFile *();
+        };
     }
 }
 

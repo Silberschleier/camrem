@@ -16,31 +16,25 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef CAMREM_FILERESPONSE_H
-#define CAMREM_FILERESPONSE_H
+#ifndef CAMREM_CAMFACADE_H
+#define CAMREM_CAMFACADE_H
 
-#include "Response.h"
-#include "../Helpers.h"
+#include "CamHandler.h"
 
-namespace Http {
-    class FileResponse : public Response {
+using std::bind;
+
+namespace Cam {
+    class CamFacade {
     private:
-        string filename_;
+        Cam::CamHandler camera_;
+
+        CamFacade();
+        ~CamFacade();
     public:
-        FileResponse(string file);
-
-        /*
-         * @return String of the content of the response.
-         */
-        shared_ptr<string> getContent();
-
-        /*
-         * @return Always true.
-         */
-        bool is_static();
+        static CamFacade * getInstance();
+        shared_ptr<Result> dummy();
+        shared_ptr<Result> getPreview();
     };
 }
 
-
-
-#endif //CAMREM_FILERESPONSE_H
+#endif //CAMREM_CAMFACADE_H

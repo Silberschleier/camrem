@@ -30,6 +30,27 @@ bool Http::Response::is_static() {
     return false;
 }
 
-shared_ptr<string> Http::Response::getContent() {
-    return content;
+const char *Http::Response::getRawData() {
+    return content_->data();
 }
+
+unsigned long Http::Response::getRawDataSize() {
+    return content_->size();
+}
+
+void Http::Response::setContent(shared_ptr<string> data) {
+    content_ = make_shared<vector<char>>(data->begin(), data->end());
+}
+
+void Http::Response::setContent(string data) {
+    content_ = make_shared<vector<char>>(data.begin(), data.end());
+}
+
+void Http::Response::setContent(const char *data, unsigned long size) {
+    make_shared<vector<char>>(data, data + size);
+}
+
+void Http::Response::setContent(shared_ptr<vector<char>> data) {
+    content_ = data;
+}
+

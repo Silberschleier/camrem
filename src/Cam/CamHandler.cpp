@@ -16,14 +16,14 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "Cam.h"
+#include "CamHandler.h"
 
 
-Cam::Cam::Cam() {
-    thread_ = thread( &Cam::handle_events, this );
+Cam::CamHandler::CamHandler() {
+    thread_ = thread( &CamHandler::handle_events, this );
 }
 
-bool Cam::Cam::init() {
+bool Cam::CamHandler::init() {
     GPWrapper::GPhotoCameraList camera_list;
     GPWrapper::GPhotoPortInfoList portinfo_list;
     GPWrapper::GPhotoAbilitiesList abilities_list;
@@ -89,19 +89,19 @@ bool Cam::Cam::init() {
     return true;
 }
 
-bool Cam::Cam::reinit() {
+bool Cam::CamHandler::reinit() {
     gp_camera_exit(*camera_, *context_);
     while ( not init() );
-    return init();
+    return true;
 }
 
-void Cam::Cam::enqueue(shared_ptr<Action> action) {
+void Cam::CamHandler::enqueue(shared_ptr<Action> action) {
     queue_lock_.lock();
     action_queue_.push(action);
     queue_lock_.unlock();
 }
 
-void Cam::Cam::process_action() {
+void Cam::CamHandler::process_action() {
     shared_ptr<Action> action;
     queue_lock_.lock();
 
@@ -119,7 +119,7 @@ void Cam::Cam::process_action() {
     }
 }
 
-void Cam::Cam::handle_events() {
+void Cam::CamHandler::handle_events() {
     int poll_timeout = ConfigHandler::getInstance()->config["Camera"]["EventPollTimeout"];
     int ret;
     CameraEventType event_type;
@@ -163,13 +163,34 @@ void Cam::Cam::handle_events() {
 }
 
 
-shared_ptr<Cam::Action> Cam::Cam::dummy() {
-    auto callback = std::bind(&Cam::sleep, this);
-    return std::make_shared<Action>(callback);
-}
-
-shared_ptr<Cam::Result> Cam::Cam::sleep() {
+shared_ptr<Cam::Result> Cam::CamHandler::sleep() {
     std::this_thread::sleep_for(std::chrono::seconds(2));
     json data = {{"sleep", "test"}};
     return std::make_shared<Result>(data);
+}
+
+shared_ptr<Cam::Result> Cam::CamHandler::getPreview() {
+    GPWrapper::GPhotoCameraFile file;
+    const char *image_data;
+    unsigned long image_size;
+    int ret;
+
+    // Capture the preview
+    ret = gp_camera_capture_preview(*camera_, file, *context_);
+    if ( GP_OK != ret ) {
+        BOOST_LOG_TRIVIAL(warning) << "gp_camera_capture_preview: " << gp_result_as_string(ret);
+        // TODO: Return error result
+    }
+
+    // Download the preview
+    ret = gp_file_get_data_and_size(file, &image_data, &image_size);
+    if ( GP_OK != ret ) {
+        BOOST_LOG_TRIVIAL(warning) << "gp_file_get_data_and_size: " << gp_result_as_string(ret);
+        // TODO: Return error result
+    }
+
+    // Store the data
+    shared_ptr<vector<char>> data = make_shared<vector<char>>(image_data, image_data + image_size);
+
+    return make_shared<Result>(data);
 }
