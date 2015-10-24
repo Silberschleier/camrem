@@ -11,7 +11,15 @@
 ### Debian Jessie / Ubuntu Trusty
 *  **Clone repository:** ```git clone https://github.com/Silberschleier/camrem.git```
 *  **Clone submodules:** ```cd camrem``` and ```git submodule init``` and ```git submodule update```
-*  **Install required dependencies:**```apt-get install cmake libmicrohttpd-dev libgphoto2-dev g++ libboost-test-dev libboost-log-dev```
+*  **Install required dependencies:** ```apt-get install cmake libmicrohttpd-dev libgphoto2-dev g++ libboost-test-dev libboost-log-dev```
+*  **Generate Makefiles:** ```cmake .```
+*  **Build:** ```make```
+
+### Mac OS X
+#### Using <a href="http://brew.sh/">Homebrew</a>
+*  **Clone repository:** ```git clone https://github.com/Silberschleier/camrem.git```
+*  **Clone submodules:** ```cd camrem``` and ```git submodule init``` and ```git submodule update```
+*  **Install required dependencies:** ```brew install boost libgphoto2 libmicrohttpd```
 *  **Generate Makefiles:** ```cmake .```
 *  **Build:** ```make```
 
