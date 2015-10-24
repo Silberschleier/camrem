@@ -2,6 +2,8 @@ language: cpp
 sudo: true
 
 matrix:
+  allow_failures:
+    - os: osx
   include:
     - os: linux
       compiler: gcc
