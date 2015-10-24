@@ -18,6 +18,18 @@ matrix:
         - sudo apt-get install -y libmicrohttpd-dev libgphoto2-2-dev
       env: COMPILER=g++-4.9
     - os: linux
+      compiler: gcc
+      addons:
+        apt:
+          sources: ['ubuntu-toolchain-r-test', 'boost-latest']
+          packages: ['g++-5', 'libboost-test1.55-dev', 'libboost-log1.55-dev']
+      before_install:
+        - curl 'https://bintray.com/user/downloadSubjectPublicKey?username=netflixoss' | sudo apt-key add - 
+        - echo "deb https://dl.bintray.com/netflixoss/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
+        - sudo apt-get update -qq
+        - sudo apt-get install -y libmicrohttpd-dev libgphoto2-2-dev
+      env: COMPILER=g++-5
+    - os: linux
       compiler: clang
       addons:
         apt:
