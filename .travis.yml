@@ -31,7 +31,6 @@ matrix:
       compiler: clang
       before_install:
         - brew install libgphoto2
-        - brew install boost
         - brew install libmicrohttpd
       env: COMPILER=clang++
 
