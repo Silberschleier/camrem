@@ -7,23 +7,22 @@ matrix:
       compiler: gcc
       addons:
         apt:
-          sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-4.9']
+          sources: ['ubuntu-toolchain-r-test', 'boost-latest']
+          packages: ['g++-4.9', 'libboost-test1.54-dev', 'libboost-log1.54-dev', 'libgphoto2-2-dev']
       env: COMPILER=g++-4.9
     - os: linux
       compiler: clang
       addons:
         apt:
-          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-precise-3.6']
-          packages: ['clang-3.6']
+          sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-precise-3.6', 'boost-latest']
+          packages: ['clang-3.6', 'libboost-test1.54-dev', 'libboost-log1.54-dev', 'libgphoto2-2-dev']
       env: COMPILER=clang++-3.6
 
 before_install:
   - curl 'https://bintray.com/user/downloadSubjectPublicKey?username=netflixoss' | sudo apt-key add - 
   - echo "deb https://dl.bintray.com/netflixoss/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
-  - sudo add-apt-repository ppa:boost-latest/ppa -y
   - sudo apt-get update -qq
-  - sudo apt-get install -y libmicrohttpd-dev libboost-test1.54-dev libboost-log1.54-dev libgphoto2-2-dev
+  - sudo apt-get install -y libmicrohttpd-dev
   - export CXX=$COMPILER
   - touch server.key
   - touch server.pem
