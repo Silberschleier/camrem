@@ -9,6 +9,11 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'boost-latest']
           packages: ['g++-4.9', 'libboost-test1.55-dev', 'libboost-log1.55-dev']
+      before_install:
+        - curl 'https://bintray.com/user/downloadSubjectPublicKey?username=netflixoss' | sudo apt-key add - 
+        - echo "deb https://dl.bintray.com/netflixoss/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
+        - sudo apt-get update -qq
+        - sudo apt-get install -y libmicrohttpd-dev libgphoto2-2-dev
       env: COMPILER=g++-4.9
     - os: linux
       compiler: clang
@@ -16,13 +21,14 @@ matrix:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-precise-3.6', 'boost-latest']
           packages: ['clang-3.6', 'libboost-test1.55-dev', 'libboost-log1.55-dev']
+      before_install:
+        - curl 'https://bintray.com/user/downloadSubjectPublicKey?username=netflixoss' | sudo apt-key add - 
+        - echo "deb https://dl.bintray.com/netflixoss/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
+        - sudo apt-get update -qq
+        - sudo apt-get install -y libmicrohttpd-dev libgphoto2-2-dev
       env: COMPILER=clang++-3.6
 
 before_install:
-  - curl 'https://bintray.com/user/downloadSubjectPublicKey?username=netflixoss' | sudo apt-key add - 
-  - echo "deb https://dl.bintray.com/netflixoss/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
-  - sudo apt-get update -qq
-  - sudo apt-get install -y libmicrohttpd-dev libgphoto2-2-dev
   - export CXX=$COMPILER
   - touch server.key
   - touch server.pem
