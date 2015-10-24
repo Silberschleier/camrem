@@ -30,8 +30,10 @@ matrix:
     - os: osx
       compiler: clang
       before_install:
-        - brew install libgphoto2 boost libmicrohttpd
-      env: COMPILEr=clang++
+        - brew install libgphoto2
+        - brew install boost
+        - brew install libmicrohttpd
+      env: COMPILER=clang++
 
 script:
   - cmake . -DCMAKE_CXX_COMPILER=$COMPILER
