@@ -28,12 +28,9 @@ matrix:
         - sudo apt-get install -y libmicrohttpd-dev libgphoto2-2-dev
       env: COMPILER=clang++-3.6
 
-before_install:
-  - export CXX=$COMPILER
+script:
+  - cmake . -DCMAKE_CXX_COMPILER=$COMPILER
+  - make
   - touch server.key
   - touch server.pem
-
-script:
-  - cmake .
-  - make
   - ./camrem_tests
