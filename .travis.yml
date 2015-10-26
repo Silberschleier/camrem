@@ -16,7 +16,7 @@ matrix:
         - echo "deb https://dl.bintray.com/netflixoss/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
         - sudo apt-get update -qq
         - sudo apt-get install -y libmicrohttpd-dev libgphoto2-2-dev
-        - pip install --user cpp-coveralls
+        - pip install --user git+git://github.com/eddyxu/cpp-coveralls.git
       env: COMPILER=g++-4.9
     - os: linux
       compiler: gcc
