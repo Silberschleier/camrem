@@ -18,9 +18,7 @@
 
 #include "ConfigHandler.h"
 
-ConfigHandler::ConfigHandler() {
-
-}
+ConfigHandler::ConfigHandler() { }
 
 ConfigHandler::~ConfigHandler() {
     flush();
@@ -55,6 +53,9 @@ bool ConfigHandler::init(string filename) {
     }
     BOOST_LOG_TRIVIAL(trace) << "Deserialized config";
 
+    fs.close();
+    BOOST_LOG_TRIVIAL(trace) << "Closed config file: " << filename;
+
     return true;
 }
 
@@ -72,4 +73,7 @@ void ConfigHandler::flush() {
 
     fs.clear();
     fs << std::setw(2) << config;
+
+    fs.close();
+    BOOST_LOG_TRIVIAL(trace) << "Closed config file: " << filename_;
 }

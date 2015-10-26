@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE( HttpDaemon_withoutSSL ) {
     BOOST_REQUIRE(daemon.init(config));
 }
 
-BOOST_AUTO_TEST_CASE( HttpDaemon_SSLConfigTest ) {
+BOOST_AUTO_TEST_CASE( HttpDaemon_ConfigTest ) {
     Http::Daemon d;
 
     json config_correct1 = "{\"port\": 8889, \"ssl\": false}"_json;
@@ -42,6 +42,8 @@ BOOST_AUTO_TEST_CASE( HttpDaemon_SSLConfigTest ) {
     json config_incorrect4 = "{\"port\": 8889, \"ssl\": {\"cert\": \"server.pem\"}}"_json;
     json config_incorrect5 = "{\"port\": 8889, \"ssl\": {\"cert\": \"notexistent.pem\",\"key\": \"404.pem\"}}"_json;
     json config_incorrect6 = "{\"port\": 8889, \"ssl\": true}"_json;
+    json config_incorrect7 = "{\"ssl\": false}"_json;
+    json config_incorrect8 = "{\"port\": \"string\", \"ssl\": false}"_json;
 
     BOOST_REQUIRE(d.init(config_correct1));
     BOOST_REQUIRE(d.init(config_correct2));
@@ -51,7 +53,8 @@ BOOST_AUTO_TEST_CASE( HttpDaemon_SSLConfigTest ) {
     BOOST_REQUIRE(not d.init(config_incorrect4));
     BOOST_REQUIRE(not d.init(config_incorrect5));
     BOOST_REQUIRE(not d.init(config_incorrect6));
-
+    BOOST_REQUIRE(not d.init(config_incorrect7));
+    BOOST_REQUIRE(not d.init(config_incorrect8));
 }
 
 BOOST_AUTO_TEST_CASE( HttpDaemon_invalidPort ) {
