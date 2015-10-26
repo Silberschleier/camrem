@@ -16,6 +16,7 @@ matrix:
         - echo "deb https://dl.bintray.com/netflixoss/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
         - sudo apt-get update -qq
         - sudo apt-get install -y libmicrohttpd-dev libgphoto2-2-dev
+        - pip install --user cpp-coveralls
       env: COMPILER=g++-4.9
     - os: linux
       compiler: gcc
@@ -54,3 +55,12 @@ script:
   - touch server.key
   - touch server.pem
   - ./camrem_tests
+
+after_success:
+  - if [ "$COMPILER" = "g++-4.9" ]; then make clean ; fi
+  - if [ "$COMPILER" = "g++-4.9" ]; then rm -rf CMakeFiles ; fi
+  - if [ "$COMPILER" = "g++-4.9" ]; then rm tests/temp.json tests/nonexistent.json ; fi
+  - if [ "$COMPILER" = "g++-4.9" ]; then cmake -DCOVERAGE=ON ; fi
+  - if [ "$COMPILER" = "g++-4.9" ]; then make camrem_tests ; fi
+  - if [ "$COMPILER" = "g++-4.9" ]; then ./camrem_tests ; fi
+  - if [ "$COMPILER" = "g++-4.9" ]; then coveralls -e src/json -e tests ; fi
