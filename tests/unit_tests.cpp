@@ -2,7 +2,7 @@
 // Created by Christopher Schmidt on 28.07.15.
 //
 
-#include "tests.h"
+#include "unit_tests.h"
 
 
 BOOST_AUTO_TEST_CASE( ConfigHandler_FaultyFiles ) {
