@@ -47,7 +47,7 @@ void Http::Response::setContent(string data) {
 }
 
 void Http::Response::setContent(const char *data, unsigned long size) {
-    make_shared<vector<char>>(data, data + size);
+    content_ = make_shared<vector<char>>(data, data + size);
 }
 
 void Http::Response::setContent(shared_ptr<vector<char>> data) {

@@ -66,3 +66,20 @@ BOOST_AUTO_TEST_CASE( HttpDaemon_invalidPort ) {
     Http::Daemon daemon2;
     BOOST_REQUIRE(not daemon2.init(config2));
 }
+
+BOOST_AUTO_TEST_CASE( HttpResponse_init ) {
+    Http::Response r;
+    std::string str1("test content1");
+    std::string str2("test content with different length2");
+
+    BOOST_REQUIRE(not r.is_static());
+
+    r.setContent(str1);
+    BOOST_REQUIRE_EQUAL( r.getRawDataSize(), str1.size());
+    BOOST_REQUIRE_EQUAL( *r.getRawData(), *str1.c_str());
+
+    r.setContent(str2.c_str(), str2.size());
+    BOOST_REQUIRE_EQUAL( r.getRawDataSize(), str2.size());
+    BOOST_REQUIRE_EQUAL( *r.getRawData(), *str2.c_str());
+
+}
