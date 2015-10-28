@@ -71,15 +71,23 @@ BOOST_AUTO_TEST_CASE( HttpResponse_init ) {
     Http::Response r;
     std::string str1("test content1");
     std::string str2("test content with different length2");
+    shared_ptr<string> str3 = make_shared<string>("test content3");
 
     BOOST_REQUIRE(not r.is_static());
 
+    // Testing std::strings
     r.setContent(str1);
     BOOST_REQUIRE_EQUAL( r.getRawDataSize(), str1.size());
     BOOST_REQUIRE_EQUAL( *r.getRawData(), *str1.c_str());
 
+    // Testing const chars
     r.setContent(str2.c_str(), str2.size());
     BOOST_REQUIRE_EQUAL( r.getRawDataSize(), str2.size());
     BOOST_REQUIRE_EQUAL( *r.getRawData(), *str2.c_str());
+
+    // Testing shared_ptrs<string>
+    r.setContent(str3);
+    BOOST_REQUIRE_EQUAL( r.getRawDataSize(), str3->size());
+    BOOST_REQUIRE_EQUAL( *r.getRawData(), *str3->c_str());
 
 }
