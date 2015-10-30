@@ -25,6 +25,7 @@
 #include "../Helpers.h"
 #include "Daemon.h"
 #include "Response.h"
+#include "Request.h"
 #include "Bindings.h"
 
 using std::vector;
@@ -42,20 +43,18 @@ namespace Http {
         STATUS_SERVERERROR = 500
     };
 
+    class Daemon;
+    class Request;
+
     class Http {
     private:
         vector<Daemon*> daemons_;
         vector<pair<regex, function<bool(Request *)>>> handlers_;
         string document_root_;
 
+    public:
         Http(void);
         ~Http(void);
-    public:
-        /*
-         * The instance of Http is defined and created in here.
-         * @return The instance of Http
-         */
-        static Http * getInstance(void);
 
         /*
          * Initializes and runs every VirtualHost specified in the config.

@@ -19,11 +19,11 @@
 #include "Daemon.h"
 #include "Http.h"
 
-Http::Daemon::Daemon() {
+Http::Daemon::Daemon(Http *http) : http_(http) {
     daemon_ = NULL;
 }
 
-Http::Daemon::Daemon(json config) {
+Http::Daemon::Daemon(Http *http, json config) : http_(http) {
     daemon_ = NULL;
 
     this->init(config);
@@ -89,6 +89,7 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
     unsigned int status;
     Request *request;
     shared_ptr<Response> response;
+    Daemon *daemon = (Daemon*) cls;
 
     // Check if the request is created already, or create it.
     if ( NULL == *con_cls ) {
@@ -109,7 +110,7 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
     }
 
     // Process the request in Http main class
-    if ( Http::getInstance()->processRequest(request) ) {
+    if ( daemon->http_->processRequest(request) ) {
         response = request->response;
         status = response->status;
 
@@ -137,7 +138,7 @@ bool Http::Daemon::run() {
     }
 
     daemon_ = MHD_start_daemon(MHD_USE_THREAD_PER_CONNECTION, port_, NULL, NULL,
-                               &handle_connection, NULL,
+                               &handle_connection, this, NULL,
                                MHD_OPTION_NOTIFY_COMPLETED, &Request::completed, NULL,
                                MHD_OPTION_END);
 

@@ -40,11 +40,6 @@ Http::Http::~Http(void) {
     BOOST_LOG_TRIVIAL(trace) << "Removed HTTP instance.";
 }
 
-Http::Http *Http::Http::getInstance(void) {
-    static Http instance;
-    return &instance;
-}
-
 void Http::Http::run(void) {
     ConfigHandler *configHandler = ConfigHandler::getInstance();
     json config = configHandler->config["Http"];
@@ -64,7 +59,7 @@ void Http::Http::run(void) {
     BOOST_LOG_TRIVIAL(info) << "Starting VirtualHosts...";
 
     for (auto vhostConfig : vhosts) {
-        daemons_.push_back( new Daemon(vhostConfig) );
+        daemons_.push_back(new Daemon(this, vhostConfig));
     }
 }
 

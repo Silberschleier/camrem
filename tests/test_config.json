@@ -1,0 +1,11 @@
+{
+  "Http": {
+    "DocumentRoot": "tests/tests_html/",
+    "VirtualHosts": [
+      {
+        "port": 8888,
+        "ssl": false
+      }
+    ]
+  }
+}

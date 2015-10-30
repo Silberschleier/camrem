@@ -27,12 +27,12 @@ BOOST_AUTO_TEST_CASE( ConfigHandler_FileOperations ) {
 
 BOOST_AUTO_TEST_CASE( HttpDaemon_withoutSSL ) {
     json config = "{\"port\": 8888,\"ssl\": false}"_json;
-    Http::Daemon daemon;
+    Http::Daemon daemon(nullptr);
     BOOST_REQUIRE(daemon.init(config));
 }
 
 BOOST_AUTO_TEST_CASE( HttpDaemon_ConfigTest ) {
-    Http::Daemon d;
+    Http::Daemon d(nullptr);
 
     json config_correct1 = "{\"port\": 8889, \"ssl\": false}"_json;
     json config_correct2 = "{\"port\": 8889, \"ssl\": {\"cert\": \"server.pem\",\"key\": \"server.key\"}}"_json;
@@ -59,11 +59,11 @@ BOOST_AUTO_TEST_CASE( HttpDaemon_ConfigTest ) {
 
 BOOST_AUTO_TEST_CASE( HttpDaemon_invalidPort ) {
     json config1 = "{\"port\": -1,\"ssl\": false}"_json;
-    Http::Daemon daemon1;
+    Http::Daemon daemon1(nullptr);
     BOOST_REQUIRE(not daemon1.init(config1));
 
     json config2 = "{\"port\": 70000,\"ssl\": false}"_json;
-    Http::Daemon daemon2;
+    Http::Daemon daemon2(nullptr);
     BOOST_REQUIRE(not daemon2.init(config2));
 }
 
@@ -90,4 +90,11 @@ BOOST_AUTO_TEST_CASE( HttpResponse_init ) {
     BOOST_REQUIRE_EQUAL( r.getRawDataSize(), str3->size());
     BOOST_REQUIRE_EQUAL( *r.getRawData(), *str3->c_str());
 
+}
+
+BOOST_AUTO_TEST_CASE( Http_Main ) {
+    ConfigHandler *conf = ConfigHandler::getInstance();
+    conf->init("tests/test_config.json");
+
+    Http::Http http1;
 }
