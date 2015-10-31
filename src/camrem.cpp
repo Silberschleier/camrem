@@ -39,17 +39,17 @@ int main(int argc, const char * argv[]) {
 
     Cam::CamFacade *camFacade = Cam::CamFacade::getInstance();
 
-    Http::Http* srv = Http::Http::getInstance();
-    srv->handle("404.html", Http::STATUS_NOTFOUND, std::regex("(.*)"));
-    srv->handle(Http::Bindings::jsonNotFound, std::regex("(/api/)(.*)"));
-    srv->handleDirectory("webui", "");
-    srv->handle("webui/index.html", std::regex("(/)"));
+    Http::Http srv;
+    srv.handle("404.html", Http::STATUS_NOTFOUND, std::regex("(.*)"));
+    srv.handle(Http::Bindings::jsonNotFound, std::regex("(/api/)(.*)"));
+    srv.handleDirectory("webui", "");
+    srv.handle("webui/index.html", std::regex("(/)"));
 
 
     // TODO: Just for testing. Remove this
-    srv->handle(Http::Bindings::dummyAction, std::regex("(/api/dummy)"));
-    srv->handle(Http::Bindings::getPreview, std::regex("(/api/preview)"));
-    srv->run();
+    srv.handle(Http::Bindings::dummyAction, std::regex("(/api/dummy)"));
+    srv.handle(Http::Bindings::getPreview, std::regex("(/api/preview)"));
+    srv.run();
 
 
 

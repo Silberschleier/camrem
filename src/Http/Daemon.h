@@ -28,13 +28,17 @@
 #include "../json/src/json.hpp"
 #include "../Helpers.h"
 #include "Request.h"
+#include "Http.h"
 
 using json = nlohmann::json;
 using std::string;
 
 namespace Http {
+    class Http;
+
     class Daemon {
     private:
+        Http *http_;
         struct MHD_Daemon *daemon_;
         shared_ptr<string> key_;
         shared_ptr<string> cert_;
@@ -54,13 +58,13 @@ namespace Http {
                 void **con_cls);
 
     public:
-        Daemon();
+        Daemon(Http *http);
 
         /*
          * Initializes and starts the daemon.
          * @param Config to initialize the daemon with.
          */
-        Daemon(json config);
+        Daemon(Http *http, json config);
         ~Daemon();
 
         /*

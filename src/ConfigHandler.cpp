@@ -18,9 +18,7 @@
 
 #include "ConfigHandler.h"
 
-ConfigHandler::ConfigHandler() {
-
-}
+ConfigHandler::ConfigHandler() { }
 
 ConfigHandler::~ConfigHandler() {
     flush();

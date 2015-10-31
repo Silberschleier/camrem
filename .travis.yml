@@ -55,13 +55,13 @@ script:
   - make -j2
   - touch server.key
   - touch server.pem
-  - ./camrem_tests
+  - ./camrem_unit_tests
 
 after_success:
   - if [ "$COMPILER" = "clang++-3.6" ]; then make clean ; fi
   - if [ "$COMPILER" = "clang++-3.6" ]; then rm -rf CMakeFiles ; fi
   - if [ "$COMPILER" = "clang++-3.6" ]; then rm tests/temp.json tests/nonexistent.json ; fi
   - if [ "$COMPILER" = "clang++-3.6" ]; then cmake -DCOVERAGE=ON ; fi
-  - if [ "$COMPILER" = "clang++-3.6" ]; then make -j2 camrem_tests ; fi
-  - if [ "$COMPILER" = "clang++-3.6" ]; then ./camrem_tests ; fi
+  - if [ "$COMPILER" = "clang++-3.6" ]; then make -j2 camrem_unit_tests ; fi
+  - if [ "$COMPILER" = "clang++-3.6" ]; then ./camrem_unit_tests ; fi
   - if [ "$COMPILER" = "clang++-3.6" ]; then coveralls -e src/json -e tests ; fi

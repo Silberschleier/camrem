@@ -10,5 +10,6 @@
 #include <boost/filesystem.hpp>
 #include "../src/ConfigHandler.h"
 #include "../src/Http/Daemon.h"
+#include "../src/Http/Http.h"
 
 #endif //CAMREM_TESTS_H

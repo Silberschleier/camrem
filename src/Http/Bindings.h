@@ -30,6 +30,8 @@ using std::shared_ptr;
 using std::make_shared;
 
 namespace Http {
+    class Request;
+
     namespace Bindings {
         /*
          * Responds with an API error and response code STATUS_NOTFOUND
