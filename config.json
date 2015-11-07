@@ -16,6 +16,6 @@
     ]
   },
   "Camera": {
-    "EventPollTimeout": 1000
+    "EventPollTimeout": 10
   }
 }

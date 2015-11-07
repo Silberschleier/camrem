@@ -108,8 +108,6 @@ void Cam::CamHandler::process_action() {
     if ( not action_queue_.empty() ) {
         action = action_queue_.top();
         action_queue_.pop();
-    } else {
-        BOOST_LOG_TRIVIAL(trace) << "Action queue empty";
     }
 
     queue_lock_.unlock();
@@ -149,7 +147,6 @@ void Cam::CamHandler::handle_events() {
                 BOOST_LOG_TRIVIAL(trace) << "GP_EVENT_FOLDER_ADDED";
                 break;
             case GP_EVENT_TIMEOUT:
-                BOOST_LOG_TRIVIAL(trace) << "GP_EVENT_TIMEOUT";
                 process_action();
                 break;
             case GP_EVENT_UNKNOWN:
