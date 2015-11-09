@@ -47,8 +47,6 @@ matrix:
         - brew install libgphoto2
         - brew install libmicrohttpd
       env: COMPILER=clang++
-  allow_failures:
-    - os: osx
 
 script:
   - cmake . -DCMAKE_CXX_COMPILER=$COMPILER
