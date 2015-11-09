@@ -9,7 +9,7 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'boost-latest']
-          packages: ['g++-4.9', 'libboost-test1.55-dev']
+          packages: ['g++-4.9', 'libboost-test1.55-dev', 'libboost-filesystem1.55-dev', 'libboost-thread1.55-dev']
       before_install:
         - curl 'https://bintray.com/user/downloadSubjectPublicKey?username=netflixoss' | sudo apt-key add - 
         - echo "deb https://dl.bintray.com/netflixoss/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
@@ -21,7 +21,7 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'boost-latest']
-          packages: ['g++-5', 'libboost-test1.55-dev']
+          packages: ['g++-5', 'libboost-test1.55-dev', 'libboost-filesystem1.55-dev', 'libboost-thread1.55-dev']
       before_install:
         - curl 'https://bintray.com/user/downloadSubjectPublicKey?username=netflixoss' | sudo apt-key add - 
         - echo "deb https://dl.bintray.com/netflixoss/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
@@ -33,7 +33,7 @@ matrix:
       addons:
         apt:
           sources: ['ubuntu-toolchain-r-test', 'llvm-toolchain-precise-3.6', 'boost-latest']
-          packages: ['clang-3.6', 'libboost-test1.55-dev']
+          packages: ['clang-3.6', 'libboost-test1.55-dev', 'libboost-filesystem1.55-dev', 'libboost-thread1.55-dev']
       before_install:
         - curl 'https://bintray.com/user/downloadSubjectPublicKey?username=netflixoss' | sudo apt-key add - 
         - echo "deb https://dl.bintray.com/netflixoss/ubuntu precise main" | sudo tee -a /etc/apt/sources.list
