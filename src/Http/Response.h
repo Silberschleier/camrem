@@ -22,6 +22,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include "../easylogging/src/easylogging++.h"
 
 using std::string;
 using std::vector;

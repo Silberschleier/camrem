@@ -20,25 +20,12 @@
 #define CAMREM_HELPERS_H
 
 #include <fstream>
-#include <boost/log/core.hpp>
-#include <boost/log/trivial.hpp>
-#include <boost/log/expressions.hpp>
-#include <boost/log/utility/setup/file.hpp>
-#include <boost/log/utility/setup/console.hpp>
-#include <boost/log/utility/setup/formatter_parser.hpp>
-#include <boost/log/utility/setup/common_attributes.hpp>
-#include <boost/log/support/date_time.hpp>
+#include "easylogging/src/easylogging++.h"
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 
-namespace expr = boost::log::expressions;
 using std::string;
 using std::shared_ptr;
 using std::make_shared;
-
-/*
- * Initializes Boost log.
- */
-void init_logging();
 
 /*
  * Loads a file into a string.

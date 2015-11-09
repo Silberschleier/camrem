@@ -16,6 +16,9 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#define ELPP_THREAD_SAFE
+#define ELPP_STACKTRACE_ON_CRASH
+
 #include <iostream>
 #include <csignal>
 #include "Helpers.h"
@@ -25,13 +28,21 @@
 #include "Http/Bindings.h"
 #include "Cam/CamFacade.h"
 
+
+
+INITIALIZE_EASYLOGGINGPP
+
 int main(int argc, const char * argv[]) {
-    init_logging();
-    BOOST_LOG_TRIVIAL(info) << "Camrem started.";
+    // Configure logging
+    el::Loggers::reconfigureAllLoggers(el::ConfigurationType::Format, "[%datetime] [%level] [%logger]\t\t%msg");
+    el::Loggers::addFlag(el::LoggingFlag::ColoredTerminalOutput);
+
+
+    LOG(INFO) << "Camrem started.";
 
     ConfigHandler *conf = ConfigHandler::getInstance();
     if (not conf->init("config.json")) {
-        BOOST_LOG_TRIVIAL(fatal) << "Error opening config";
+        LOG(FATAL) << "Error opening config";
         exit(1);
     }
 

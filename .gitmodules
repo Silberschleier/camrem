@@ -1,3 +1,6 @@
 [submodule "src/json"]
 	path = src/json
 	url = https://github.com/nlohmann/json.git
+[submodule "src/easylogging"]
+	path = src/easylogging
+	url = https://github.com/easylogging/easyloggingpp

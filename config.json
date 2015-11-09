@@ -1,4 +1,7 @@
 {
+  "Camera": {
+    "EventPollTimeout": 10
+  },
   "Http": {
     "DocumentRoot": "html",
     "VirtualHosts": [
@@ -14,8 +17,5 @@
         "ssl": false
       }
     ]
-  },
-  "Camera": {
-    "EventPollTimeout": 10
   }
 }

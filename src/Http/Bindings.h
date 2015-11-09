@@ -25,6 +25,7 @@
 #include "Http.h"
 #include "../Cam/CamHandler.h"
 #include "../Cam/CamFacade.h"
+#include "../easylogging/src/easylogging++.h"
 
 using std::shared_ptr;
 using std::make_shared;

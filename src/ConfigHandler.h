@@ -23,6 +23,7 @@
 #include <string>
 #include "Helpers.h"
 #include "json/src/json.hpp"
+#include "easylogging/src/easylogging++.h"
 
 using std::string;
 using std::fstream;

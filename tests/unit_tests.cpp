@@ -4,8 +4,15 @@
 
 #include "unit_tests.h"
 
+INITIALIZE_EASYLOGGINGPP
+
+void configure_logging() {
+    el::Loggers::addFlag(el::LoggingFlag::DisableApplicationAbortOnFatalLog);
+}
 
 BOOST_AUTO_TEST_CASE( ConfigHandler_FaultyFiles ) {
+    configure_logging();
+
     ConfigHandler *conf = ConfigHandler::getInstance();
 
     BOOST_REQUIRE(not conf->init("tests/test_fail.json"));

@@ -22,7 +22,7 @@ Cam::GPWrapper::GPhotoCameraList::GPhotoCameraList() {
     int ret = gp_list_new( &cameraList_ );
     ok_  = ( GP_OK == ret);
     if ( not ok_ ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_list_new: " << gp_result_as_string(ret);
+        LOG(WARNING) << "gp_list_new: " << gp_result_as_string(ret);
     }
 }
 
@@ -42,7 +42,7 @@ Cam::GPWrapper::GPhotoAbilitiesList::GPhotoAbilitiesList() {
     int ret = gp_abilities_list_new( &abilitiesList_ );
     ok_ = ( GP_OK == ret);
     if ( not ok_ ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_abilities_list_new: " << gp_result_as_string(ret);
+        LOG(WARNING) << "gp_abilities_list_new: " << gp_result_as_string(ret);
     }
 }
 
@@ -62,7 +62,7 @@ Cam::GPWrapper::GPhotoPortInfoList::GPhotoPortInfoList() {
     int ret = gp_port_info_list_new( &portinfoList_ );
     ok_ = ( GP_OK == ret);
     if ( not ok_ ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_port_info_list_new: " << gp_result_as_string(ret);
+        LOG(WARNING) << "gp_port_info_list_new: " << gp_result_as_string(ret);
     }
 }
 
@@ -82,7 +82,7 @@ Cam::GPWrapper::GPhotoCamera::GPhotoCamera() {
     int ret = gp_camera_new( &camera_ );
     ok_ = ( GP_OK == ret);
     if ( not ok_ ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_camera_new: " << gp_result_as_string(ret);
+        LOG(WARNING) << "gp_camera_new: " << gp_result_as_string(ret);
     }
 }
 
@@ -119,7 +119,7 @@ Cam::GPWrapper::GPhotoCameraFile::GPhotoCameraFile() {
     int ret = gp_file_new(&camerafile_);
     ok_ = ( GP_OK == ret );
     if ( not ok_ ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_file_new: " << gp_result_as_string(ret);
+        LOG(WARNING) << "gp_file_new: " << gp_result_as_string(ret);
     }
 }
 

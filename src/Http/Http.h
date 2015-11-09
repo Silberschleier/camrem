@@ -27,6 +27,7 @@
 #include "Response.h"
 #include "Request.h"
 #include "Bindings.h"
+#include "../easylogging/src/easylogging++.h"
 
 using std::vector;
 using std::regex;
