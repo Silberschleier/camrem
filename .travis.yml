@@ -64,4 +64,4 @@ after_success:
   - if [ "$COMPILER" = "clang++-3.6" ]; then cmake -DCOVERAGE=ON ; fi
   - if [ "$COMPILER" = "clang++-3.6" ]; then make -j2 camrem_unit_tests ; fi
   - if [ "$COMPILER" = "clang++-3.6" ]; then ./camrem_unit_tests ; fi
-  - if [ "$COMPILER" = "clang++-3.6" ]; then coveralls -e src/json -e tests ; fi
+  - if [ "$COMPILER" = "clang++-3.6" ]; then coveralls -e src/json -e src/easylogging -e tests ; fi
