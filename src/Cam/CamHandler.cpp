@@ -47,45 +47,45 @@ bool Cam::CamHandler::init() {
     // Fill portinfo_list
     ret = gp_port_info_list_load( portinfo_list );
     if ( GP_OK != ret ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_port_info_list_load: " << gp_result_as_string(ret);
+        LOG(WARNING) << "gp_port_info_list_load: " << gp_result_as_string(ret);
         return false;
     }
 
     ret = gp_port_info_list_count( portinfo_list );
     if ( 0 > ret ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_port_info_list_count: " << ret;
+        LOG(WARNING) << "gp_port_info_list_count: " << ret;
         return false;
     }
 
 
     ret = gp_abilities_list_load( abilities_list, *context_ );
     if ( GP_OK != ret ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_abilities_list_load: " << gp_result_as_string(ret);
+        LOG(WARNING) << "gp_abilities_list_load: " << gp_result_as_string(ret);
         return false;
     }
 
     // Detect connected cameras
     ret = gp_abilities_list_detect( abilities_list, portinfo_list, camera_list, *context_ );
     if ( GP_OK != ret ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_abilities_list_detect: " << gp_result_as_string(ret);
+        LOG(WARNING) << "gp_abilities_list_detect: " << gp_result_as_string(ret);
         return false;
     }
 
     // Check if any camera is available
     ret = gp_list_count( camera_list );
     if ( ret < 1 ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_list_count: " << ret;
+        LOG(WARNING) << "gp_list_count: " << ret;
         return false;
     }
 
     // Init camera
     ret = gp_camera_init( *camera_, *context_ );
     if ( GP_OK != ret ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_camera_init: " << gp_result_as_string(ret);
+        LOG(WARNING) << "gp_camera_init: " << gp_result_as_string(ret);
         return false;
     }
 
-    BOOST_LOG_TRIVIAL(trace) << "gp_camera_init successful";
+    LOG(TRACE) << "gp_camera_init successful";
     return true;
 }
 
@@ -129,7 +129,7 @@ void Cam::CamHandler::handle_events() {
     for(;;) {
         ret = gp_camera_wait_for_event(*camera_, poll_timeout, &event_type, &event_data, *context_);
         if ( GP_OK != ret ) {
-            BOOST_LOG_TRIVIAL(warning) << "gp_camera_wait_for_event: " << gp_result_as_string(ret);
+            LOG(WARNING) << "gp_camera_wait_for_event: " << gp_result_as_string(ret);
 
             // Wait for successful reinit
             reinit();
@@ -138,19 +138,19 @@ void Cam::CamHandler::handle_events() {
 
         switch (event_type) {
             case GP_EVENT_CAPTURE_COMPLETE:
-                BOOST_LOG_TRIVIAL(trace) << "GP_EVENT_CAPTURE_COMPLETE";
+                LOG(TRACE) << "GP_EVENT_CAPTURE_COMPLETE";
                 break;
             case GP_EVENT_FILE_ADDED:
-                BOOST_LOG_TRIVIAL(trace) << "GP_EVENT_FILE_ADDED";
+                LOG(TRACE) << "GP_EVENT_FILE_ADDED";
                 break;
             case GP_EVENT_FOLDER_ADDED:
-                BOOST_LOG_TRIVIAL(trace) << "GP_EVENT_FOLDER_ADDED";
+                LOG(TRACE) << "GP_EVENT_FOLDER_ADDED";
                 break;
             case GP_EVENT_TIMEOUT:
                 process_action();
                 break;
             case GP_EVENT_UNKNOWN:
-                BOOST_LOG_TRIVIAL(trace) << "GP_EVENT_UNKNOWN, event_data: " << (char *) event_data;
+                LOG(TRACE) << "GP_EVENT_UNKNOWN, event_data: " << (char *) event_data;
                 break;
         }
 
@@ -175,14 +175,14 @@ shared_ptr<Cam::Result> Cam::CamHandler::getPreview() {
     // Capture the preview
     ret = gp_camera_capture_preview(*camera_, file, *context_);
     if ( GP_OK != ret ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_camera_capture_preview: " << gp_result_as_string(ret);
+        LOG(WARNING) << "gp_camera_capture_preview: " << gp_result_as_string(ret);
         // TODO: Return error result
     }
 
     // Download the preview
     ret = gp_file_get_data_and_size(file, &image_data, &image_size);
     if ( GP_OK != ret ) {
-        BOOST_LOG_TRIVIAL(warning) << "gp_file_get_data_and_size: " << gp_result_as_string(ret);
+        LOG(WARNING) << "gp_file_get_data_and_size: " << gp_result_as_string(ret);
         // TODO: Return error result
     }
 

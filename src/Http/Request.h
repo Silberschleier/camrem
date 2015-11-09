@@ -23,6 +23,7 @@
 #include <memory>
 #include <microhttpd.h>
 #include "../json/src/json.hpp"
+#include "../easylogging/src/easylogging++.h"
 
 #include "Daemon.h"
 #include "Response.h"

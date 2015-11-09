@@ -25,7 +25,7 @@ Http::Http::Http(void) {
     json path = configHandler->config["Http"]["DocumentRoot"];
 
     if ( not path.is_string() ) {
-        BOOST_LOG_TRIVIAL(error) << "Invalid DocumentRoot.";
+        LOG(ERROR) << "Invalid DocumentRoot.";
     } else {
         string t = path;
         document_root_ = t;
@@ -37,7 +37,7 @@ Http::Http::~Http(void) {
         delete item;
     }
 
-    BOOST_LOG_TRIVIAL(trace) << "Removed HTTP instance.";
+    LOG(TRACE) << "Removed HTTP instance.";
 }
 
 void Http::Http::run(void) {
@@ -47,16 +47,16 @@ void Http::Http::run(void) {
 
     // Check for faulty config
     if ( "" == document_root_ ) {
-        BOOST_LOG_TRIVIAL(error) << "Faulty HTTP config. Not starting HTTP.";
+        LOG(ERROR) << "Faulty HTTP config. Not starting HTTP.";
     }
 
     if ( not vhosts.is_array() || vhosts.empty() ) {
-        BOOST_LOG_TRIVIAL(info) << "No VirtualHosts defined.";
+        LOG(INFO) << "No VirtualHosts defined.";
         return;
     }
 
     // Initialize and start each daemon
-    BOOST_LOG_TRIVIAL(info) << "Starting VirtualHosts...";
+    LOG(INFO) << "Starting VirtualHosts...";
 
     for (auto vhostConfig : vhosts) {
         daemons_.push_back(new Daemon(this, vhostConfig));
@@ -100,7 +100,7 @@ void Http::Http::handleDirectory(string path, string prefix) {
             }
         }
     } else {
-        BOOST_LOG_TRIVIAL(error) << "'" << path << "' is not a directory. Skipping.";
+        LOG(ERROR) << "'" << path << "' is not a directory. Skipping.";
     }
 }
 

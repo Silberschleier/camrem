@@ -39,32 +39,32 @@ bool ConfigHandler::init(string filename) {
 
     // Check for success
     if (not fs.is_open()) {
-        BOOST_LOG_TRIVIAL(warning) << "Could not open config file: " << filename;
+        LOG(WARNING) << "Could not open config file: " << filename;
         return false;
     }
-    BOOST_LOG_TRIVIAL(trace) << "Opened config file for reading: " << filename;
+    LOG(TRACE) << "Opened config file for reading: " << filename;
 
     // Deserialize config
     try {
         config << fs;
     } catch (const std::invalid_argument& exception) {
-        BOOST_LOG_TRIVIAL(warning) << "Error exists in config file: " << exception.what();
+        LOG(WARNING) << "Error exists in config file: " << exception.what();
         return false;
     }
-    BOOST_LOG_TRIVIAL(trace) << "Deserialized config";
+    LOG(TRACE) << "Deserialized config";
 
     return true;
 }
 
 void ConfigHandler::flush() {
     fstream fs;
-    BOOST_LOG_TRIVIAL(trace) << "Flushing config...";
+    LOG(TRACE) << "Flushing config...";
 
     fs.open(filename_, fstream::out | fstream::trunc);
 
     // Check if the filestream is ok
     if (not fs.is_open()) {
-        BOOST_LOG_TRIVIAL(warning) << "Could not open " << filename_ << " for writing";
+        LOG(WARNING) << "Could not open " << filename_ << " for writing";
         return;
     }
 

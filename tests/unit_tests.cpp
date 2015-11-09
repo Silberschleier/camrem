@@ -4,6 +4,7 @@
 
 #include "unit_tests.h"
 
+INITIALIZE_EASYLOGGINGPP
 
 BOOST_AUTO_TEST_CASE( ConfigHandler_FaultyFiles ) {
     ConfigHandler *conf = ConfigHandler::getInstance();

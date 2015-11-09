@@ -21,6 +21,7 @@
 
 #include <gphoto2/gphoto2.h>
 #include "../Helpers.h"
+#include "../easylogging/src/easylogging++.h"
 
 namespace Cam {
     namespace GPWrapper {

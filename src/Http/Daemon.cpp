@@ -37,7 +37,7 @@ Http::Daemon::~Daemon() {
 bool Http::Daemon::init(json config) {
     // Check if the port is a valid number
     if ( not config["port"].is_number_integer() ) {
-        BOOST_LOG_TRIVIAL(fatal) << "Invalid HTTP config: Port is not set or NaN";
+        LOG(FATAL) << "Invalid HTTP config: Port is not set or NaN";
         return false;
     }
 
@@ -46,7 +46,7 @@ bool Http::Daemon::init(json config) {
 
     // Check if the port is in range
     if ( port_ < MIN_PORT || port_ > MAX_PORT ) {
-        BOOST_LOG_TRIVIAL(fatal) << "Invalid HTTP config: Port must be between "
+        LOG(FATAL) << "Invalid HTTP config: Port must be between "
                                  << MIN_PORT << " and " << MAX_PORT
                                  << ", but is " << port_;
         return false;
@@ -59,12 +59,12 @@ bool Http::Daemon::init(json config) {
 
     // Check if the SSL config appears to be valid
     if ( not config["ssl"].is_object() ) {
-        BOOST_LOG_TRIVIAL(fatal) << "Invalid SSL config.";
+        LOG(FATAL) << "Invalid SSL config.";
         return false;
     }
 
     if ( not config["ssl"]["cert"].is_string() || not config["ssl"]["key"].is_string() ) {
-        BOOST_LOG_TRIVIAL(fatal) << "Invalid SSL config.";
+        LOG(FATAL) << "Invalid SSL config.";
         return false;
     }
 
@@ -74,7 +74,7 @@ bool Http::Daemon::init(json config) {
 
     // Check if the files are loaded
     if ( key_ == NULL || cert_ == NULL ) {
-        BOOST_LOG_TRIVIAL(fatal) << "Error loading keyfiles";
+        LOG(FATAL) << "Error loading keyfiles";
         return false;
     }
 
@@ -143,11 +143,11 @@ bool Http::Daemon::run() {
                                MHD_OPTION_END);
 
     if ( NULL == daemon_ ) {
-        BOOST_LOG_TRIVIAL(warning) << "Could not bind http daemon to port " << port_;
+        LOG(WARNING) << "Could not bind http daemon to port " << port_;
         return false;
     }
 
-    BOOST_LOG_TRIVIAL(info) << "Listening on port " << port_;
+    LOG(INFO) << "Listening on port " << port_;
     return true;
 }
 

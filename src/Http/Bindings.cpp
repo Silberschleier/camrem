@@ -42,7 +42,7 @@ bool ::Http::Bindings::dummyAction(Request *request) {
     if ( res ) {
         response->setContent(res->getData().dump());
     } else {
-        BOOST_LOG_TRIVIAL(error) << "Faulty result";
+        LOG(ERROR) << "Faulty result";
         return false;
     }
 
@@ -59,7 +59,7 @@ bool ::Http::Bindings::getPreview(Request *request) {
     if ( res ) {
         response->setContent(res->getImage());
     } else {
-        BOOST_LOG_TRIVIAL(error) << "Faulty result";
+        LOG(ERROR) << "Faulty result";
         return false;
     }
 

@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <microhttpd.h>
 #include "../json/src/json.hpp"
+#include "../easylogging/src/easylogging++.h"
 #include "../Helpers.h"
 #include "Request.h"
 #include "Http.h"

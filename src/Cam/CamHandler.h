@@ -29,6 +29,7 @@
 #include "../Helpers.h"
 #include "../ConfigHandler.h"
 #include "Action.h"
+#include "../easylogging/src/easylogging++.h"
 
 using std::thread;
 using std::priority_queue;

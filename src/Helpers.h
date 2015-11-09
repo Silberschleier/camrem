@@ -20,6 +20,7 @@
 #define CAMREM_HELPERS_H
 
 #include <fstream>
+#include "easylogging/src/easylogging++.h"
 #include <boost/log/core.hpp>
 #include <boost/log/trivial.hpp>
 #include <boost/log/expressions.hpp>
@@ -34,11 +35,6 @@ namespace expr = boost::log::expressions;
 using std::string;
 using std::shared_ptr;
 using std::make_shared;
-
-/*
- * Initializes Boost log.
- */
-void init_logging();
 
 /*
  * Loads a file into a string.
