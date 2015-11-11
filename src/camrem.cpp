@@ -16,8 +16,6 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#define ELPP_THREAD_SAFE
-#define ELPP_STACKTRACE_ON_CRASH
 
 #include <iostream>
 #include <csignal>

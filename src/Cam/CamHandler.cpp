@@ -31,7 +31,7 @@ bool Cam::CamHandler::init() {
     // OSX Workaround
     // TODO: Look for something more elegant
 #ifdef __APPLE__
-    system("killall PTPCamera");
+    system("killall PTPCamera 2> /dev/null");
     std::this_thread::sleep_for(std::chrono::seconds(1));
 #endif
 
@@ -74,7 +74,7 @@ bool Cam::CamHandler::init() {
     // Check if any camera is available
     ret = gp_list_count( camera_list );
     if ( ret < 1 ) {
-        LOG(WARNING) << "gp_list_count: " << ret;
+        LOG_N_TIMES(1, INFO) << "No Cameras found. Retrying silently...";
         return false;
     }
 
