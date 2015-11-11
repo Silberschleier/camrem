@@ -32,6 +32,7 @@ INITIALIZE_EASYLOGGINGPP
 
 int main(int argc, const char * argv[]) {
     // Configure logging
+    el::Loggers::addFlag(el::LoggingFlag::DisableApplicationAbortOnFatalLog);
     el::Loggers::reconfigureAllLoggers(el::ConfigurationType::Format, "[%datetime] [%level] [%logger]\t\t%msg");
     el::Loggers::addFlag(el::LoggingFlag::ColoredTerminalOutput);
 
