@@ -54,7 +54,8 @@ int main(int argc, const char * argv[]) {
 
 
     // TODO: Just for testing. Remove this
-    srv.handle(Http::Bindings::dummyAction, std::regex("(/api/dummy)"));
+    srv.handle(Http::Bindings::dummyCameraAction, std::regex("(/api/dummy/CameraAction)"));
+    srv.handle(Http::Bindings::dummyAction, std::regex("(/api/dummy/Response)"));
     srv.handle(Http::Bindings::getPreview, std::regex("(/api/preview)"));
     srv.run();
 

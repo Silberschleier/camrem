@@ -35,7 +35,7 @@ bool ::Http::Bindings::staticFile(Request *request, string filename, unsigned in
     return true;
 }
 
-bool ::Http::Bindings::dummyAction(Request *request) {
+bool ::Http::Bindings::dummyCameraAction(Request *request) {
     auto res = Cam::CamFacade::getInstance()->dummy();
 
     shared_ptr<Response> response = make_shared<Response>();
@@ -51,6 +51,17 @@ bool ::Http::Bindings::dummyAction(Request *request) {
 
     return true;
 }
+
+
+bool ::Http::Bindings::dummyAction(Request *request) {
+    shared_ptr<Response> response = make_shared<Response>();
+    response->setContent("Dummy Response");
+    response->status = STATUS_OK;
+    request->response = response;
+
+    return true;
+}
+
 
 bool ::Http::Bindings::getPreview(Request *request) {
     auto res = Cam::CamFacade::getInstance()->getPreview();

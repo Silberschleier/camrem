@@ -49,6 +49,7 @@ namespace Http {
         bool getPreview(Request *request);
 
         // TODO: Remove this.
+        bool dummyCameraAction(Request *request);
         bool dummyAction(Request *request);
     }
 }

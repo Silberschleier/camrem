@@ -1,0 +1,6 @@
+---
+- config:
+  - testset: "Integration tests without camera"
+- test:
+  - name: "Test Dummy Responses"
+  - url: "/api/dummy/Response"
