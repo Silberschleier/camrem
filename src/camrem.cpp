@@ -22,9 +22,6 @@
 #include "Helpers.h"
 #include "ConfigHandler.h"
 #include "Http/Http.h"
-#include "Http/Daemon.h"
-#include "Http/Bindings.h"
-#include "Cam/CamFacade.h"
 
 
 
