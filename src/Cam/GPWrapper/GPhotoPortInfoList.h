@@ -16,17 +16,27 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef CAMREM_GPWRAPPER_H
-#define CAMREM_GPWRAPPER_H
+#ifndef CAMREM_GPHOTOPORTINFOLIST_H
+#define CAMREM_GPHOTOPORTINFOLIST_H
 
-#include <gphoto2/gphoto2.h>
-#include "../Helpers.h"
-#include "../easylogging/src/easylogging++.h"
-#include "GPWrapper/GPhotoAbilitiesList.h"
-#include "GPWrapper/GPhotoCamera.h"
-#include "GPWrapper/GPhotoCameraFile.h"
-#include "GPWrapper/GPhotoCameraList.h"
-#include "GPWrapper/GPhotoContext.h"
-#include "GPWrapper/GPhotoPortInfoList.h"
+#include "../GPWrapper.h"
 
-#endif //CAMREM_GPWRAPPER_H
+namespace Cam{
+    namespace GPWrapper{
+        class GPhotoPortInfoList {
+        private:
+            bool ok_;
+            GPPortInfoList *portinfoList_;
+        public:
+            GPhotoPortInfoList();
+            ~GPhotoPortInfoList();
+            bool is_valid();
+            operator GPPortInfoList *();
+
+            int count();
+        };
+    }
+}
+
+
+#endif //CAMREM_GPHOTOPORTINFOLIST_H
