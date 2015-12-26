@@ -62,4 +62,5 @@ after_success:
   - if [ "$COMPILER" = "clang++-3.6" ]; then pip install pyresttest ; fi
   - if [ "$COMPILER" = "clang++-3.6" ]; then cmake -DCOVERAGE=ON ; fi
   - if [ "$COMPILER" = "clang++-3.6" ]; then make -j2 all ; fi
+  - if [ "$COMPILER" = "clang++-3.6" ]; then chmod +x .travis-coverages.sh ; fi
   - if [ "$COMPILER" = "clang++-3.6" ]; then ./.travis-coverages.sh ; fi
