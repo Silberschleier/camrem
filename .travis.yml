@@ -64,5 +64,7 @@ after_success:
   - if [ "$COMPILER" = "clang++-3.6" ]; then make -j2 all ; fi
   - if [ "$COMPILER" = "clang++-3.6" ]; then ./camrem_unit_tests ; fi
   - if [ "$COMPILER" = "clang++-3.6" ]; then (./camremd &) ; fi
+  - sleep 2
   - if [ "$COMPILER" = "clang++-3.6" ]; then pyresttest http://localhost:8888 tests/integration_offline.yml ; fi
+  - sleep 1
   - if [ "$COMPILER" = "clang++-3.6" ]; then coveralls -e src/json -e src/easylogging -e tests ; fi
