@@ -41,7 +41,7 @@ namespace Cam {
             bool ok_;
             CameraAbilitiesList *abilitiesList_;
         public:
-            GPhotoAbilitiesList();
+            GPhotoAbilitiesList(GPContext *context);
             ~GPhotoAbilitiesList();
             bool is_valid();
             operator CameraAbilitiesList *();
@@ -56,6 +56,8 @@ namespace Cam {
             ~GPhotoPortInfoList();
             bool is_valid();
             operator GPPortInfoList *();
+
+            int count();
         };
 
         class GPhotoCamera {

@@ -44,7 +44,9 @@ namespace Cam {
     private:
         thread thread_;
         mutex queue_lock_;
+        GPWrapper::GPhotoPortInfoList portinfo_list_;
         priority_queue<shared_ptr<Action>> action_queue_;
+        unique_ptr<GPWrapper::GPhotoAbilitiesList> abilities_list_;
         unique_ptr<GPWrapper::GPhotoContext> context_;
         unique_ptr<GPWrapper::GPhotoCamera> camera_;
 

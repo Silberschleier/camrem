@@ -38,11 +38,17 @@ Cam::GPWrapper::GPhotoCameraList::operator CameraList *() {
     return cameraList_;
 }
 
-Cam::GPWrapper::GPhotoAbilitiesList::GPhotoAbilitiesList() {
+Cam::GPWrapper::GPhotoAbilitiesList::GPhotoAbilitiesList(GPContext *context) {
     int ret = gp_abilities_list_new( &abilitiesList_ );
     ok_ = ( GP_OK == ret);
     if ( not ok_ ) {
         LOG(WARNING) << "gp_abilities_list_new: " << gp_result_as_string(ret);
+    }
+
+    ret = gp_abilities_list_load(abilitiesList_, context );
+    ok_ = ( GP_OK == ret);
+    if ( not ok_ ) {
+        LOG(WARNING) << "gp_abilities_list_load: " << gp_result_as_string(ret);
     }
 }
 
@@ -64,6 +70,13 @@ Cam::GPWrapper::GPhotoPortInfoList::GPhotoPortInfoList() {
     if ( not ok_ ) {
         LOG(WARNING) << "gp_port_info_list_new: " << gp_result_as_string(ret);
     }
+
+    // Fill portinfo_list
+    ret = gp_port_info_list_load( portinfoList_ );
+    ok_ = ( GP_OK == ret);
+    if ( not ok_ ) {
+        LOG(WARNING) << "gp_port_info_list_load: " << gp_result_as_string(ret);
+    }
 }
 
 Cam::GPWrapper::GPhotoPortInfoList::~GPhotoPortInfoList() {
@@ -76,6 +89,15 @@ Cam::GPWrapper::GPhotoPortInfoList::operator GPPortInfoList *() {
 
 bool Cam::GPWrapper::GPhotoPortInfoList::is_valid() {
     return ok_;
+}
+
+int Cam::GPWrapper::GPhotoPortInfoList::count() {
+    int ret = gp_port_info_list_count( portinfoList_ );
+    if ( 0 > ret ) {
+        LOG(WARNING) << "gp_port_info_list_count: " << ret;
+    }
+
+    return ret;
 }
 
 Cam::GPWrapper::GPhotoCamera::GPhotoCamera() {

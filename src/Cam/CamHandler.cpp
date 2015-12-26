@@ -21,12 +21,13 @@
 
 Cam::CamHandler::CamHandler() {
     thread_ = thread( &CamHandler::handle_events, this );
+    context_ = unique_ptr<GPWrapper::GPhotoContext>(new GPWrapper::GPhotoContext());
+    abilities_list_ = unique_ptr<GPWrapper::GPhotoAbilitiesList>(new GPWrapper::GPhotoAbilitiesList(*context_));
 }
 
 bool Cam::CamHandler::init() {
     GPWrapper::GPhotoCameraList camera_list;
-    GPWrapper::GPhotoPortInfoList portinfo_list;
-    GPWrapper::GPhotoAbilitiesList abilities_list;
+
 
     // OSX Workaround
     // TODO: Look for something more elegant
@@ -36,36 +37,17 @@ bool Cam::CamHandler::init() {
 #endif
 
     camera_ = unique_ptr<GPWrapper::GPhotoCamera>(new GPWrapper::GPhotoCamera());
-    context_ = unique_ptr<GPWrapper::GPhotoContext>(new GPWrapper::GPhotoContext());
 
-    if ( not camera_list.is_valid() || not portinfo_list.is_valid() || not abilities_list.is_valid() || not camera_->is_valid() ) {
+    if (not camera_list.is_valid() || not portinfo_list_.is_valid() || not abilities_list_->is_valid() || not camera_->is_valid() ) {
         return false;
     }
+
+    if (portinfo_list_.count() < 0 ) return false;
 
     int ret;
 
-    // Fill portinfo_list
-    ret = gp_port_info_list_load( portinfo_list );
-    if ( GP_OK != ret ) {
-        LOG(WARNING) << "gp_port_info_list_load: " << gp_result_as_string(ret);
-        return false;
-    }
-
-    ret = gp_port_info_list_count( portinfo_list );
-    if ( 0 > ret ) {
-        LOG(WARNING) << "gp_port_info_list_count: " << ret;
-        return false;
-    }
-
-
-    ret = gp_abilities_list_load( abilities_list, *context_ );
-    if ( GP_OK != ret ) {
-        LOG(WARNING) << "gp_abilities_list_load: " << gp_result_as_string(ret);
-        return false;
-    }
-
     // Detect connected cameras
-    ret = gp_abilities_list_detect( abilities_list, portinfo_list, camera_list, *context_ );
+    ret = gp_abilities_list_detect(*abilities_list_, portinfo_list_, camera_list, *context_ );
     if ( GP_OK != ret ) {
         LOG(WARNING) << "gp_abilities_list_detect: " << gp_result_as_string(ret);
         return false;
