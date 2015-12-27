@@ -37,20 +37,3 @@ bool Cam::GPWrapper::GPhotoCamera::is_valid() {
 Cam::GPWrapper::GPhotoCamera::operator Camera *() {
     return camera_;
 }
-
-Cam::GPWrapper::GPhotoContext::GPhotoContext() {
-    context_ = gp_context_new();
-    ok_ = true;
-}
-
-Cam::GPWrapper::GPhotoContext::~GPhotoContext() {
-    gp_context_unref( context_ );
-}
-
-bool Cam::GPWrapper::GPhotoContext::is_valid() {
-    return ok_;
-}
-
-Cam::GPWrapper::GPhotoContext::operator GPContext *() {
-    return context_;
-}

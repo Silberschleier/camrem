@@ -38,11 +38,13 @@ bool Cam::CamHandler::init() {
 
     camera_ = unique_ptr<GPWrapper::GPhotoCamera>(new GPWrapper::GPhotoCamera());
 
-    if (not camera_list.is_valid() || not portinfo_list_.is_valid() || not abilities_list_->is_valid() || not camera_->is_valid() ) {
+    if (   not camera_list.is_valid()
+        || not portinfo_list_.is_valid()
+        || not abilities_list_->is_valid()
+        || not camera_->is_valid()
+        || portinfo_list_.count() < 0 ) {
         return false;
     }
-
-    if (portinfo_list_.count() < 0 ) return false;
 
     int ret;
 
