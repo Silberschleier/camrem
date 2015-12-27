@@ -127,6 +127,7 @@ int Http::Daemon::handle_connection(void *cls, struct MHD_Connection *connection
     // Enqueue response and free resources
     ret = MHD_queue_response(connection, status, mhd_response);
     MHD_destroy_response(mhd_response);
+    delete request;
 
     return ret;
 }
@@ -139,7 +140,7 @@ bool Http::Daemon::run() {
 
     daemon_ = MHD_start_daemon(MHD_USE_THREAD_PER_CONNECTION, port_, NULL, NULL,
                                &handle_connection, this, NULL,
-                               MHD_OPTION_NOTIFY_COMPLETED, &Request::completed, NULL,
+                               MHD_OPTION_NOTIFY_COMPLETED, Request::completed, NULL,
                                MHD_OPTION_END);
 
     if ( NULL == daemon_ ) {

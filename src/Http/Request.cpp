@@ -53,8 +53,10 @@ int Http::Request::process_connection_values(void *cls, enum MHD_ValueKind kind,
     return MHD_YES;
 }
 
+// TODO: Figure out why this does not get called
 void Http::Request::completed(void *cls, struct MHD_Connection *connection, void **con_cls,
                               enum MHD_RequestTerminationCode toe) {
+    std::cout << "Request deleted" << std::endl;
     if (NULL == con_cls ) return;
 
     Request *request = (Request *) *con_cls;
