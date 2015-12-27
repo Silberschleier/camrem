@@ -24,7 +24,7 @@ if(COVERAGE)
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
 endif(COVERAGE)
 
-set(SOURCE_FILES_CAMREM src/Helpers.cpp src/ConfigHandler.cpp src/Http/Http.cpp src/Http/Daemon.cpp src/Http/Request.cpp src/Http/Response.cpp src/Http/Response.h src/Http/Bindings.cpp src/Http/Bindings.h src/Cam/CamHandler.cpp src/Cam/CamHandler.h src/Cam/GPWrapper.cpp src/Cam/GPWrapper.h src/Cam/Action.cpp src/Cam/Action.h src/Cam/Result.cpp src/Cam/Result.h src/Cam/CamFacade.cpp src/Cam/CamFacade.h)
+set(SOURCE_FILES_CAMREM src/Helpers.cpp src/ConfigHandler.cpp src/Http/Http.cpp src/Http/Daemon.cpp src/Http/Request.cpp src/Http/Response.cpp src/Http/Response.h src/Http/Bindings.cpp src/Http/Bindings.h src/Cam/CamHandler.cpp src/Cam/CamHandler.h src/Cam/GPWrapper.h src/Cam/Action.cpp src/Cam/Action.h src/Cam/Result.cpp src/Cam/Result.h src/Cam/CamFacade.cpp src/Cam/CamFacade.h src/Cam/GPWrapper/GPhotoCameraList.cpp src/Cam/GPWrapper/GPhotoCameraList.h src/Cam/GPWrapper/GPhotoAbilitiesList.cpp src/Cam/GPWrapper/GPhotoAbilitiesList.h src/Cam/GPWrapper/GPhotoPortInfoList.cpp src/Cam/GPWrapper/GPhotoPortInfoList.h src/Cam/GPWrapper/GPhotoCamera.cpp src/Cam/GPWrapper/GPhotoCamera.h src/Cam/GPWrapper/GPhotoContext.cpp src/Cam/GPWrapper/GPhotoContext.h src/Cam/GPWrapper/GPhotoCameraFile.cpp src/Cam/GPWrapper/GPhotoCameraFile.h)
 
 
 add_library(camremobjects STATIC ${SOURCE_FILES_CAMREM})
