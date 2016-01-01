@@ -20,9 +20,10 @@
 
 
 Cam::CamHandler::CamHandler() {
-    thread_ = thread( &CamHandler::handle_events, this );
-    context_ = unique_ptr<GPWrapper::GPhotoContext>(new GPWrapper::GPhotoContext());
+    context_ = unique_ptr<GPWrapper::GPhotoContext>(new GPWrapper::GPhotoContext);
     abilities_list_ = unique_ptr<GPWrapper::GPhotoAbilitiesList>(new GPWrapper::GPhotoAbilitiesList(*context_));
+
+    thread_ = thread( &CamHandler::handle_events, this );
 }
 
 bool Cam::CamHandler::init() {
