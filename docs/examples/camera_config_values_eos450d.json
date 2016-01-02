@@ -3,35 +3,30 @@
     {
       "children": [
         {
-          "children": null,
           "label": "Bulb Mode",
           "name": "bulb",
           "type": "toggle",
           "value": false
         },
         {
-          "children": null,
           "label": "UI Lock",
           "name": "uilock",
           "type": "toggle",
           "value": false
         },
         {
-          "children": null,
           "label": "Synchronize camera date and time with PC",
           "name": "syncdatetime",
           "type": "toggle",
           "value": false
         },
         {
-          "children": null,
           "label": "Drive Canon DSLR Autofocus",
           "name": "autofocusdrive",
           "type": "toggle",
           "value": false
         },
         {
-          "children": null,
           "choices": [
             "Near 1",
             "Near 2",
@@ -46,21 +41,18 @@
           "value": "None"
         },
         {
-          "children": null,
           "label": "Canon EOS Zoom",
           "name": "eoszoom",
           "type": "text",
           "value": "0"
         },
         {
-          "children": null,
           "label": "Canon EOS Zoom Position",
           "name": "eoszoomposition",
           "type": "text",
           "value": "0,0"
         },
         {
-          "children": null,
           "label": "Canon EOS Viewfinder",
           "name": "eosviewfinder",
           "type": "toggle",
@@ -73,14 +65,12 @@
     {
       "children": [
         {
-          "children": null,
           "label": "Camera Date and Time",
           "name": "datetime",
           "type": "date",
-          "value": 1451751949
+          "value": 1451769277
         },
         {
-          "children": null,
           "choices": [
             "None",
             "2 seconds",
@@ -93,7 +83,6 @@
           "value": "None"
         },
         {
-          "children": null,
           "choices": [
             "TFT",
             "PC",
@@ -104,7 +93,6 @@
           "value": "Unknown value 0000"
         },
         {
-          "children": null,
           "choices": [
             "0",
             "1"
@@ -114,28 +102,24 @@
           "value": "1"
         },
         {
-          "children": null,
           "label": "Owner Name",
           "name": "ownername",
           "type": "text",
           "value": "Christopher Schmidt"
         },
         {
-          "children": null,
           "label": "Custom Functions Ex",
           "name": "customfuncex",
           "type": "text",
           "value": "10,c189,d102,68,"
         },
         {
-          "children": null,
           "label": "Auto Power Off",
           "name": "autopoweroff",
           "type": "text",
           "value": "30"
         },
         {
-          "children": null,
           "choices": [
             "Internal RAM",
             "Memory card"
@@ -145,7 +129,6 @@
           "value": "Internal RAM"
         },
         {
-          "children": null,
           "label": "Capture",
           "name": "capture",
           "type": "toggle",
@@ -158,84 +141,72 @@
     {
       "children": [
         {
-          "children": null,
           "label": "Serial Number",
           "name": "serialnumber",
           "type": "text",
           "value": "ea3ac20304364192a5d64bc95c8912e1"
         },
         {
-          "children": null,
           "label": "Camera Manufacturer",
           "name": "manufacturer",
           "type": "text",
           "value": "Canon Inc."
         },
         {
-          "children": null,
           "label": "Camera Model",
           "name": "cameramodel",
           "type": "text",
           "value": "Canon EOS 450D"
         },
         {
-          "children": null,
           "label": "Device Version",
           "name": "deviceversion",
           "type": "text",
           "value": "3-1.1.0"
         },
         {
-          "children": null,
           "label": "Vendor Extension",
           "name": "vendorextension",
           "type": "text",
           "value": "None"
         },
         {
-          "children": null,
           "label": "Camera Model",
           "name": "model",
           "type": "text",
           "value": "2147484022"
         },
         {
-          "children": null,
           "label": "PTP Version",
           "name": "ptpversion",
           "type": "text",
           "value": "256"
         },
         {
-          "children": null,
           "label": "DPOF Version",
           "name": "dpofversion",
           "type": "text",
           "value": "257"
         },
         {
-          "children": null,
           "label": "Battery Level",
           "name": "batterylevel",
           "type": "text",
-          "value": "100%"
+          "value": "Low"
         },
         {
-          "children": null,
           "label": "Serial Number",
           "name": "eosserialnumber",
           "type": "text",
           "value": "-2014423477"
         },
         {
-          "children": null,
           "label": "Shutter Counter",
           "name": "shuttercounter",
           "type": "text",
           "value": "18912"
         },
         {
-          "children": null,
           "label": "Available Shots",
           "name": "availableshots",
           "type": "text",
@@ -248,7 +219,6 @@
     {
       "children": [
         {
-          "children": null,
           "choices": [
             "Large Fine JPEG",
             "Large Normal JPEG",
@@ -264,7 +234,6 @@
           "value": "RAW"
         },
         {
-          "children": null,
           "choices": [
             "Large Fine JPEG",
             "Large Normal JPEG",
@@ -280,7 +249,6 @@
           "value": "RAW"
         },
         {
-          "children": null,
           "choices": [
             "Auto",
             "100",
@@ -294,7 +262,6 @@
           "value": "1600"
         },
         {
-          "children": null,
           "choices": [
             "Auto",
             "Daylight",
@@ -310,14 +277,12 @@
           "value": "Auto"
         },
         {
-          "children": null,
           "label": "Color Temperature",
           "name": "colortemperature",
           "type": "text",
           "value": "0"
         },
         {
-          "children": null,
           "choices": [
             "-9",
             "-8",
@@ -344,7 +309,6 @@
           "value": "0"
         },
         {
-          "children": null,
           "choices": [
             "-9",
             "-8",
@@ -371,21 +335,18 @@
           "value": "0"
         },
         {
-          "children": null,
           "label": "WhiteBalance X A",
           "name": "whitebalancexa",
           "type": "text",
           "value": "0"
         },
         {
-          "children": null,
           "label": "WhiteBalance X B",
           "name": "whitebalancexb",
           "type": "text",
           "value": "0"
         },
         {
-          "children": null,
           "choices": [
             "sRGB",
             "AdobeRGB"
@@ -401,7 +362,6 @@
     {
       "children": [
         {
-          "children": null,
           "choices": [
             "P",
             "TV",
@@ -425,7 +385,6 @@
           "value": "Manual"
         },
         {
-          "children": null,
           "choices": [
             "Single",
             "Continuous",
@@ -438,7 +397,6 @@
           "value": "Continuous"
         },
         {
-          "children": null,
           "choices": [
             "Standard",
             "Portrait",
@@ -455,7 +413,6 @@
           "value": "Standard"
         },
         {
-          "children": null,
           "choices": [
             "1.8",
             "2",
@@ -486,7 +443,6 @@
           "value": "1.8"
         },
         {
-          "children": null,
           "choices": [
             "bulb",
             "30",
@@ -547,7 +503,6 @@
           "value": "1/60"
         },
         {
-          "children": null,
           "choices": [
             "Evaluative",
             "Partial",
@@ -559,7 +514,6 @@
           "value": "Evaluative"
         },
         {
-          "children": null,
           "label": "Bracket Mode",
           "name": "bracketmode",
           "type": "text",
@@ -572,21 +526,18 @@
     {
       "children": [
         {
-          "children": null,
           "label": "PTP Property 0xd402",
           "name": "d402",
           "type": "text",
           "value": "Canon EOS 450D"
         },
         {
-          "children": null,
           "label": "PTP Property 0xd407",
           "name": "d407",
           "type": "text",
           "value": "1"
         },
         {
-          "children": null,
           "label": "PTP Property 0xd406",
           "name": "d406",
           "type": "text",

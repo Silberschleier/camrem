@@ -115,7 +115,9 @@ json Cam::GPWrapper::GPhotoCameraWidget::getData() {
         child_data.push_back(child->getData());
     }
 
-    data["children"] = child_data;
+    if (not child_data.is_null() ) {
+        data["children"] = child_data;
+    }
 
     return data;
 }
