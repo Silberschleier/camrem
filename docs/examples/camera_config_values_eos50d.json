@@ -1,0 +1,711 @@
+{
+  "children": [
+    {
+      "children": [
+        {
+          "children": null,
+          "label": "Bulb Mode",
+          "name": "bulb",
+          "type": "toggle",
+          "value": false
+        },
+        {
+          "children": null,
+          "label": "UI Lock",
+          "name": "uilock",
+          "type": "toggle",
+          "value": false
+        },
+        {
+          "children": null,
+          "label": "Synchronize camera date and time with PC",
+          "name": "syncdatetime",
+          "type": "toggle",
+          "value": false
+        },
+        {
+          "children": null,
+          "label": "Drive Canon DSLR Autofocus",
+          "name": "autofocusdrive",
+          "type": "toggle",
+          "value": false
+        },
+        {
+          "children": null,
+          "choices": [
+            "Near 1",
+            "Near 2",
+            "Near 3",
+            "None",
+            "Far 1",
+            "Far 2",
+            "Far 3"
+          ],
+          "label": "Drive Canon DSLR Manual focus",
+          "name": "manualfocusdrive",
+          "value": "None"
+        },
+        {
+          "children": null,
+          "label": "Canon EOS Zoom",
+          "name": "eoszoom",
+          "type": "text",
+          "value": "0"
+        },
+        {
+          "children": null,
+          "label": "Canon EOS Zoom Position",
+          "name": "eoszoomposition",
+          "type": "text",
+          "value": "0,0"
+        },
+        {
+          "children": null,
+          "label": "Canon EOS Viewfinder",
+          "name": "eosviewfinder",
+          "type": "toggle",
+          "value": false
+        },
+        {
+          "children": null,
+          "choices": [
+            "None",
+            "Press Half",
+            "Press Full",
+            "Release Half",
+            "Release Full",
+            "Immediate",
+            "Press 1",
+            "Press 2",
+            "Press 3",
+            "Release 1",
+            "Release 2",
+            "Release 3"
+          ],
+          "label": "Canon EOS Remote Release",
+          "name": "eosremoterelease",
+          "value": "None"
+        }
+      ],
+      "label": "Camera Actions",
+      "name": "actions"
+    },
+    {
+      "children": [
+        {
+          "children": null,
+          "label": "Camera Date and Time",
+          "name": "datetime",
+          "type": "date",
+          "value": 1451759329
+        },
+        {
+          "children": null,
+          "choices": [
+            "None",
+            "2 seconds",
+            "4 seconds",
+            "8 seconds",
+            "Hold"
+          ],
+          "label": "Quick Review Time",
+          "name": "reviewtime",
+          "value": "4 seconds"
+        },
+        {
+          "children": null,
+          "choices": [
+            "TFT",
+            "PC",
+            "Unknown value 0000"
+          ],
+          "label": "Camera Output",
+          "name": "output",
+          "value": "Unknown value 0000"
+        },
+        {
+          "children": null,
+          "choices": [
+            "Disabled"
+          ],
+          "label": "Recording Destination",
+          "name": "movierecordtarget",
+          "value": "Disabled"
+        },
+        {
+          "children": null,
+          "choices": [
+            "0",
+            "1"
+          ],
+          "label": "EVF Mode",
+          "name": "evfmode",
+          "value": "1"
+        },
+        {
+          "children": null,
+          "label": "Owner Name",
+          "name": "ownername",
+          "type": "text",
+          "value": ""
+        },
+        {
+          "children": null,
+          "label": "Artist",
+          "name": "artist",
+          "type": "text",
+          "value": ""
+        },
+        {
+          "children": null,
+          "label": "Copyright",
+          "name": "copyright",
+          "type": "text",
+          "value": ""
+        },
+        {
+          "children": null,
+          "label": "Custom Functions Ex",
+          "name": "customfuncex",
+          "type": "text",
+          "value": "10,c189,d102,0,"
+        },
+        {
+          "children": null,
+          "label": "Auto Power Off",
+          "name": "autopoweroff",
+          "type": "text",
+          "value": "120"
+        },
+        {
+          "children": null,
+          "choices": [
+            "Internal RAM",
+            "Memory card"
+          ],
+          "label": "Capture Target",
+          "name": "capturetarget",
+          "value": "Internal RAM"
+        },
+        {
+          "children": null,
+          "label": "Capture",
+          "name": "capture",
+          "type": "toggle",
+          "value": false
+        }
+      ],
+      "label": "Camera Settings",
+      "name": "settings"
+    },
+    {
+      "children": [
+        {
+          "children": null,
+          "label": "Serial Number",
+          "name": "serialnumber",
+          "type": "text",
+          "value": "5f825204715f4e6088b0fa5176aab026"
+        },
+        {
+          "children": null,
+          "label": "Camera Manufacturer",
+          "name": "manufacturer",
+          "type": "text",
+          "value": "Canon Inc."
+        },
+        {
+          "children": null,
+          "label": "Camera Model",
+          "name": "cameramodel",
+          "type": "text",
+          "value": "Canon EOS 50D"
+        },
+        {
+          "children": null,
+          "label": "Device Version",
+          "name": "deviceversion",
+          "type": "text",
+          "value": "3-1.0.7"
+        },
+        {
+          "children": null,
+          "label": "Vendor Extension",
+          "name": "vendorextension",
+          "type": "text",
+          "value": "None"
+        },
+        {
+          "children": null,
+          "label": "Camera Model",
+          "name": "model",
+          "type": "text",
+          "value": "2147484257"
+        },
+        {
+          "children": null,
+          "label": "PTP Version",
+          "name": "ptpversion",
+          "type": "text",
+          "value": "256"
+        },
+        {
+          "children": null,
+          "label": "Battery Level",
+          "name": "batterylevel",
+          "type": "text",
+          "value": "100%"
+        },
+        {
+          "children": null,
+          "label": "Lens Name",
+          "name": "lensname",
+          "type": "text",
+          "value": "EF24-105mm f/4L IS USM"
+        },
+        {
+          "children": null,
+          "label": "Serial Number",
+          "name": "eosserialnumber",
+          "type": "text",
+          "value": "1330500028"
+        },
+        {
+          "children": null,
+          "label": "Shutter Counter",
+          "name": "shuttercounter",
+          "type": "text",
+          "value": "6295"
+        },
+        {
+          "children": null,
+          "label": "Available Shots",
+          "name": "availableshots",
+          "type": "text",
+          "value": "15065"
+        }
+      ],
+      "label": "Camera Status Information",
+      "name": "status"
+    },
+    {
+      "children": [
+        {
+          "children": null,
+          "choices": [
+            "Large Fine JPEG",
+            "Large Normal JPEG",
+            "Medium Fine JPEG",
+            "Medium Normal JPEG",
+            "Small Fine JPEG",
+            "Small Normal JPEG",
+            "RAW + Large Fine JPEG",
+            "RAW + Large Normal JPEG",
+            "RAW + Medium Fine JPEG",
+            "RAW + Medium Normal JPEG",
+            "RAW + Small Fine JPEG",
+            "RAW + Small Normal JPEG",
+            "mRAW + Large Fine JPEG",
+            "mRAW + Large Normal JPEG",
+            "mRAW + Medium Fine JPEG",
+            "mRAW + Medium Normal JPEG",
+            "mRAW + Small Fine JPEG",
+            "mRAW + Small Normal JPEG",
+            "sRAW + Large Fine JPEG",
+            "sRAW + Large Normal JPEG",
+            "sRAW + Medium Fine JPEG",
+            "sRAW + Medium Normal JPEG",
+            "sRAW + Small Fine JPEG",
+            "sRAW + Small Normal JPEG",
+            "RAW",
+            "mRAW",
+            "sRAW"
+          ],
+          "label": "Image Format",
+          "name": "imageformat",
+          "value": "RAW"
+        },
+        {
+          "children": null,
+          "choices": [
+            "Large Fine JPEG",
+            "Large Normal JPEG",
+            "Medium Fine JPEG",
+            "Medium Normal JPEG",
+            "Small Fine JPEG",
+            "Small Normal JPEG",
+            "RAW + Large Fine JPEG",
+            "RAW + Large Normal JPEG",
+            "RAW + Medium Fine JPEG",
+            "RAW + Medium Normal JPEG",
+            "RAW + Small Fine JPEG",
+            "RAW + Small Normal JPEG",
+            "mRAW + Large Fine JPEG",
+            "mRAW + Large Normal JPEG",
+            "mRAW + Medium Fine JPEG",
+            "mRAW + Medium Normal JPEG",
+            "mRAW + Small Fine JPEG",
+            "mRAW + Small Normal JPEG",
+            "sRAW + Large Fine JPEG",
+            "sRAW + Large Normal JPEG",
+            "sRAW + Medium Fine JPEG",
+            "sRAW + Medium Normal JPEG",
+            "sRAW + Small Fine JPEG",
+            "sRAW + Small Normal JPEG",
+            "RAW",
+            "mRAW",
+            "sRAW"
+          ],
+          "label": "Image Format CF",
+          "name": "imageformatcf",
+          "value": "RAW"
+        },
+        {
+          "children": null,
+          "choices": [
+            "Large Fine JPEG",
+            "Large Normal JPEG",
+            "Medium Fine JPEG",
+            "Medium Normal JPEG",
+            "Small Fine JPEG",
+            "Small Normal JPEG",
+            "RAW + Large Fine JPEG",
+            "RAW + Large Normal JPEG",
+            "RAW + Medium Fine JPEG",
+            "RAW + Medium Normal JPEG",
+            "RAW + Small Fine JPEG",
+            "RAW + Small Normal JPEG",
+            "mRAW + Large Fine JPEG",
+            "mRAW + Large Normal JPEG",
+            "mRAW + Medium Fine JPEG",
+            "mRAW + Medium Normal JPEG",
+            "mRAW + Small Fine JPEG",
+            "mRAW + Small Normal JPEG",
+            "sRAW + Large Fine JPEG",
+            "sRAW + Large Normal JPEG",
+            "sRAW + Medium Fine JPEG",
+            "sRAW + Medium Normal JPEG",
+            "sRAW + Small Fine JPEG",
+            "sRAW + Small Normal JPEG",
+            "RAW",
+            "mRAW",
+            "sRAW"
+          ],
+          "label": "Image Format Ext HD",
+          "name": "imageformatexthd",
+          "value": "RAW"
+        },
+        {
+          "children": null,
+          "choices": [
+            "Auto",
+            "100",
+            "125",
+            "160",
+            "200",
+            "250",
+            "320",
+            "400",
+            "500",
+            "640",
+            "800",
+            "1000",
+            "1250",
+            "1600",
+            "2000",
+            "2500",
+            "3200",
+            "6400",
+            "12800"
+          ],
+          "label": "ISO Speed",
+          "name": "iso",
+          "value": "400"
+        },
+        {
+          "children": null,
+          "choices": [
+            "Auto",
+            "Daylight",
+            "Shadow",
+            "Cloudy",
+            "Tungsten",
+            "Fluorescent",
+            "Flash",
+            "Manual",
+            "Color Temperature"
+          ],
+          "label": "WhiteBalance",
+          "name": "whitebalance",
+          "value": "Auto"
+        },
+        {
+          "children": null,
+          "label": "Color Temperature",
+          "name": "colortemperature",
+          "type": "text",
+          "value": "3800"
+        },
+        {
+          "children": null,
+          "choices": [
+            "-9",
+            "-8",
+            "-7",
+            "-6",
+            "-5",
+            "-4",
+            "-3",
+            "-2",
+            "-1",
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "label": "WhiteBalance Adjust A",
+          "name": "whitebalanceadjusta",
+          "value": "0"
+        },
+        {
+          "children": null,
+          "choices": [
+            "-9",
+            "-8",
+            "-7",
+            "-6",
+            "-5",
+            "-4",
+            "-3",
+            "-2",
+            "-1",
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "label": "WhiteBalance Adjust B",
+          "name": "whitebalanceadjustb",
+          "value": "0"
+        },
+        {
+          "children": null,
+          "label": "WhiteBalance X A",
+          "name": "whitebalancexa",
+          "type": "text",
+          "value": "0"
+        },
+        {
+          "children": null,
+          "label": "WhiteBalance X B",
+          "name": "whitebalancexb",
+          "type": "text",
+          "value": "0"
+        },
+        {
+          "children": null,
+          "choices": [
+            "sRGB",
+            "AdobeRGB"
+          ],
+          "label": "Color Space",
+          "name": "colorspace",
+          "value": "AdobeRGB"
+        }
+      ],
+      "label": "Image Settings",
+      "name": "imgsettings"
+    },
+    {
+      "children": [
+        {
+          "children": null,
+          "choices": [
+            "-2",
+            "-1.6",
+            "-1.3",
+            "-1.0",
+            "-0.6",
+            "-0.3",
+            "0",
+            "0.3",
+            "0.6",
+            "1.0",
+            "1.3",
+            "1.6",
+            "2"
+          ],
+          "label": "Exposure Compensation",
+          "name": "exposurecompensation",
+          "value": "0"
+        },
+        {
+          "children": null,
+          "choices": [
+            "One Shot",
+            "AI Focus",
+            "AI Servo"
+          ],
+          "label": "Focus Mode",
+          "name": "focusmode",
+          "value": "One Shot"
+        },
+        {
+          "children": null,
+          "choices": [
+            "P",
+            "TV",
+            "AV",
+            "Manual",
+            "Bulb",
+            "A_DEP",
+            "DEP",
+            "Custom",
+            "Lock",
+            "Green",
+            "Night Portrait",
+            "Sports",
+            "Portrait",
+            "Landscape",
+            "Closeup",
+            "Flash Off"
+          ],
+          "label": "Canon Auto Exposure Mode",
+          "name": "autoexposuremode",
+          "value": "AV"
+        },
+        {
+          "children": null,
+          "choices": [
+            "Single",
+            "Continuous high speed",
+            "Continuous low speed",
+            "Timer 2 sec",
+            "Timer 10 sec"
+          ],
+          "label": "Drive Mode",
+          "name": "drivemode",
+          "value": "Single"
+        },
+        {
+          "children": null,
+          "choices": [
+            "Standard",
+            "Portrait",
+            "Landscape",
+            "Neutral",
+            "Faithful",
+            "Monochrome",
+            "User defined 1",
+            "User defined 2",
+            "User defined 3"
+          ],
+          "label": "Picture Style",
+          "name": "picturestyle",
+          "value": "Standard"
+        },
+        {
+          "children": null,
+          "choices": [
+            "4",
+            "4.5",
+            "5",
+            "5.6",
+            "6.3",
+            "7.1",
+            "8",
+            "9",
+            "10",
+            "11",
+            "13",
+            "14",
+            "16",
+            "18",
+            "20",
+            "22"
+          ],
+          "label": "Aperture",
+          "name": "aperture",
+          "value": "5.6"
+        },
+        {
+          "children": null,
+          "choices": [
+            "Evaluative",
+            "Partial",
+            "Spot",
+            "Center-weighted average"
+          ],
+          "label": "Metering Mode",
+          "name": "meteringmode",
+          "value": "Evaluative"
+        },
+        {
+          "children": null,
+          "label": "Bracket Mode",
+          "name": "bracketmode",
+          "type": "text",
+          "value": "0"
+        },
+        {
+          "children": null,
+          "choices": [
+            "off",
+            "+/- 1/3",
+            "+/- 2/3",
+            "+/- 1",
+            "+/- 1 1/3",
+            "+/- 1 2/3",
+            "+/- 2"
+          ],
+          "label": "Auto Exposure Bracketing",
+          "name": "aeb",
+          "value": "off"
+        }
+      ],
+      "label": "Capture Settings",
+      "name": "capturesettings"
+    },
+    {
+      "children": [
+        {
+          "children": null,
+          "label": "PTP Property 0xd402",
+          "name": "d402",
+          "type": "text",
+          "value": "Canon EOS 50D"
+        },
+        {
+          "children": null,
+          "label": "PTP Property 0xd407",
+          "name": "d407",
+          "type": "text",
+          "value": "1"
+        },
+        {
+          "children": null,
+          "label": "PTP Property 0xd406",
+          "name": "d406",
+          "type": "text",
+          "value": "Unknown Initiator"
+        }
+      ],
+      "label": "Other PTP Device Properties",
+      "name": "other"
+    }
+  ],
+  "label": "Camera and Driver Configuration",
+  "name": "main"
+}
