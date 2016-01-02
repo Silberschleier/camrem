@@ -34,6 +34,7 @@ namespace Cam {
         static CamFacade * getInstance();
         shared_ptr<Result> dummy();
         shared_ptr<Result> getPreview();
+        shared_ptr<Result> getConfig();
     };
 }
 

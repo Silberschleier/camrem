@@ -47,6 +47,7 @@ namespace Http {
         bool staticFile(Request *request, string filename, unsigned int status);
 
         bool getPreview(Request *request);
+        bool getConfig(Request *request);
 
         // TODO: Remove this.
         bool dummyAction(Request *request);

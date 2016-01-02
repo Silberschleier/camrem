@@ -56,6 +56,7 @@ namespace Cam {
         void handle_events();
         shared_ptr<Result> sleep();
         shared_ptr<Result> getPreview();
+        shared_ptr<Result> getConfig();
 
         friend class CamFacade;
     public:

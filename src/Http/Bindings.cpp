@@ -68,3 +68,20 @@ bool ::Http::Bindings::getPreview(Request *request) {
 
     return true;
 }
+
+bool ::Http::Bindings::getConfig(Request *request) {
+    auto res = Cam::CamFacade::getInstance()->getConfig();
+
+    shared_ptr<Response> response = make_shared<Response>();
+    if ( res ) {
+        response->setContent(res->getData().dump());
+    } else {
+        LOG(ERROR) << "Faulty result";
+        return false;
+    }
+
+    response->status = STATUS_OK;
+    request->response = response;
+
+    return true;
+}

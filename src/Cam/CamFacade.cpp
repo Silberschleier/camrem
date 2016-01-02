@@ -44,3 +44,11 @@ shared_ptr<Cam::Result> Cam::CamFacade::getPreview() {
 
     return action->getResult();
 }
+
+shared_ptr<Cam::Result> Cam::CamFacade::getConfig() {
+    auto callback = bind(&CamHandler::getConfig, &camera_);
+    auto action = make_shared<Action>(callback);
+
+    camera_.enqueue(action);
+    return action->getResult();
+}

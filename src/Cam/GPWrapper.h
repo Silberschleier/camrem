@@ -26,6 +26,7 @@
 #include "GPWrapper/GPhotoCamera.h"
 #include "GPWrapper/GPhotoCameraFile.h"
 #include "GPWrapper/GPhotoCameraList.h"
+#include "GPWrapper/GPhotoCameraWidget.h"
 #include "GPWrapper/GPhotoContext.h"
 #include "GPWrapper/GPhotoPortInfoList.h"
 
