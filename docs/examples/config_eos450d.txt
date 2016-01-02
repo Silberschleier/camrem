@@ -75,7 +75,9 @@
         {
           "children": null,
           "label": "Camera Date and Time",
-          "name": "datetime"
+          "name": "datetime",
+          "type": "date",
+          "value": 1451751949
         },
         {
           "children": null,

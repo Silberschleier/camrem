@@ -221,7 +221,23 @@ json Cam::GPWrapper::GPhotoCameraWidget::getDataToggle() {
 }
 
 json Cam::GPWrapper::GPhotoCameraWidget::getDataDate() {
-    return "{}"_json;
+    if ( getType() != GP_WIDGET_DATE ) {
+        LOG(ERROR) << "GPWrapper::GPhotoCameraWidget::getDataDate(): Widget is not of type DATE";
+        return "{}"_json;
+    }
+
+    int ret, value;
+    ret = gp_widget_get_value(widget_, &value);
+    if ( GP_OK != ret ) {
+        LOG(ERROR) << "gp_widget_get_value: " << gp_result_as_string(ret);
+        return "{}"_json;
+    }
+
+    json data;
+    data["type"] = "date";
+    data["value"] = value;
+
+    return data;
 }
 
 json Cam::GPWrapper::GPhotoCameraWidget::getDataRadio() {

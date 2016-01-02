@@ -180,8 +180,6 @@ shared_ptr<Cam::Result> Cam::CamHandler::getPreview() {
 shared_ptr<Cam::Result> Cam::CamHandler::getConfig() {
     GPWrapper::GPhotoCameraWidget widget;
 
-    std::cout << "getConfig()" << std::endl;
-
     int ret = gp_camera_get_config(*camera_, widget, *context_);
     if ( GP_OK != ret ) {
         LOG(WARNING) << "gp_camera_get_config: " << gp_result_as_string(ret);
