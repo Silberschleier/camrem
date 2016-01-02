@@ -217,7 +217,7 @@ json Cam::GPWrapper::GPhotoCameraWidget::getDataToggle() {
     data["type"] = "toggle";
     data["value"] = value == 1;
 
-    return "{}"_json;
+    return data;
 }
 
 json Cam::GPWrapper::GPhotoCameraWidget::getDataDate() {
