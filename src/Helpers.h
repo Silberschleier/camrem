@@ -24,6 +24,7 @@
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 
 using std::string;
+using std::pair;
 using std::shared_ptr;
 using std::make_shared;
 
@@ -33,6 +34,8 @@ using std::make_shared;
  * @return Pointer to a string containing the contents of the file, or NULL if an error occurs.
  */
 shared_ptr<string> load_file(string path);
+
+pair<string, string> split_path(string path);
 
 /*
  * Called on SIGINT. Simply exits the program.

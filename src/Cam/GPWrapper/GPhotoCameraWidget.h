@@ -63,9 +63,32 @@ namespace Cam {
             vector<shared_ptr<GPhotoCameraWidget>> getChilds();
 
             /*
+             * @returns The child or NULL if not found
+             */
+            shared_ptr<Cam::GPWrapper::GPhotoCameraWidget> getChildByPath(string path);
+
+            /*
              * @returns The data of the widget and all of its children
              */
             json getData();
+
+            /*
+             * Sets the value of radio, menu or text widgets
+             * @param value The value to set
+             */
+            void setValue(string value);
+
+            /*
+             * Sets the value of range widgets
+             * @param value The value to set
+             */
+            void setValue(float value);
+
+            /*
+             * Sets the value of toggle widgets
+             * @param value The value to set
+             */
+            void setValue(bool value);
 
             /*
              * @returns The number of children

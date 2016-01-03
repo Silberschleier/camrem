@@ -160,6 +160,25 @@ vector<shared_ptr<Cam::GPWrapper::GPhotoCameraWidget>> Cam::GPWrapper::GPhotoCam
     return list;
 }
 
+shared_ptr<Cam::GPWrapper::GPhotoCameraWidget> Cam::GPWrapper::GPhotoCameraWidget::getChildByPath(string path) {
+    CameraWidgetType type = getType();
+    if ( type != GP_WIDGET_WINDOW && type != GP_WIDGET_SECTION ) {
+        LOG(ERROR) << "GPWrapper::GPhotoCameraWidget::getChildByPath(): Widget is not of type WINDOW or SECTION";
+        return NULL;
+    }
+
+    auto p = split_path(path);
+
+    for ( auto child : getChilds() ) {
+        if ( child->getName() == p.first ) {
+            if ( p.second == "") return child;
+            else return child->getChildByPath(p.second);
+        }
+    }
+
+    return NULL;
+}
+
 json Cam::GPWrapper::GPhotoCameraWidget::getDataText() {
     if ( getType() != GP_WIDGET_TEXT ) {
         LOG(ERROR) << "GPWrapper::GPhotoCameraWidget::getDataText(): Widget is not of type TEXT";
@@ -284,4 +303,46 @@ json Cam::GPWrapper::GPhotoCameraWidget::getDataRadio() {
     }
 
     return data;
+}
+
+void Cam::GPWrapper::GPhotoCameraWidget::setValue(string value) {
+    CameraWidgetType type = getType();
+    if ( type != GP_WIDGET_RADIO && type != GP_WIDGET_MENU && type != GP_WIDGET_TEXT ) {
+        LOG(ERROR) << "GPWrapper::GPhotoCameraWidget::setValue(string): Widget is not of type RADIO or MENU or TEXT";
+        return;
+    }
+
+    int ret = gp_widget_set_value(widget_, value.c_str());
+    if ( GP_OK != ret ) {
+        LOG(ERROR) << "gp_widget_set_value: " << gp_result_as_string(ret);
+        return;
+    }
+}
+
+void Cam::GPWrapper::GPhotoCameraWidget::setValue(float value) {
+    if ( getType() != GP_WIDGET_RANGE ) {
+        LOG(ERROR) << "GPWrapper::GPhotoCameraWidget::setValue(float): Widget is not of type RANGE";
+        return;
+    }
+
+    int ret = gp_widget_set_value(widget_, &value);
+    if ( GP_OK != ret ) {
+        LOG(ERROR) << "gp_widget_set_value: " << gp_result_as_string(ret);
+        return;
+    }
+}
+
+void Cam::GPWrapper::GPhotoCameraWidget::setValue(bool value) {
+    if ( getType() != GP_WIDGET_TOGGLE ) {
+        LOG(ERROR) << "GPWrapper::GPhotoCameraWidget::setValue(bool): Widget is not of type TOGGLE";
+        return;
+    }
+
+    int t = value ? 1 : 0;
+
+    int ret = gp_widget_set_value(widget_, &t);
+    if ( GP_OK != ret ) {
+        LOG(ERROR) << "gp_widget_set_value: " << gp_result_as_string(ret);
+        return;
+    }
 }

@@ -40,3 +40,14 @@ shared_ptr<string> load_file(string path) {
 
     return str;
 }
+
+pair<string, string> split_path(string path) {
+    auto pos = path.find("/");
+
+    // Return empty string for second, if the delimiter was not found
+    if ( pos == string::npos) {
+        return std::make_pair<string,string>(path.substr(0, pos), string(""));
+    }
+
+    return std::make_pair<string,string>(path.substr(0, pos), path.substr(pos+1, path.length()));
+}
