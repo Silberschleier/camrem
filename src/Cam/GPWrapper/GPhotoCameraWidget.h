@@ -42,11 +42,34 @@ namespace Cam {
             operator CameraWidget *();
             operator CameraWidget **();
 
+            /*
+             * @returns A description of the widget
+             */
             string getLabel();
+
+            /*
+             * @returns The name of the widget
+             */
             string getName();
+
+            /*
+             * @returns A GPhoto widgettype enumerator
+             */
             CameraWidgetType getType();
+
+            /*
+             * @returns All child widgets, or an empty vector if the widget has no childs
+             */
             vector<shared_ptr<GPhotoCameraWidget>> getChilds();
+
+            /*
+             * @returns The data of the widget and all of its children
+             */
             json getData();
+
+            /*
+             * @returns The number of children
+             */
             int countChildren();
 
         };

@@ -111,6 +111,8 @@ json Cam::GPWrapper::GPhotoCameraWidget::getData() {
     data["name"] = getName();
 
     json child_data;
+
+    // Get data of childs recursively
     for ( auto child : getChilds() ) {
         child_data.push_back(child->getData());
     }
@@ -127,7 +129,13 @@ int Cam::GPWrapper::GPhotoCameraWidget::countChildren() {
         return 0;
     }
 
-    return gp_widget_count_children(widget_);
+    int count = gp_widget_count_children(widget_);
+    if (count < 0) {
+        LOG(ERROR) << "gp_widget_count_children: " << gp_result_as_string(count);
+        return 0;
+    }
+
+    return count;
 }
 
 
