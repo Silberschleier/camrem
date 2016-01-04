@@ -91,7 +91,7 @@ void Cam::CamHandler::process_action() {
     queue_lock_.lock();
 
     if ( not action_queue_.empty() ) {
-        action = action_queue_.top();
+        action = action_queue_.front();
         action_queue_.pop();
     }
 
