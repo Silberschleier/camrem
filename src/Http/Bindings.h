@@ -48,6 +48,7 @@ namespace Http {
 
         bool getPreview(Request *request);
         bool getConfig(Request *request);
+        bool config(Request *request);
 
         // TODO: Remove this.
         bool dummyAction(Request *request);

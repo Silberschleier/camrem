@@ -56,6 +56,7 @@ int main(int argc, const char * argv[]) {
     // TODO: Just for testing. Remove this
     srv.handle(Http::Bindings::dummyAction, std::regex("(/api/dummy)"));
     srv.handle(Http::Bindings::getPreview, std::regex("(/api/preview)"));
+    srv.handle(Http::Bindings::config, std::regex("(/api/config/)(.*)"));
     srv.handle(Http::Bindings::getConfig, std::regex("(/api/config/dump)"));
     srv.run();
 

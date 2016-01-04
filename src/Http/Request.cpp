@@ -66,3 +66,12 @@ void Http::Request::completed(void *cls, struct MHD_Connection *connection, void
 Http::Request::~Request() {
 
 }
+
+string Http::Request::getMethod() {
+    return method_;
+}
+
+json Http::Request::getPostData() {
+    // TODO: Error managment
+    return json::parse(postdata_);
+}

@@ -57,6 +57,7 @@ namespace Cam {
         shared_ptr<Result> sleep();
         shared_ptr<Result> getPreview();
         shared_ptr<Result> getConfig();
+        shared_ptr<Result> setConfig(string path, json data);
 
         friend class CamFacade;
     public:

@@ -188,3 +188,38 @@ shared_ptr<Cam::Result> Cam::CamHandler::getConfig() {
 
     return make_shared<Result>(widget.getData());
 }
+
+shared_ptr<Cam::Result> Cam::CamHandler::setConfig(string path, json data) {
+    GPWrapper::GPhotoCameraWidget widget;
+
+    int ret = gp_camera_get_config(*camera_, widget, *context_);
+    if ( GP_OK != ret ) {
+        LOG(WARNING) << "gp_camera_get_config: " << gp_result_as_string(ret);
+        // TODO: Return error result
+    }
+
+    auto child = widget.getChildByPath(path);
+    if ( not child ) {
+        // TODO: Error handling
+        return NULL;
+    }
+
+    if ( data["value"].is_boolean() ) {
+        child->setValue(data["value"].get<bool>());
+    } else if ( data["value"].is_string() ) {
+        child->setValue(data["value"].get<string>());
+    } else if ( data["value"].is_number() ) {
+        child->setValue(data["value"].get<float>());
+    } else {
+        // TODO: Error handling
+        return NULL;
+    }
+
+    ret = gp_camera_set_config(*camera_, widget, *context_);
+    if ( GP_OK != ret ) {
+        LOG(WARNING) << "gp_camera_set_config: " << gp_result_as_string(ret);
+        // TODO: Return error result
+    }
+
+    return make_shared<Result>(child->getData());
+}

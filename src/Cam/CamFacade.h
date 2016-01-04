@@ -35,6 +35,7 @@ namespace Cam {
         shared_ptr<Result> dummy();
         shared_ptr<Result> getPreview();
         shared_ptr<Result> getConfig();
+        shared_ptr<Result> setConfig(string path, json data);
     };
 }
 

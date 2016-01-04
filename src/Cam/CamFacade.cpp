@@ -52,3 +52,11 @@ shared_ptr<Cam::Result> Cam::CamFacade::getConfig() {
     camera_.enqueue(action);
     return action->getResult();
 }
+
+shared_ptr<Cam::Result> Cam::CamFacade::setConfig(string path, json data) {
+    auto callback = bind(&CamHandler::setConfig, &camera_, path, data);
+    auto action = make_shared<Action>(callback);
+
+    camera_.enqueue(action);
+    return action->getResult();
+}

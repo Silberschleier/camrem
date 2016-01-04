@@ -106,11 +106,16 @@ void Http::Http::handleDirectory(string path, string prefix) {
 
 
 bool Http::Http::processRequest(Request *request) {
+    std::smatch params;
+
     // Search if any handler matches the requested uri
     for ( auto handler : handlers_ ) {
-        if ( regex_match( request->uri_, handler.first ) ) {
+        if ( regex_match( request->uri_, params, handler.first ) ) {
             // Check for faulty function calls
             if ( not handler.second ) return false;
+
+            // Store parameters found in the uri
+            request->uridata = params;
 
             // Call the handler
             return handler.second(request);

@@ -21,6 +21,7 @@
 
 #include <string>
 #include <memory>
+#include <regex>
 #include <microhttpd.h>
 #include "../json/src/json.hpp"
 #include "../easylogging/src/easylogging++.h"
@@ -30,6 +31,7 @@
 
 using std::shared_ptr;
 using std::string;
+using std::smatch;
 using nlohmann::json;
 
 namespace Http {
@@ -51,9 +53,13 @@ namespace Http {
         static int process_connection_values(void *cls, enum MHD_ValueKind kind, const char *key, const char *value);
     public:
         shared_ptr<Response> response;
+        smatch uridata;
 
         Request(MHD_Connection *connection, const char *uri, const char *method);
         ~Request();
+
+        string getMethod();
+        json getPostData();
 
         /*
          * Clean up after completion of a request. See MHD documentation for further information.

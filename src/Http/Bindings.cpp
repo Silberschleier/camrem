@@ -85,3 +85,28 @@ bool ::Http::Bindings::getConfig(Request *request) {
 
     return true;
 }
+
+bool ::Http::Bindings::config(Request *request) {
+    string method = request->getMethod();
+
+    shared_ptr<Cam::Result> res;
+    if ( method == "GET" ) {
+        res = Cam::CamFacade::getInstance()->getConfig();
+    } else if ( method == "PUT") {
+        json data = request->getPostData();
+        res = Cam::CamFacade::getInstance()->setConfig(request->uridata[2], data);
+    } else {
+        // TODO: Generate some error message
+        return false;
+    }
+
+    shared_ptr<Response> response = make_shared<Response>();
+    if ( res ) {
+        response->setContent(res->getData().dump());
+    } else {
+        LOG(ERROR) << "Faulty result";
+        return false;
+    }
+
+    return getConfig(request);
+}
