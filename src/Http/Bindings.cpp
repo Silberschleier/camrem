@@ -100,13 +100,16 @@ bool ::Http::Bindings::config(Request *request) {
         return false;
     }
 
-    shared_ptr<Response> response = make_shared<Response>();
-    if ( res ) {
-        response->setContent(res->getData().dump());
-    } else {
+
+    if ( not res ) {
         LOG(ERROR) << "Faulty result";
         return false;
     }
 
-    return getConfig(request);
+    shared_ptr<Response> response = make_shared<Response>();
+    response->setContent(res->getData().dump());
+    response->status = STATUS_OK;
+    request->response = response;
+
+    return true;
 }
